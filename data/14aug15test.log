@@ -1,0 +1,62 @@
+time	type	info
+63606853539892.477	log	started
+63606853543330.102	window	opened main
+63606853543866.688	flip	show start
+63606853543950.203	experiment	using default block order
+63606853543971.867	experiment	Setting nCorrect to 0
+63606855224059.383	window	closed
+63606855224355.414	log	ended
+63606855306634.234	log	started
+63606855306634.234	log	started
+63606855310174.977	window	opened main
+63606855310661.766	flip	show start
+63606855310742.695	experiment	using default block order
+63606855310764.922	experiment	Setting nCorrect to 0
+63606855353573.312	keyboard	down: response
+63606855353642.109	experiment	feedback (n, 0/1)
+63606855356541.438	keyboard	down: response
+63606855356556.938	experiment	feedback (y, 1/2)
+63606855370079.641	window	closed
+63606855370163.328	log	ended
+63606857565397.234	log	started
+63606857569060.562	window	opened main
+63606857569547.172	flip	show start
+63606857569631.141	experiment	using default block order
+63606857569654.617	experiment	Setting nCorrect to 0
+63606857719701.195	log	started
+63606857723251.273	window	opened main
+63606857723804.586	flip	show start
+63606857723886.438	experiment	using default block order
+63606857723911.898	experiment	Setting nCorrect to 0
+63606857742473.086	keyboard	down: response
+63606857742511.109	experiment	feedback (n, 0/1)
+63606857749163.508	window	closed
+63606857749433.281	log	ended
+63606858063517.172	log	started
+63606858067072.625	window	opened main
+63606858067072.625	window	opened main
+63606858067574.594	flip	show start
+63606858067651.289	experiment	using default block order
+63606858067675.352	experiment	Setting nCorrect to 0
+63606858087159.445	window	closed
+63606858087256.484	log	ended
+63606858106824.250	log	started
+63606858109706.070	window	opened main
+63606858109897.875	flip	show start
+63606858109907.391	experiment	using default block order
+63606858109911.781	experiment	Setting nCorrect to 0
+63606858119265.734	window	closed
+63606858119293.625	log	ended
+63606858139546.812	log	started
+63606858142495.922	window	opened main
+63606858142653.008	flip	show start
+63606858142660.906	experiment	using default block order
+63606858142665.141	experiment	Setting nCorrect to 0
+63606858148590.727	keyboard	down: response
+63606858148645.500	experiment	feedback (y, 1/1)
+63606858151246.875	keyboard	down: response
+63606858151260.344	experiment	feedback (y, 2/2)
+63606858153550.797	keyboard	down: response
+63606858153560.039	experiment	feedback (n, 2/3)
+63606858160152.258	window	closed
+63606858160355.203	log	ended
