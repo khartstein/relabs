@@ -1,0 +1,1840 @@
+log saving to: "/home/kevin/studies/relabs/data/01sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/01sep15test.diary"
+2015-09-01 09:56:25/63608406985885.328 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.669142 ms [59.991090 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.667261 ms [59.997860 Hz]. (50 valid samples taken, stddev=0.079919 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-01 09:56:29/63608406989460.008 | event: window           | info: opened main
+2015-09-01 09:56:29/63608406989941.891 | event: flip             | info: show start
+2015-09-01 09:56:30/63608406990028.117 | event: experiment       | info: using default block order
+2015-09-01 09:56:30/63608406990094.898 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.TrialLoop(1)
+2015-09-01 09:56:37/63608406997265.664 | event: keyboard         | info: down: response
+2015-09-01 09:56:37/63608406997297.695 | event: experiment       | info: feedback (y, 1/1)
+2015-09-01 09:56:38/63608406998857.477 | event: keyboard         | info: down: response
+2015-09-01 09:56:38/63608406998884.461 | event: experiment       | info: feedback (y, 2/2)
+{Operation terminated by user during <a href="matlab:helpUtils.errorDocCallback('PTB.Log/ToString/CatFile', '/home/kevin/matlab/matlab_lib/research/+PTB/@Log/ToString.m', 0)" style="font-weight:bold">PTB.Log/ToString/CatFile</a>
+
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Log/ToString', '/home/kevin/matlab/matlab_lib/research/+PTB/@Log/ToString.m', 39)" style="font-weight:bold">PTB.Log/ToString</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Log/ToString.m',39,0)">line 39</a>)
+	strFile		= CatFile(strTimeN,strType,strInfoFile);
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Log/Append/ActuallyAppend', '/home/kevin/matlab/matlab_lib/research/+PTB/@Log/Append.m', 44)" style="font-weight:bold">PTB.Log/Append/ActuallyAppend</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Log/Append.m',44,0)">line 44</a>)
+		[strStatus,strFile]	= lg.ToString(nEvent);
+
+In <a href="matlab:helpUtils.errorDocCallback('p_Check', '/home/kevin/matlab/matlab_lib/research/+PTB/@Scheduler/private/p_Check.m', 65)" style="font-weight:bold">p_Check</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Scheduler/private/p_Check.m',65,0)">line 65</a>)
+								[bAbort,PTBIFO.scheduler.task(kE).output{:}]	=
+                                PTBIFO.scheduler.task(kE).function(PTBIFO.scheduler.task(kE).arguments{:});
+
+In <a href="matlab:helpUtils.errorDocCallback('p_AutoCheck', '/home/kevin/matlab/matlab_lib/research/+PTB/@Scheduler/private/p_AutoCheck.m', 13)" style="font-weight:bold">p_AutoCheck</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Scheduler/private/p_AutoCheck.m',13,0)">line 13</a>)
+	p_Check(sch,0,Inf);
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Scheduler>@(varargin)p_AutoCheck(sch)', '/home/kevin/matlab/matlab_lib/research/+PTB/@Scheduler/Scheduler.m', 129)" style="font-weight:bold">PTB.Scheduler>@(varargin)p_AutoCheck(sch)</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Scheduler/Scheduler.m',129,0)">line 129</a>)
+								'TimerFcn'		, @(varargin) p_AutoCheck(sch)		, ...
+
+In <a href="matlab:helpUtils.errorDocCallback('timer/timercb', '/home/kevin/matlab/toolbox/matlab/iofun/@timer/timercb.m', 31)" style="font-weight:bold">timer/timercb</a> (<a href="matlab: opentoline('/home/kevin/matlab/toolbox/matlab/iofun/@timer/timercb.m',31,0)">line 31</a>)
+    		feval(val{1}, obj, eventStruct, val{2:end});
+
+In <a href="matlab:helpUtils.errorDocCallback('timercb', '/home/kevin/matlab/toolbox/matlab/iofun/timercb.m', 14)" style="font-weight:bold">timercb</a> (<a href="matlab: opentoline('/home/kevin/matlab/toolbox/matlab/iofun/timercb.m',14,0)">line 14</a>)
+timercb(t, varargin{2:end});
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/TrialLoop', '/home/kevin/studies/relabs/code/@RelAbs/TrialLoop.m', 141)" style="font-weight:bold">RelAbs/TrialLoop</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/TrialLoop.m',141,0)">line 141</a>)
+        DoFeedback;
+} 
+
+ans = 
+
+1x4 <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> array with fields:
+
+    level
+    color
+    number
+    orientation
+    shape
+    response
+    rt
+    numSame
+    numSameYes
+    correct
+
+ra.Run
+Next run (default=1): 
+{Operation terminated by user during <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 237)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',237,0)">line 237</a>)
+
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run', '/home/kevin/studies/relabs/code/@RelAbs/Run.m', 68)" style="font-weight:bold">RelAbs/Run</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run.m',68,0)">line 68</a>)
+	[tStartActual,tEndActual,tSequenceActual] = ra.Experiment.Sequence.Linear(...
+} 
+ra.End
+log saving to: "/home/kevin/studies/relabs/data/01sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/01sep15test.diary"
+2015-09-01 10:03:47/63608407427445.117 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.669200 ms [59.990880 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.668520 ms [59.993329 Hz]. (50 valid samples taken, stddev=0.062497 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-01 10:03:50/63608407430899.727 | event: window           | info: opened main
+2015-09-01 10:03:51/63608407431386.188 | event: flip             | info: show start
+2015-09-01 10:03:51/63608407431467.461 | event: experiment       | info: using default block order
+2015-09-01 10:03:51/63608407431467.461 | event: experiment       | info: using default block order
+2015-09-01 10:03:51/63608407431532.461 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.Run
+Next run (default=1): 
+2015-09-01 10:03:54/63608407434834.695 | event: experiment       | info: run 1 start
+2015-09-01 10:03:54/63608407434870.055 | event: flip             | info: waiting for scanner
+2015-09-01 10:03:55/63608407435080.773 | event: experiment       | info: rest
+2015-09-01 10:03:59/63608407439320.734 | event: flip             | info: block 1, type: level one | same
+2015-09-01 10:04:03/63608407443019.969 | event: experiment       | info: waiting (for prompt HRF decay)
+2015-09-01 10:04:12/63608407452279.227 | event: keyboard         | info: down: response
+2015-09-01 10:04:12/63608407452312.844 | event: experiment       | info: feedback (y, 1/1)
+2015-09-01 10:04:14/63608407454543.336 | event: keyboard         | info: down: response
+2015-09-01 10:04:14/63608407454559.773 | event: experiment       | info: feedback (y, 2/2)
+2015-09-01 10:04:15/63608407455951.148 | event: keyboard         | info: down: response
+2015-09-01 10:04:15/63608407455960.031 | event: experiment       | info: feedback (n, 2/3)
+2015-09-01 10:04:17/63608407457383.133 | event: keyboard         | info: down: response
+2015-09-01 10:04:17/63608407457393.641 | event: experiment       | info: feedback (y, 3/4)
+2015-09-01 10:04:18/63608407458743.156 | event: keyboard         | info: down: response
+2015-09-01 10:04:18/63608407458760.656 | event: experiment       | info: feedback (y, 4/5)
+2015-09-01 10:04:21/63608407461017.367 | event: experiment       | info: rest
+{Operation terminated by user during <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 237)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',237,0)">line 237</a>)
+
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run', '/home/kevin/studies/relabs/code/@RelAbs/Run.m', 65)" style="font-weight:bold">RelAbs/Run</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run.m',65,0)">line 65</a>)
+	[tStartActual,tEndActual,tSequenceActual] = ra.Experiment.Sequence.Linear(...
+} 
+sca
+ra.End
+Error in function Close: 	Invalid Window (or Texture) Index provided: It doesn't correspond to an open window or texture.
+Did you close it accidentally via Screen('Close') or Screen('CloseAll') ?
+log saving to: "/home/kevin/studies/relabs/data/01sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/01sep15test.diary"
+2015-09-01 10:27:07/63608408827195.852 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.669225 ms [59.990792 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.669709 ms [59.989049 Hz]. (58 valid samples taken, stddev=0.746440 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+
+WARNING: Couldn't compute a reliable estimate of monitor refresh interval! Trouble with VBL syncing?!?
+
+
+----- ! PTB - ERROR: SYNCHRONIZATION FAILURE ! ----
+
+One or more internal checks (see Warnings above) indicate that synchronization
+of Psychtoolbox to the vertical retrace (VBL) is not working on your setup.
+
+This will seriously impair proper stimulus presentation and stimulus presentation timing!
+Please read 'help SyncTrouble' for information about how to solve or work-around the problem.
+You can force Psychtoolbox to continue, despite the severe problems, by adding the command
+Screen('Preference', 'SkipSyncTests', 1); at the top of your script, if you really know what you are doing.
+
+
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-01 10:27:10/63608408830088.547 | event: window           | info: opened main
+2015-09-01 10:27:10/63608408830330.539 | event: flip             | info: show start
+2015-09-01 10:27:10/63608408830373.031 | event: experiment       | info: using default block order
+2015-09-01 10:27:10/63608408830424.094 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.Run2
+{No appropriate method, property, or field Run2 for class RelAbs.
+} 
+cd code
+cd @RelAbs
+ra.Run2
+{No appropriate method, property, or field Run2 for class RelAbs.
+} 
+cd ..
+cd ..
+ra.Run
+Next run (default=1): {Operation terminated by user during <a href="matlab:helpUtils.errorDocCallback('ask>inputfix', '/home/kevin/matlab/matlab_lib/figure/ask.m', 128)" style="font-weight:bold">ask>inputfix</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/figure/ask.m',128,0)">line 128</a>)
+
+
+In <a href="matlab:helpUtils.errorDocCallback('ask', '/home/kevin/matlab/matlab_lib/figure/ask.m', 117)" style="font-weight:bold">ask</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/figure/ask.m',117,0)">line 117</a>)
+			res	= inputfix([strPrompt strDefault ': ']);
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run', '/home/kevin/studies/relabs/code/@RelAbs/Run.m', 29)" style="font-weight:bold">RelAbs/Run</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run.m',29,0)">line 29</a>)
+    kRun	= ask('Next run','dialog',false,'default',kRun);
+} 
+ra.End
+2015-09-01 10:27:57/63608408877137.000 | event: window           | info: closed
+log saving to: "/home/kevin/studies/relabs/data/01sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/01sep15test.diary"
+2015-09-01 10:29:10/63608408950448.734 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.669186 ms [59.990933 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.671407 ms [59.982941 Hz]. (57 valid samples taken, stddev=1.109556 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+
+WARNING: Couldn't compute a reliable estimate of monitor refresh interval! Trouble with VBL syncing?!?
+
+
+----- ! PTB - ERROR: SYNCHRONIZATION FAILURE ! ----
+
+One or more internal checks (see Warnings above) indicate that synchronization
+of Psychtoolbox to the vertical retrace (VBL) is not working on your setup.
+
+This will seriously impair proper stimulus presentation and stimulus presentation timing!
+Please read 'help SyncTrouble' for information about how to solve or work-around the problem.
+You can force Psychtoolbox to continue, despite the severe problems, by adding the command
+Screen('Preference', 'SkipSyncTests', 1); at the top of your script, if you really know what you are doing.
+
+
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-01 10:29:13/63608408953493.641 | event: window           | info: opened main
+2015-09-01 10:29:13/63608408953699.203 | event: flip             | info: show start
+2015-09-01 10:29:13/63608408953725.789 | event: experiment       | info: using default block order
+2015-09-01 10:29:13/63608408953759.375 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.Run2
+{No appropriate method, property, or field Run2 for class RelAbs.
+} 
+ra
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.Experiment
+
+ans = 
+
+  <a href="matlab:helpPopup PTB.Experiment" style="font-weight:bold">Experiment</a> with properties:
+
+         Info: [1x1 PTB.Info]
+         File: [1x1 PTB.File]
+      Subject: [1x1 PTB.Subject]
+    Scheduler: [1x1 PTB.Scheduler]
+        Color: [1x1 PTB.Color]
+       Status: [1x1 PTB.Status]
+       Prompt: [1x1 PTB.Prompt]
+          Log: [1x1 PTB.Log]
+       Serial: [1x1 PTB.Device.Serial]
+      Trigger: []
+        Input: [1x1 PTB.Device.Input.Keyboard]
+      Scanner: [1x1 PTB.Device.Scanner]
+       Window: [1x1 PTB.Window]
+      Pointer: [1x1 PTB.Device.Pointer]
+         Show: [1x1 PTB.Show]
+     Sequence: [1x1 PTB.Sequence]
+         Draw: []
+       parent: [1x1 PTB.Experiment]
+     children: {}
+         type: 'experiment'
+
+ra.End
+2015-09-01 10:29:38/63608408978176.555 | event: window           | info: closed
+log saving to: "/home/kevin/studies/relabs/data/01sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/01sep15test.diary"
+2015-09-01 10:32:33/63608409153572.969 | event: log              | info: started
+2015-09-01 10:32:33/63608409153572.969 | event: log              | info: started
+2015-09-01 10:32:33/63608409153572.969 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.668101 ms [59.994838 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.671400 ms [59.982965 Hz]. (50 valid samples taken, stddev=0.072870 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-01 10:32:37/63608409157166.195 | event: window           | info: opened main
+2015-09-01 10:32:37/63608409157635.891 | event: flip             | info: show start
+2015-09-01 10:32:37/63608409157714.125 | event: experiment       | info: using default block order
+2015-09-01 10:32:37/63608409157782.672 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.Run2
+Next run (default=1): 
+2015-09-01 10:32:40/63608409160749.766 | event: experiment       | info: run 1 start
+2015-09-01 10:32:40/63608409160803.047 | event: flip             | info: waiting for scanner
+2015-09-01 10:32:40/63608409160964.555 | event: experiment       | info: rest
+2015-09-01 10:32:45/63608409165287.062 | event: flip             | info: block 1, type: level one | same
+2015-09-01 10:32:48/63608409168933.445 | event: experiment       | info: waiting (for prompt HRF decay)
+{Undefined function or variable 'DoFeedBack'.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2/DoBlock', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 161)" style="font-weight:bold">RelAbs/Run2/DoBlock</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',161,0)">line 161</a>)
+        DoFeedBack;
+
+Error in <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 199)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',199,0)">line 199</a>)
+			tSeq(kS)	= cF{kS}(tNowRel,tNext);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 66)" style="font-weight:bold">RelAbs/Run2</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',66,0)">line 66</a>)
+	[tStartActual,tEndActual,tSequenceActual] = ra.Experiment.Sequence.Linear(...
+} 
+ra.End
+log saving to: "/home/kevin/studies/relabs/data/01sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/01sep15test.diary"
+2015-09-01 10:42:40/63608409760906.914 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.669166 ms [59.991003 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.671896 ms [59.981180 Hz]. (58 valid samples taken, stddev=0.853007 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+
+WARNING: Couldn't compute a reliable estimate of monitor refresh interval! Trouble with VBL syncing?!?
+
+
+----- ! PTB - ERROR: SYNCHRONIZATION FAILURE ! ----
+
+One or more internal checks (see Warnings above) indicate that synchronization
+of Psychtoolbox to the vertical retrace (VBL) is not working on your setup.
+
+This will seriously impair proper stimulus presentation and stimulus presentation timing!
+Please read 'help SyncTrouble' for information about how to solve or work-around the problem.
+You can force Psychtoolbox to continue, despite the severe problems, by adding the command
+Screen('Preference', 'SkipSyncTests', 1); at the top of your script, if you really know what you are doing.
+
+
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-01 10:42:43/63608409763869.109 | event: window           | info: opened main
+2015-09-01 10:42:44/63608409764027.891 | event: flip             | info: show start
+2015-09-01 10:42:44/63608409764037.156 | event: experiment       | info: using default block order
+2015-09-01 10:42:44/63608409764067.367 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.Run2
+Next run (default=1): 
+2015-09-01 10:42:49/63608409769279.609 | event: experiment       | info: run 1 start
+2015-09-01 10:42:49/63608409769312.016 | event: flip             | info: waiting for scanner
+2015-09-01 10:42:49/63608409769361.508 | event: experiment       | info: rest
+2015-09-01 10:42:53/63608409773479.305 | event: flip             | info: block 1, type: level one | same
+2015-09-01 10:42:57/63608409777352.000 | event: experiment       | info: waiting (for prompt HRF decay)
+{Improper index matrix reference.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2/DoFeedback', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 184)" style="font-weight:bold">RelAbs/Run2/DoFeedback</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',184,0)">line 184</a>)
+    nCorrect	= nCorrect + blockRes(end).correct;
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2/DoBlock', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 164)" style="font-weight:bold">RelAbs/Run2/DoBlock</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',164,0)">line 164</a>)
+        DoFeedback;
+
+Error in <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 199)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',199,0)">line 199</a>)
+			tSeq(kS)	= cF{kS}(tNowRel,tNext);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 68)" style="font-weight:bold">RelAbs/Run2</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',68,0)">line 68</a>)
+	[tStartActual,tEndActual,tSequenceActual] = ra.Experiment.Sequence.Linear(...
+} 
+ra.End
+log saving to: "/home/kevin/studies/relabs/data/01sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/01sep15test.diary"
+2015-09-01 10:45:04/63608409904509.273 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.669307 ms [59.990495 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.719497 ms [59.810410 Hz]. (58 valid samples taken, stddev=0.977627 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+
+WARNING: Couldn't compute a reliable estimate of monitor refresh interval! Trouble with VBL syncing?!?
+
+
+----- ! PTB - ERROR: SYNCHRONIZATION FAILURE ! ----
+
+One or more internal checks (see Warnings above) indicate that synchronization
+of Psychtoolbox to the vertical retrace (VBL) is not working on your setup.
+
+This will seriously impair proper stimulus presentation and stimulus presentation timing!
+Please read 'help SyncTrouble' for information about how to solve or work-around the problem.
+You can force Psychtoolbox to continue, despite the severe problems, by adding the command
+Screen('Preference', 'SkipSyncTests', 1); at the top of your script, if you really know what you are doing.
+
+
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-01 10:45:07/63608409907378.398 | event: window           | info: opened main
+2015-09-01 10:45:07/63608409907532.711 | event: flip             | info: show start
+2015-09-01 10:45:07/63608409907540.430 | event: experiment       | info: using default block order
+2015-09-01 10:45:07/63608409907563.719 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.Run2
+Next run (default=1): 
+2015-09-01 10:45:11/63608409911852.750 | event: experiment       | info: run 1 start
+2015-09-01 10:45:11/63608409911866.688 | event: flip             | info: waiting for scanner
+2015-09-01 10:45:11/63608409911911.805 | event: experiment       | info: rest
+2015-09-01 10:45:15/63608409915950.633 | event: flip             | info: block 1, type: level one | same
+2015-09-01 10:45:19/63608409919904.477 | event: experiment       | info: waiting (for prompt HRF decay)
+<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',164,1)">164 </a>        DoFeedback;
+ra.Run2
+Next run (default=1): 
+2015-09-01 10:45:27/63608409927905.156 | event: experiment       | info: trial 1
+2015-09-01 10:46:15/63608409975587.727 | event: experiment       | info: run 1 start
+2015-09-01 10:46:15/63608409975642.953 | event: flip             | info: waiting for scanner
+2015-09-01 10:46:15/63608409975695.250 | event: experiment       | info: rest
+2015-09-01 10:46:19/63608409979760.242 | event: flip             | info: block 1, type: level one | same
+2015-09-01 10:46:23/63608409983688.836 | event: experiment       | info: waiting (for prompt HRF decay)
+<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',164,1)">164 </a>        DoFeedback;
+DoFeedback
+dbquit
+ra.End
+
+
+INFO: PTB's Screen('Flip', 10) command seems to have missed the requested stimulus presentation deadline
+INFO: a total of 3 times out of a total of 12 flips during this session.
+
+INFO: This number is fairly accurate (and indicative of real timing problems in your own code or your system)
+INFO: if you provided requested stimulus onset times with the 'when' argument of Screen('Flip', window [, when]);
+INFO: If you called Screen('Flip', window); without the 'when' argument, this count is more of a ''mild'' indicator
+INFO: of timing behaviour than a hard reliable measurement. Large numbers may indicate problems and should at least
+INFO: deserve your closer attention. Cfe. 'help SyncTrouble', the FAQ section at www.psychtoolbox.org and the
+INFO: examples in the PDF presentation in PsychDocumentation/Psychtoolbox3-Slides.pdf for more info and timing tips.
+
+log saving to: "/home/kevin/studies/relabs/data/01sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/01sep15test.diary"
+2015-09-01 11:19:54/63608411994157.742 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.669161 ms [59.991020 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.611175 ms [60.200439 Hz]. (57 valid samples taken, stddev=0.722784 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+
+WARNING: Couldn't compute a reliable estimate of monitor refresh interval! Trouble with VBL syncing?!?
+
+
+----- ! PTB - ERROR: SYNCHRONIZATION FAILURE ! ----
+
+One or more internal checks (see Warnings above) indicate that synchronization
+of Psychtoolbox to the vertical retrace (VBL) is not working on your setup.
+
+This will seriously impair proper stimulus presentation and stimulus presentation timing!
+Please read 'help SyncTrouble' for information about how to solve or work-around the problem.
+You can force Psychtoolbox to continue, despite the severe problems, by adding the command
+Screen('Preference', 'SkipSyncTests', 1); at the top of your script, if you really know what you are doing.
+
+
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-01 11:19:57/63608411997054.000 | event: window           | info: opened main
+2015-09-01 11:19:57/63608411997246.078 | event: flip             | info: show start
+2015-09-01 11:19:57/63608411997254.195 | event: experiment       | info: using default block order
+2015-09-01 11:19:57/63608411997278.078 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.Run2
+Next run (default=1): 
+2015-09-01 11:20:01/63608412001531.281 | event: experiment       | info: run 1 start
+2015-09-01 11:20:01/63608412001563.398 | event: flip             | info: waiting for scanner
+2015-09-01 11:20:01/63608412001610.078 | event: experiment       | info: rest
+2015-09-01 11:20:05/63608412005664.008 | event: flip             | info: block 1, type: level one | same
+2015-09-01 11:20:09/63608412009603.062 | event: experiment       | info: waiting (for prompt HRF decay)
+{Attempted to access trial.numSame(1,1,33); index out of bounds because size(trial.numSame)=[12,8,32].
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 60)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',60,0)">line 60</a>)
+numSame = trial.numSame(kRun, kBlock, kTrial);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2/DoBlock', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 156)" style="font-weight:bold">RelAbs/Run2/DoBlock</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',156,0)">line 156</a>)
+        resCur = ra.Trial(blockType, kTrial);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 199)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',199,0)">line 199</a>)
+			tSeq(kS)	= cF{kS}(tNowRel,tNext);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 68)" style="font-weight:bold">RelAbs/Run2</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',68,0)">line 68</a>)
+	[tStartActual,tEndActual,tSequenceActual] = ra.Experiment.Sequence.Linear(...
+} 
+ra.End
+
+
+INFO: PTB's Screen('Flip', 10) command seems to have missed the requested stimulus presentation deadline
+INFO: a total of 59 times out of a total of 101 flips during this session.
+
+INFO: This number is fairly accurate (and indicative of real timing problems in your own code or your system)
+INFO: if you provided requested stimulus onset times with the 'when' argument of Screen('Flip', window [, when]);
+INFO: If you called Screen('Flip', window); without the 'when' argument, this count is more of a ''mild'' indicator
+INFO: of timing behaviour than a hard reliable measurement. Large numbers may indicate problems and should at least
+INFO: deserve your closer attention. Cfe. 'help SyncTrouble', the FAQ section at www.psychtoolbox.org and the
+INFO: examples in the PDF presentation in PsychDocumentation/Psychtoolbox3-Slides.pdf for more info and timing tips.
+
+log saving to: "/home/kevin/studies/relabs/data/01sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/01sep15test.diary"
+2015-09-01 15:35:54/63608427354944.344 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.669200 ms [59.990880 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.668062 ms [59.994976 Hz]. (50 valid samples taken, stddev=0.193565 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-01 15:35:58/63608427358615.133 | event: window           | info: opened main
+2015-09-01 15:35:59/63608427359100.156 | event: flip             | info: show start
+2015-09-01 15:35:59/63608427359178.812 | event: experiment       | info: using default block order
+2015-09-01 15:35:59/63608427359251.258 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.Trial(1,1)
+{Error using <a href="matlab:helpUtils.errorDocCallback('RelAbs.Trial>ShowStimulus')" style="font-weight:bold">RelAbs.Trial>ShowStimulus</a>
+Too many input arguments.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('PTB.Show/Sequence/RenderOne', '/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m', 308)" style="font-weight:bold">PTB.Show/Sequence/RenderOne</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m',308,0)">line 308</a>)
+			x('window',xR{1});
+
+Error in <a href="matlab:helpUtils.errorDocCallback('PTB.Show/Sequence/PrepNext', '/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m', 261)" style="font-weight:bold">PTB.Show/Sequence/PrepNext</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m',261,0)">line 261</a>)
+				cX{kNext}	= RenderOne(cX{kNext},tNow,tNext);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('PTB.Show/Sequence', '/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m', 197)" style="font-weight:bold">PTB.Show/Sequence</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m',197,0)">line 197</a>)
+		PrepNext(tNow,tNext);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 116)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',116,0)">line 116</a>)
+[tStart,tEnd,tShow,bAbort,kResponse] = ra.Experiment.Show.Sequence(...
+} 
+ra.End
+2015-09-01 15:36:36/63608427396681.570 | event: window           | info: closed
+log saving to: "/home/kevin/studies/relabs/data/01sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/01sep15test.diary"
+2015-09-01 15:47:39/63608428059970.773 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.669161 ms [59.991020 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.599926 ms [60.241231 Hz]. (51 valid samples taken, stddev=0.463922 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+
+WARNING: Couldn't compute a reliable estimate of monitor refresh interval! Trouble with VBL syncing?!?
+
+
+----- ! PTB - ERROR: SYNCHRONIZATION FAILURE ! ----
+
+One or more internal checks (see Warnings above) indicate that synchronization
+of Psychtoolbox to the vertical retrace (VBL) is not working on your setup.
+
+This will seriously impair proper stimulus presentation and stimulus presentation timing!
+Please read 'help SyncTrouble' for information about how to solve or work-around the problem.
+You can force Psychtoolbox to continue, despite the severe problems, by adding the command
+Screen('Preference', 'SkipSyncTests', 1); at the top of your script, if you really know what you are doing.
+
+
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-01 15:47:42/63608428062998.391 | event: window           | info: opened main
+2015-09-01 15:47:43/63608428063207.164 | event: flip             | info: show start
+2015-09-01 15:47:43/63608428063216.695 | event: experiment       | info: using default block order
+2015-09-01 15:47:43/63608428063257.383 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.Trial(1,1)
+{Error using <a href="matlab:helpUtils.errorDocCallback('cell/ismember>cellismemberR2012a', '/home/kevin/matlab/toolbox/matlab/ops/@cell/ismember.m', 199)" style="font-weight:bold">cell/ismember>cellismemberR2012a</a> (<a href="matlab: opentoline('/home/kevin/matlab/toolbox/matlab/ops/@cell/ismember.m',199,0)">line 199</a>)
+Input A of class cell and input B of class double must be cell arrays of strings, unless one is a string.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('cell/ismember', '/home/kevin/matlab/toolbox/matlab/ops/@cell/ismember.m', 71)" style="font-weight:bold">cell/ismember</a> (<a href="matlab: opentoline('/home/kevin/matlab/toolbox/matlab/ops/@cell/ismember.m',71,0)">line 71</a>)
+    [varargout{1:nlhs}] = cellismemberR2012a(varargin{:});
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 143)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',143,0)">line 143</a>)
+    if ismember(kResponse, kButtYes)
+} 
+ra.End
+
+
+INFO: PTB's Screen('Flip', 10) command seems to have missed the requested stimulus presentation deadline
+INFO: a total of 3 times out of a total of 5 flips during this session.
+
+INFO: This number is fairly accurate (and indicative of real timing problems in your own code or your system)
+INFO: if you provided requested stimulus onset times with the 'when' argument of Screen('Flip', window [, when]);
+INFO: If you called Screen('Flip', window); without the 'when' argument, this count is more of a ''mild'' indicator
+INFO: of timing behaviour than a hard reliable measurement. Large numbers may indicate problems and should at least
+INFO: deserve your closer attention. Cfe. 'help SyncTrouble', the FAQ section at www.psychtoolbox.org and the
+INFO: examples in the PDF presentation in PsychDocumentation/Psychtoolbox3-Slides.pdf for more info and timing tips.
+
+2015-09-01 15:48:40/63608428120956.000 | event: window           | info: closed
+2015-09-01 15:48:40/63608428120956.000 | event: window           | info: closed
+log saving to: "/home/kevin/studies/relabs/data/01sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/01sep15test.diary"
+2015-09-01 15:49:17/63608428157123.695 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.669166 ms [59.991003 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.670831 ms [59.985011 Hz]. (58 valid samples taken, stddev=0.766243 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+
+WARNING: Couldn't compute a reliable estimate of monitor refresh interval! Trouble with VBL syncing?!?
+
+
+----- ! PTB - ERROR: SYNCHRONIZATION FAILURE ! ----
+
+One or more internal checks (see Warnings above) indicate that synchronization
+of Psychtoolbox to the vertical retrace (VBL) is not working on your setup.
+
+This will seriously impair proper stimulus presentation and stimulus presentation timing!
+Please read 'help SyncTrouble' for information about how to solve or work-around the problem.
+You can force Psychtoolbox to continue, despite the severe problems, by adding the command
+Screen('Preference', 'SkipSyncTests', 1); at the top of your script, if you really know what you are doing.
+
+
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-01 15:49:20/63608428160062.984 | event: window           | info: opened main
+2015-09-01 15:49:20/63608428160221.781 | event: flip             | info: show start
+2015-09-01 15:49:20/63608428160230.305 | event: experiment       | info: using default block order
+2015-09-01 15:49:20/63608428160254.297 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.Trial(1,1)
+2015-09-01 15:49:40/63608428180252.477 | event: keyboard         | info: down: response
+2015-09-01 15:49:41/63608428181308.359 | event: keyboard         | info: down: response
+2015-09-01 15:49:44/63608428184198.242 | event: keyboard         | info: down: response
+<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',1log saving to: "/home/kevin/studies/relabs/data/01sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/01sep15test.diary"
+2015-09-01 16:01:25/63608428885642.141 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.659960 ms [60.024152 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.656337 ms [60.037211 Hz]. (50 valid samples taken, stddev=0.127382 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-01 16:01:29/63608428889209.289 | event: window           | info: opened main
+2015-09-01 16:01:29/63608428889793.055 | event: flip             | info: show start
+2015-09-01 16:01:29/63608428889941.336 | event: experiment       | info: using default block order
+2015-09-01 16:01:29/63608428889941.336 | event: experiment       | info: using default block order
+2015-09-01 16:01:30/63608428890022.906 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.Trial(1,1)
+2015-09-01 16:01:36/63608428896458.797 | event: keyboard         | info: down: response
+<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',143,1)">143 </a>    if ismember(kResponse, kButtYes)
+kResponse
+
+kResponse = 
+
+    [115]
+
+dbquit
+ra.End
+
+
+INFO: PTB's Screen('Flip', 10) command seems to have missed the requested stimulus presentation deadline
+INFO: a total of 2 times out of a total of 5 flips during this session.
+
+INFO: This number is fairly accurate (and indicative of real timing problems in your own code or your system)
+INFO: if you provided requested stimulus onset times with the 'when' argument of Screen('Flip', window [, when]);
+INFO: If you called Screen('Flip', window); without the 'when' argument, this count is more of a ''mild'' indicator
+INFO: of timing behaviour than a hard reliable measurement. Large numbers may indicate problems and should at least
+INFO: deserve your closer attention. Cfe. 'help SyncTrouble', the FAQ section at www.psychtoolbox.org and the
+INFO: examples in the PDF presentation in PsychDocumentation/Psychtoolbox3-Slides.pdf for more info and timing tips.
+
+2015-09-01 16:02:03/63608428923665.977 | event: window           | info: closed
+log saving to: "/home/kevin/studies/relabs/data/01sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/01sep15test.diary"
+2015-09-01 16:10:04/63608429404455.258 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.669166 ms [59.991003 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.670034 ms [59.987881 Hz]. (58 valid samples taken, stddev=1.435117 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+
+WARNING: Couldn't compute a reliable estimate of monitor refresh interval! Trouble with VBL syncing?!?
+
+
+----- ! PTB - ERROR: SYNCHRONIZATION FAILURE ! ----
+
+One or more internal checks (see Warnings above) indicate that synchronization
+of Psychtoolbox to the vertical retrace (VBL) is not working on your setup.
+
+This will seriously impair proper stimulus presentation and stimulus presentation timing!
+Please read 'help SyncTrouble' for information about how to solve or work-around the problem.
+You can force Psychtoolbox to continue, despite the severe problems, by adding the command
+Screen('Preference', 'SkipSyncTests', 1); at the top of your script, if you really know what you are doing.
+
+
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-01 16:10:07/63608429407354.289 | event: window           | info: opened main
+2015-09-01 16:10:07/63608429407513.000 | event: flip             | info: show start
+2015-09-01 16:10:07/63608429407522.352 | event: experiment       | info: using default block order
+2015-09-01 16:10:07/63608429407561.953 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.Trial(1,1)
+<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',143,1)">143 </a>    if ismember(kResponse, kButtYes)
+kResponse
+
+kResponse = 
+
+     {}
+
+t
+
+t = 
+
+           tr: 2000
+     feedback: 1
+        trial: 3
+    trialloop: 16
+        blank: 1
+         rest: 2
+       prompt: 2
+         wait: 4
+       timeup: 1
+
+tSEquence
+{Undefined function or variable 'tSEquence'.
+} 
+tSequence
+
+tSequence =
+
+        6000
+        8000
+
+help PTB.Show.Sequence
+  <strong>PTB.Show/Sequence</strong>
+  
+  Description:	show a sequence of stimuli
+  
+  Syntax:	[tStart,tEnd,tShow,bAbort,x1,...,xN] = shw.<strong>Sequence</strong>(cX,tShow,<options>)
+  
+  In:
+ 	cX		- a cell of stimuli to show.  each element can be:
+ 				h:			the handle to a texture to show
+ 				str:		a string input to shw.Text
+ 				f:			the handle to a function that accepts an option
+ 							named 'window' that specifies a texture handle and
+ 							draws its stimulus onto that texture (e.g.
+ 							f('window',hT)).
+ 				{h,...}:	the handle to a texture along with other inputs to
+ 							shw.Texture
+ 				{strF,...}:	inputs to shw.(strF), (i.e. {'Circle','red',1}
+ 							executes shw.Circle('red',1))
+ 				{f,...}:	the handle to a function along with its inputs. the
+ 							function must accept an option argument 'window' that
+ 							specifies a texture handle and draw its stimulus onto
+ 							that texture (e.g. f(...,'window',hT)).
+ 	tShow	- a time specifying when to move on to the next stimulus, or the
+ 			  handle to a function that takes the current time as input and
+ 			  returns two booleans: the first indicates whether to abort the
+ 			  sequence and the second whether to move on to the next stimulus in
+ 			  the sequence. can also be an array/cell of times or function
+ 			  handles, one for each step in the sequence.  the input times
+ 			  depend on the tbase option.
+ 	<options>:
+ 		window:			('main') the name of the window on which to show the
+ 						sequence
+ 		tunit:			(<auto>) the unit of time.  can either be 'ms' for
+ 						PTB.Now time or 'tr' for the TR number. defaults based
+ 						on context:
+ 							fmri: tr
+ 							eeg/pyschophysics: ms
+ 		tbase:			('step') either 'step', 'sequence', or 'absolute' to
+ 						specify whether times are relative to the start of the
+ 						current step, the start of the sequence, or are absolute
+ 		prerender:		(false) true to prerender each stimulus as a texture
+ 						before starting the sequence.  this will take more time
+ 						up front and memory but reduce the amount of time it
+ 						takes to draw each stimulus during the sequence. note
+ 						that prerendering doesn't work if a stimulus depends on
+ 						the time arguments to render correctly.
+ 		postrelease:	(false) true to release textures only after the sequence
+ 						ends.   this will take more time after the sequence is
+ 						over and memory but reduce the amount of time it takes to
+ 						prepare each stimulus during the sequence.
+ 		xnow:			(<nothing>) a stimulus to show immediately, before the
+ 						sequence is prepared (see cX for syntax)
+ 		tstart:			(<immediate>) the absolute time at which to start the
+ 						sequence, or the handle to a function that takes the
+ 						current time as input and returns two booleans: the first
+ 						indicates whether to abort the sequence and the second
+ 						whether to start the sequence
+ 		fwait:			(<PTB.Scheduler.Wait>) a handle or cell of handles the
+ 						same size as cX to functions that take the current time
+ 						and the time of the next stimulus presentation (or NaN
+ 						where tShow is a function handle) as input and return at
+ 						least a boolean as the first output that indicates
+ 						whether the sequence should be aborted, and are executed
+ 						while the sequence is waiting to move on to the next
+ 						stimulus. non-empty return values beyond the first output
+ 						are appended to the output arguments x1 ... xN. if a cell
+ 						of function handles is passed then each function must
+ 						return the same number of outputs.  set this to false to
+ 						do nothing but wait 1ms.
+ 		max_wait:		(10) the desired maximum execution time for calls to
+ 						PTB.Scheduler.Wait, in ms.  this only applies where
+ 						functions rather than times were specified in tShow.
+ 		wait_priority:	(PTB.Scheduler.PRIORITY_LOW) only execute scheduler tasks
+ 						at or above this priority while waiting to move on to the
+ 						next step in the sequence  only applies if the default
+ 						fwait function is used.
+ 		fixation:		(true) true to show the fixation dot on each stimulus
+ 		fixation_task:	(false) true to show the fixation task.  can also be a
+ 						logical array the same size as the sequence indicating
+ 						whether the fixation_task should be shown for each
+ 						stimulus.
+  
+  Out:
+ 	tStart				- the time at which the sequence started
+ 	tEnd				- the time at which the sequence aborted or ended
+ 	tShow				- the actual time at which each stimulus appeared on the
+ 						  screen
+ 	bAbort				- true if the sequence was aborted
+ 	xK					- a cell of all the non-empty (K+1)th outputs from the
+ 						  wait functions
+  
+  Example:
+ 	%show four strings spaced every one second 
+ 	cX	= {'this','is','a','test'};
+ 	shw.<strong>Sequence</strong>(cX,1000,'tunit','ms');
+ 	
+ 	%show three textures interspersed with a blank.  the subject must press
+ 	%the space bar to advance after each stimulus
+ 	cX		= {hTBlank hT1 hTBlank hT2 hTBlank hT3 hTBlank};
+ 	fShow	= @(t) deal(false,ptb.Input.DownOnce('key_space'));
+ 	tShow	= {1000 fShow 1000 fShow 1000 fShow 1000};
+ 	shw.<strong>Sequence</strong>(cX,tShow);
+  
+  Updated: 2012-07-05
+  Copyright 2012 Alex Schlegel (schlegel@gmail.com).  This work is licensed
+  under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported
+  License.
+
+help PTB.Show.Text
+  <strong>PTB.Show/Text</strong>
+  
+  Description:	show text
+  
+  Syntax:	pNew = shw.<strong>Text</strong>(str,[p]=<center/top-left>,[w]=<screen>-2,[a]=0,<options>)
+  
+  In:
+ 	str	- a string, possibly with some simple markup.  markup is denoted HTMLish
+ 		  as <blah>text here</blah>, where "blah" is one of the following:
+ 				family:<x>:	the font family of the text
+ 				size:<x>:	the size of the text, in degrees of visual angle for
+ 							the letter m
+ 				style:<x>:	the style of the text.  <x> is one or more of the
+ 					following, comma-separated: normal, bold, italic, underline,
+ 					outline condense, extend.
+ 				align:<x>:	the text-alignment, either left, center, or right
+ 				color:<x>:	the text color (see PTB.Color)
+ 				back:<x>:	the background color, same format as the text color
+ 		  see PTB.Show.Start for default text properties.
+ 		  to show < and >, escape them with a backslash (e.g. \<)
+ 		  \n inserts a line break.
+ 	[p]	- the (x,y) coordinates of the text, in degrees of visual angle
+ 	[w]	- the maximum width of text, in degrees of visual angle
+ 	[a]	- the rotation of the text about its center, in clockwise degrees from
+ 		  vertical
+ 	<options>:
+ 		window:			('main') the name of the window on which to show the
+ 						text
+ 		center:			(true) true if given coordinates are relative to the
+ 						screen center
+ 		border:			(false) true to show a border around the text
+ 		border_color:	('black') the border color
+ 		border_size:	(1/6) the border thickness, in degrees of visual angle
+  
+  Out:
+ 	pNew	- the new position at which to continue text
+  
+  Updated: 2015-04-09
+  Copyright 2015 Alex Schlegel (schlegel@gmail.com).  This work is licensed
+  under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported
+  License.
+
+help PTB.Show.Image
+  <strong>PTB.Show/Image</strong>
+  
+  Description:	show an image
+  
+  Syntax:	shw.<strong>Image</strong>(im,[p]=<center/top-left>,[s]=<no resize>,[a]=0,<options>)
+  
+  In:
+ 	im	- a 2D/3D array
+ 	[p]	- the (x,y) coordinates of the image, in degrees of visual angle
+ 	[s]	- the (w,h) size of the image, in degrees of visual angle. a single
+ 		  value may be specified to fit the image within a square box of that
+ 		  size.
+ 	[a]	- the rotation of the image about its center, in clockwise degrees from
+ 		  vertical
+ 	<options>:
+ 		window:			('main') the name of the window on which to show the
+ 						image
+ 		center:			(true) true if given coordinates are relative to the
+ 						screen center
+ 		border:			(false) true to show a border around the image
+ 		border_color:	('black') the border color
+ 		border_size:	(1/6) the border thickness, in degrees of visual angle
+  
+  Updated: 2012-07-04
+  Copyright 2012 Alex Schlegel (schlegel@gmail.com).  This work is licensed
+  under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported
+  License.
+
+tSequence
+
+tSequence =
+
+        6000
+        8000
+
+ra.Trial(1,1)
+{Operation terminated by user during <a href="matlab:helpUtils.errorDocCallback('p_Check', '/home/kevin/matlab/matlab_lib/research/+PTB/@Scheduler/private/p_Check.m', 31)" style="font-weight:bold">p_Check</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Scheduler/private/p_Check.m',31,0)">line 31</a>)
+
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Scheduler/Wait', '/home/kevin/matlab/matlab_lib/research/+PTB/@Scheduler/Wait.m', 20)" style="font-weight:bold">PTB.Scheduler/Wait</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Scheduler/Wait.m',20,0)">line 20</a>)
+p_Check(sch,priority,tEndMax);
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial/WaitResponse', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 285)" style="font-weight:bold">RelAbs/Trial/WaitResponse</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',285,0)">line 285</a>)
+	ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_CRITICAL);
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 225)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',225,0)">line 225</a>)
+							[bAbort,cOutWaitCur{1:nOutWait}]	=
+                            opt.fwait{kS}(tNowRel,tNext);
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Show/Sequence', '/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m', 206)" style="font-weight:bold">PTB.Show/Sequence</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m',206,0)">line 206</a>)
+	[varargout{1:nargout}]	= shw.parent.Sequence.Linear(cF,tShow,...
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 116)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',116,0)">line 116</a>)
+[tStart,tEnd,tShow,bAbort,kResponse] = ra.Experiment.Show.Sequence(...
+} 
+ra.End
+log saving to: "/home/kevin/studies/relabs/data/01sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/01sep15test.diary"
+2015-09-01 16:28:41/63608430521525.852 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.669142 ms [59.991090 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.669014 ms [59.991549 Hz]. (58 valid samples taken, stddev=1.058266 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+
+WARNING: Couldn't compute a reliable estimate of monitor refresh interval! Trouble with VBL syncing?!?
+
+
+----- ! PTB - ERROR: SYNCHRONIZATION FAILURE ! ----
+
+One or more internal checks (see Warnings above) indicate that synchronization
+of Psychtoolbox to the vertical retrace (VBL) is not working on your setup.
+
+This will seriously impair proper stimulus presentation and stimulus presentation timing!
+Please read 'help SyncTrouble' for information about how to solve or work-around the problem.
+You can force Psychtoolbox to continue, despite the severe problems, by adding the command
+Screen('Preference', 'SkipSyncTests', 1); at the top of your script, if you really know what you are doing.
+
+
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-01 16:28:44/63608430524506.062 | event: window           | info: opened main
+2015-09-01 16:28:44/63608430524681.781 | event: flip             | info: show start
+2015-09-01 16:28:44/63608430524689.930 | event: experiment       | info: using default block order
+2015-09-01 16:28:44/63608430524713.477 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.Trial(1,1)
+2015-09-01 16:28:50/63608430530613.609 | event: keyboard         | info: down: response
+{Undefined function or variable 'tResponse'.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 162)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',162,0)">line 162</a>)
+    res.rt          = tResponse-tTrialStart;
+} 
+tResponse
+{Undefined function or variable 'tResponse'.
+} 
+ra.End
+log saving to: "/home/kevin/studies/relabs/data/01sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/01sep15test.diary"
+2015-09-01 16:30:19/63608430619272.281 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.669147 ms [59.991073 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.667880 ms [59.995633 Hz]. (58 valid samples taken, stddev=1.152115 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+
+WARNING: Couldn't compute a reliable estimate of monitor refresh interval! Trouble with VBL syncing?!?
+
+
+----- ! PTB - ERROR: SYNCHRONIZATION FAILURE ! ----
+
+One or more internal checks (see Warnings above) indicate that synchronization
+of Psychtoolbox to the vertical retrace (VBL) is not working on your setup.
+
+This will seriously impair proper stimulus presentation and stimulus presentation timing!
+Please read 'help SyncTrouble' for information about how to solve or work-around the problem.
+You can force Psychtoolbox to continue, despite the severe problems, by adding the command
+Screen('Preference', 'SkipSyncTests', 1); at the top of your script, if you really know what you are doing.
+
+
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-01 16:30:22/63608430622255.406 | event: window           | info: opened main
+2015-09-01 16:30:22/63608430622413.109 | event: flip             | info: show start
+2015-09-01 16:30:22/63608430622420.352 | event: experiment       | info: using default block order
+2015-09-01 16:30:22/63608430622455.008 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.Trial(1,1)
+{No appropriate method, property, or field Show for class PTB.Window.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial/WaitResponse', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 293)" style="font-weight:bold">RelAbs/Trial/WaitResponse</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',293,0)">line 293</a>)
+	ra.Experiment.Window.Show.Blank;
+
+Error in <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 225)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',225,0)">line 225</a>)
+							[bAbort,cOutWaitCur{1:nOutWait}]	= opt.fwait{kS}(tNowRel,tNext);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('PTB.Show/Sequence', '/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m', 206)" style="font-weight:bold">PTB.Show/Sequence</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m',206,0)">line 206</a>)
+	[varargout{1:nargout}]	= shw.parent.Sequence.Linear(cF,tShow,...
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 116)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',116,0)">line 116</a>)
+[tStart,tEnd,tShow,bAbort,kResponse] = ra.Experiment.Show.Sequence(...
+} 
+ra.End
+log saving to: "/home/kevin/studies/relabs/data/01sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/01sep15test.diary"
+2015-09-01 16:31:23/63608430683035.516 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.669161 ms [59.991020 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.668743 ms [59.992526 Hz]. (58 valid samples taken, stddev=0.933960 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+
+WARNING: Couldn't compute a reliable estimate of monitor refresh interval! Trouble with VBL syncing?!?
+
+
+----- ! PTB - ERROR: SYNCHRONIZATION FAILURE ! ----
+
+One or more internal checks (see Warnings above) indicate that synchronization
+of Psychtoolbox to the vertical retrace (VBL) is not working on your setup.
+
+This will seriously impair proper stimulus presentation and stimulus presentation timing!
+Please read 'help SyncTrouble' for information about how to solve or work-around the problem.
+You can force Psychtoolbox to continue, despite the severe problems, by adding the command
+Screen('Preference', 'SkipSyncTests', 1); at the top of your script, if you really know what you are doing.
+
+
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-01 16:31:25/63608430685880.203 | event: window           | info: opened main
+2015-09-01 16:31:26/63608430686039.328 | event: flip             | info: show start
+2015-09-01 16:31:26/63608430686047.141 | event: experiment       | info: using default block order
+2015-09-01 16:31:26/63608430686070.477 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.Trial(1,1)
+2015-09-01 16:31:32/63608430692915.516 | event: keyboard         | info: down: response
+<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',124,1)">124 </a>if bPractice
+tResponse
+{Undefined function or variable 'tResponse'.
+} 
+dbquit
+ra.Trial(1,1)
+2015-09-01 16:32:56/63608430776538.195 | event: keyboard         | info: down: response
+<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',124,1)">124 </a>if bPractice
+tResponse
+{Undefined function or variable 'tResponse'.
+} 
+tNow
+{Undefined function or variable 'tNow'.
+} 
+ra.Trial(1,1)
+2015-09-01 16:33:52/63608430832171.508 | event: keyboard         | info: down: response
+<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',124,1)">124 </a>if bPractice
+kResponse
+
+kResponse = 
+
+    [114]
+
+tResponse
+
+tResponse = 
+
+    [1.7026e+03]
+
+tTrialStart
+{Undefined function or variable 'tTrialStart'.
+} 
+tShow
+
+tShow =
+
+   1.0e+13 *
+
+    6.3608
+    6.3608
+
+ra.End
+
+
+INFO: PTB's Screen('Flip', 10) command seems to have missed the requested stimulus presentation deadline
+INFO: a total of 3 times out of a total of 10 flips during this session.
+
+INFO: This number is fairly accurate (and indicative of real timing problems in your own code or your system)
+INFO: if you provided requested stimulus onset times with the 'when' argument of Screen('Flip', window [, when]);
+INFO: If you called Screen('Flip', window); without the 'when' argument, this count is more of a ''mild'' indicator
+INFO: of timing behaviour than a hard reliable measurement. Large numbers may indicate problems and should at least
+INFO: deserve your closer attention. Cfe. 'help SyncTrouble', the FAQ section at www.psychtoolbox.org and the
+INFO: examples in the PDF presentation in PsychDocumentation/Psychtoolbox3-Slides.pdf for more info and timing tips.
+
+2015-09-01 16:35:23/63608430923171.539 | event: window           | info: closed
+log saving to: "/home/kevin/studies/relabs/data/01sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/01sep15test.diary"
+2015-09-01 16:35:32/63608430932695.000 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.669570 ms [59.989549 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.724085 ms [59.794004 Hz]. (58 valid samples taken, stddev=0.898288 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+
+WARNING: Couldn't compute a reliable estimate of monitor refresh interval! Trouble with VBL syncing?!?
+
+
+----- ! PTB - ERROR: SYNCHRONIZATION FAILURE ! ----
+
+One or more internal checks (see Warnings above) indicate that synchronization
+of Psychtoolbox to the vertical retrace (VBL) is not working on your setup.
+
+This will seriously impair proper stimulus presentation and stimulus presentation timing!
+Please read 'help SyncTrouble' for information about how to solve or work-around the problem.
+You can force Psychtoolbox to continue, despite the severe problems, by adding the command
+Screen('Preference', 'SkipSyncTests', 1); at the top of your script, if you really know what you are doing.
+
+
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-01 16:35:35/63608430935604.727 | event: window           | info: opened main
+2015-09-01 16:35:35/63608430935760.531 | event: flip             | info: show start
+2015-09-01 16:35:35/63608430935769.547 | event: experiment       | info: using default block order
+2015-09-01 16:35:35/63608430935793.922 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+Run2
+{Undefined function or variable 'Run2'.
+} 
+ra.Run2
+Next run (default=1): 
+2015-09-01 16:35:44/63608430944890.164 | event: experiment       | info: run 1 start
+2015-09-01 16:35:44/63608430944911.922 | event: flip             | info: waiting for scanner
+2015-09-01 16:35:45/63608430945026.742 | event: experiment       | info: rest
+2015-09-01 16:35:49/63608430949162.586 | event: flip             | info: block 1, type: level one | same
+2015-09-01 16:35:53/63608430953010.789 | event: experiment       | info: waiting (for prompt HRF decay)
+{Operation terminated by user during <a href="matlab:helpUtils.errorDocCallback('PTB.Device.Serial/Check', '/home/kevin/matlab/matlab_lib/research/+PTB/+Device/@Serial/Check.m', 54)" style="font-weight:bold">PTB.Device.Serial/Check</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/+Device/@Serial/Check.m',54,0)">line 54</a>)
+
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Device.Scanner/TR', '/home/kevin/matlab/matlab_lib/research/+PTB/+Device/@Scanner/TR.m', 19)" style="font-weight:bold">PTB.Device.Scanner/TR</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/+Device/@Scanner/TR.m',19,0)">line 19</a>)
+	[d,tTrigger]	= scn.parent.Serial.Check(scn.SCANNER_TRIGGER);
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear>@()seq.parent.Scanner.TR()', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 76)" style="font-weight:bold">PTB.Sequence/Linear>@()seq.parent.Scanner.TR()</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',76,0)">line 76</a>)
+		fNowTR			= @() seq.parent.Scanner.TR();
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 177)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',177,0)">line 177</a>)
+		tNow			= fNow();
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Show/Sequence', '/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m', 206)" style="font-weight:bold">PTB.Show/Sequence</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m',206,0)">line 206</a>)
+	[varargout{1:nargout}]	= shw.parent.Sequence.Linear(cF,tShow,...
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 117)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',117,0)">line 117</a>)
+[tStart,tEnd,tShow,bAbort,kResponse, tResponse] = ra.Experiment.Show.Sequence(...
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2/DoBlock', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 156)" style="font-weight:bold">RelAbs/Run2/DoBlock</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',156,0)">line 156</a>)
+        resCur = ra.Trial(blockType, kTrial, tNow);
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 199)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',199,0)">line 199</a>)
+			tSeq(kS)	= cF{kS}(tNowRel,tNext);
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 68)" style="font-weight:bold">RelAbs/Run2</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',68,0)">line 68</a>)
+	[tStartActual,tEndActual,tSequenceActual] = ra.Experiment.Sequence.Linear(...
+} 
+ra.End
+
+
+INFO: PTB's Screen('Flip', 10) command seems to have missed the requested stimulus presentation deadline
+INFO: a total of 3 times out of a total of 6 flips during this session.
+
+INFO: This number is fairly accurate (and indicative of real timing problems in your own code or your system)
+INFO: if you provided requested stimulus onset times with the 'when' argument of Screen('Flip', window [, when]);
+INFO: If you called Screen('Flip', window); without the 'when' argument, this count is more of a ''mild'' indicator
+INFO: of timing behaviour than a hard reliable measurement. Large numbers may indicate problems and should at least
+INFO: deserve your closer attention. Cfe. 'help SyncTrouble', the FAQ section at www.psychtoolbox.org and the
+INFO: examples in the PDF presentation in PsychDocumentation/Psychtoolbox3-Slides.pdf for more info and timing tips.
+
+log saving to: "/home/kevin/studies/relabs/data/01sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/01sep15test.diary"
+2015-09-01 16:40:06/63608431206680.578 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.669161 ms [59.991020 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.668636 ms [59.992910 Hz]. (58 valid samples taken, stddev=0.684852 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+
+WARNING: Couldn't compute a reliable estimate of monitor refresh interval! Trouble with VBL syncing?!?
+
+
+----- ! PTB - ERROR: SYNCHRONIZATION FAILURE ! ----
+
+One or more internal checks (see Warnings above) indicate that synchronization
+of Psychtoolbox to the vertical retrace (VBL) is not working on your setup.
+
+This will seriously impair proper stimulus presentation and stimulus presentation timing!
+Please read 'help SyncTrouble' for information about how to solve or work-around the problem.
+You can force Psychtoolbox to continue, despite the severe problems, by adding the command
+Screen('Preference', 'SkipSyncTests', 1); at the top of your script, if you really know what you are doing.
+
+
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-01 16:40:09/63608431209576.625 | event: window           | info: opened main
+2015-09-01 16:40:09/63608431209735.555 | event: flip             | info: show start
+2015-09-01 16:40:09/63608431209743.289 | event: experiment       | info: using default block order
+2015-09-01 16:40:09/63608431209775.492 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.Run2
+Next run (default=1): 
+2015-09-01 16:40:12/63608431212612.859 | event: experiment       | info: run 1 start
+2015-09-01 16:40:12/63608431212636.000 | event: flip             | info: waiting for scanner
+2015-09-01 16:40:12/63608431212706.391 | event: experiment       | info: rest
+2015-09-01 16:40:16/63608431216769.953 | event: flip             | info: block 1, type: level one | same
+2015-09-01 16:40:20/63608431220704.281 | event: experiment       | info: waiting (for prompt HRF decay)
+{Operation terminated by user during <a href="matlab:helpUtils.errorDocCallback('PTB.Device.Scanner/TR', '/home/kevin/matlab/matlab_lib/research/+PTB/+Device/@Scanner/TR.m', 0)" style="font-weight:bold">PTB.Device.Scanner/TR</a>
+
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear>@()seq.parent.Scanner.TR()', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 76)" style="font-weight:bold">PTB.Sequence/Linear>@()seq.parent.Scanner.TR()</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',76,0)">line 76</a>)
+		fNowTR			= @() seq.parent.Scanner.TR();
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 177)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',177,0)">line 177</a>)
+		tNow			= fNow();
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Show/Sequence', '/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m', 206)" style="font-weight:bold">PTB.Show/Sequence</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m',206,0)">line 206</a>)
+	[varargout{1:nargout}]	= shw.parent.Sequence.Linear(cF,tShow,...
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 117)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',117,0)">line 117</a>)
+[tStart,tEnd,tShow,bAbort,kResponse, tResponse] = ra.Experiment.Show.Sequence(...
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2/DoBlock', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 156)" style="font-weight:bold">RelAbs/Run2/DoBlock</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',156,0)">line 156</a>)
+        resCur = ra.Trial(blockType, kTrial, tNow);
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 199)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',199,0)">line 199</a>)
+			tSeq(kS)	= cF{kS}(tNowRel,tNext);
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 68)" style="font-weight:bold">RelAbs/Run2</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',68,0)">line 68</a>)
+	[tStartActual,tEndActual,tSequenceActual] = ra.Experiment.Sequence.Linear(...
+} 
+ra.End

@@ -301,7 +301,7 @@ function [bAbort, bContinue] = DoStim(tNow)
     bAbort = false;
     
     % if time is less than block time, do next thing
-    if tNow < blockTime
+    if tNow - tStart < blockTime
         bContinue = true;
     else
         bContinue = false;

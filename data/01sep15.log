@@ -1,0 +1,14 @@
+time	type	info
+63608431523891.062	log	started
+63608431526841.211	window	opened main
+63608431527016.773	flip	show start
+63608431527024.703	experiment	using default block order
+63608431527047.953	experiment	Setting nCorrect to 0
+63608431533449.703	experiment	run 1 start
+63608431533484.406	flip	waiting for scanner
+63608431533550.375	experiment	rest
+63608431533651.102	flip	block 1, type: level one | same
+63608431533656.141	experiment	waiting (for prompt HRF decay)
+63608431533694.977	experiment	trial 1
+63608431557165.516	window	closed
+63608431557336.891	log	ended

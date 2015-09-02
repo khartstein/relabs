@@ -1,0 +1,1531 @@
+log saving to: "/home/kevin/studies/relabs/data/02sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/02sep15test.diary"
+2015-09-02 11:08:14/63608497694127.328 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.669186 ms [59.990933 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.679158 ms [59.955064 Hz]. (50 valid samples taken, stddev=0.144413 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-02 11:08:17/63608497697584.109 | event: window           | info: opened main
+2015-09-02 11:08:18/63608497698069.570 | event: flip             | info: show start
+2015-09-02 11:08:18/63608497698145.914 | event: experiment       | info: using existing block order
+2015-09-02 11:08:18/63608497698207.125 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.Trial(1,1)
+{Undefined function 'mtimes' for input arguments of type 'cell'.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 106)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',106,0)">line 106</a>)
+    tSequence	= tSequence*t.tr;
+} 
+ra.Trial(1,1)
+{Undefined function 'mtimes' for input arguments of type 'cell'.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 106)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',106,0)">line 106</a>)
+    tSequence	= tSequence*t.tr;
+} 
+ra.End
+2015-09-02 11:08:47/63608497727149.547 | event: window           | info: closed
+log saving to: "/home/kevin/studies/relabs/data/02sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/02sep15test.diary"
+2015-09-02 11:09:48/63608497788616.406 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.668062 ms [59.994978 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.670396 ms [59.986579 Hz]. (58 valid samples taken, stddev=0.793185 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+
+WARNING: Couldn't compute a reliable estimate of monitor refresh interval! Trouble with VBL syncing?!?
+
+
+----- ! PTB - ERROR: SYNCHRONIZATION FAILURE ! ----
+
+One or more internal checks (see Warnings above) indicate that synchronization
+of Psychtoolbox to the vertical retrace (VBL) is not working on your setup.
+
+This will seriously impair proper stimulus presentation and stimulus presentation timing!
+Please read 'help SyncTrouble' for information about how to solve or work-around the problem.
+You can force Psychtoolbox to continue, despite the severe problems, by adding the command
+Screen('Preference', 'SkipSyncTests', 1); at the top of your script, if you really know what you are doing.
+
+
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-02 11:09:51/63608497791560.734 | event: window           | info: opened main
+2015-09-02 11:09:51/63608497791733.922 | event: flip             | info: show start
+2015-09-02 11:09:51/63608497791751.992 | event: experiment       | info: using default block order
+2015-09-02 11:09:51/63608497791793.906 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.Trial(1,1)
+{Undefined function 'mtimes' for input arguments of type 'cell'.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 106)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',106,0)">line 106</a>)
+    tSequence	= tSequence*t.tr;
+} 
+tSequence
+{Undefined function or variable 'tSequence'.
+} 
+ra.Trial(1,1)
+{Index exceeds matrix dimensions.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 145)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',145,0)">line 145</a>)
+    if ismember(kResponse{1}, kButtYes)
+} 
+ra.Trial(1,1)
+{Undefined function or variable "kResponse".
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial/DoBlank', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 303)" style="font-weight:bold">RelAbs/Trial/DoBlank</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',303,0)">line 303</a>)
+    if ~isempty(kResponse) && tNow < blockTime
+
+Error in <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 210)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',210,0)">line 210</a>)
+						[bAbort,bNext]	= tSequence{kS}(tNowRel);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('PTB.Show/Sequence', '/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m', 206)" style="font-weight:bold">PTB.Show/Sequence</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m',206,0)">line 206</a>)
+	[varargout{1:nargout}]	= shw.parent.Sequence.Linear(cF,tShow,...
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 118)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',118,0)">line 118</a>)
+[tStart,tEnd,tShow,bAbort,kResponse, tResponse] = ra.Experiment.Show.Sequence(...
+} 
+help PTB.Show.Sequence
+  <strong>PTB.Show/Sequence</strong>
+  
+  Description:	show a sequence of stimuli
+  
+  Syntax:	[tStart,tEnd,tShow,bAbort,x1,...,xN] = shw.<strong>Sequence</strong>(cX,tShow,<options>)
+  
+  In:
+ 	cX		- a cell of stimuli to show.  each element can be:
+ 				h:			the handle to a texture to show
+ 				str:		a string input to shw.Text
+ 				f:			the handle to a function that accepts an option
+ 							named 'window' that specifies a texture handle and
+ 							draws its stimulus onto that texture (e.g.
+ 							f('window',hT)).
+ 				{h,...}:	the handle to a texture along with other inputs to
+ 							shw.Texture
+ 				{strF,...}:	inputs to shw.(strF), (i.e. {'Circle','red',1}
+ 							executes shw.Circle('red',1))
+ 				{f,...}:	the handle to a function along with its inputs. the
+ 							function must accept an option argument 'window' that
+ 							specifies a texture handle and draw its stimulus onto
+ 							that texture (e.g. f(...,'window',hT)).
+ 	tShow	- a time specifying when to move on to the next stimulus, or the
+ 			  handle to a function that takes the current time as input and
+ 			  returns two booleans: the first indicates whether to abort the
+ 			  sequence and the second whether to move on to the next stimulus in
+ 			  the sequence. can also be an array/cell of times or function
+ 			  handles, one for each step in the sequence.  the input times
+ 			  depend on the tbase option.
+ 	<options>:
+ 		window:			('main') the name of the window on which to show the
+ 						sequence
+ 		tunit:			(<auto>) the unit of time.  can either be 'ms' for
+ 						PTB.Now time or 'tr' for the TR number. defaults based
+ 						on context:
+ 							fmri: tr
+ 							eeg/pyschophysics: ms
+ 		tbase:			('step') either 'step', 'sequence', or 'absolute' to
+ 						specify whether times are relative to the start of the
+ 						current step, the start of the sequence, or are absolute
+ 		prerender:		(false) true to prerender each stimulus as a texture
+ 						before starting the sequence.  this will take more time
+ 						up front and memory but reduce the amount of time it
+ 						takes to draw each stimulus during the sequence. note
+ 						that prerendering doesn't work if a stimulus depends on
+ 						the time arguments to render correctly.
+ 		postrelease:	(false) true to release textures only after the sequence
+ 						ends.   this will take more time after the sequence is
+ 						over and memory but reduce the amount of time it takes to
+ 						prepare each stimulus during the sequence.
+ 		xnow:			(<nothing>) a stimulus to show immediately, before the
+ 						sequence is prepared (see cX for syntax)
+ 		tstart:			(<immediate>) the absolute time at which to start the
+ 						sequence, or the handle to a function that takes the
+ 						current time as input and returns two booleans: the first
+ 						indicates whether to abort the sequence and the second
+ 						whether to start the sequence
+ 		fwait:			(<PTB.Scheduler.Wait>) a handle or cell of handles the
+ 						same size as cX to functions that take the current time
+ 						and the time of the next stimulus presentation (or NaN
+ 						where tShow is a function handle) as input and return at
+ 						least a boolean as the first output that indicates
+ 						whether the sequence should be aborted, and are executed
+ 						while the sequence is waiting to move on to the next
+ 						stimulus. non-empty return values beyond the first output
+ 						are appended to the output arguments x1 ... xN. if a cell
+ 						of function handles is passed then each function must
+ 						return the same number of outputs.  set this to false to
+ 						do nothing but wait 1ms.
+ 		max_wait:		(10) the desired maximum execution time for calls to
+ 						PTB.Scheduler.Wait, in ms.  this only applies where
+ 						functions rather than times were specified in tShow.
+ 		wait_priority:	(PTB.Scheduler.PRIORITY_LOW) only execute scheduler tasks
+ 						at or above this priority while waiting to move on to the
+ 						next step in the sequence  only applies if the default
+ 						fwait function is used.
+ 		fixation:		(true) true to show the fixation dot on each stimulus
+ 		fixation_task:	(false) true to show the fixation task.  can also be a
+ 						logical array the same size as the sequence indicating
+ 						whether the fixation_task should be shown for each
+ 						stimulus.
+  
+  Out:
+ 	tStart				- the time at which the sequence started
+ 	tEnd				- the time at which the sequence aborted or ended
+ 	tShow				- the actual time at which each stimulus appeared on the
+ 						  screen
+ 	bAbort				- true if the sequence was aborted
+ 	xK					- a cell of all the non-empty (K+1)th outputs from the
+ 						  wait functions
+  
+  Example:
+ 	%show four strings spaced every one second 
+ 	cX	= {'this','is','a','test'};
+ 	shw.<strong>Sequence</strong>(cX,1000,'tunit','ms');
+ 	
+ 	%show three textures interspersed with a blank.  the subject must press
+ 	%the space bar to advance after each stimulus
+ 	cX		= {hTBlank hT1 hTBlank hT2 hTBlank hT3 hTBlank};
+ 	fShow	= @(t) deal(false,ptb.Input.DownOnce('key_space'));
+ 	tShow	= {1000 fShow 1000 fShow 1000 fShow 1000};
+ 	shw.<strong>Sequence</strong>(cX,tShow);
+  
+  Updated: 2012-07-05
+  Copyright 2012 Alex Schlegel (schlegel@gmail.com).  This work is licensed
+  under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported
+  License.
+
+ra.Trial
+{Error using <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 54)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',54,0)">line 54</a>)
+Not enough input arguments.
+} 
+ra.Trial(1,1)
+{Undefined function or variable "kResponse".
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial/DoBlank', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 303)" style="font-weight:bold">RelAbs/Trial/DoBlank</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',303,0)">line 303</a>)
+    if ~isempty(kResponse) && tNow < blockTime
+
+Error in <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 210)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',210,0)">line 210</a>)
+						[bAbort,bNext]	= tSequence{kS}(tNowRel);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('PTB.Show/Sequence', '/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m', 206)" style="font-weight:bold">PTB.Show/Sequence</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m',206,0)">line 206</a>)
+	[varargout{1:nargout}]	= shw.parent.Sequence.Linear(cF,tShow,...
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 118)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',118,0)">line 118</a>)
+[tStart,tEnd,tShow,bAbort,kResponse, tResponse] = ra.Experiment.Show.Sequence(...
+} 
+ra.Trial(1,1)
+{Error using <a href="matlab:helpUtils.errorDocCallback('cell/ismember>cellismemberR2012a', '/home/kevin/matlab/toolbox/matlab/ops/@cell/ismember.m', 199)" style="font-weight:bold">cell/ismember>cellismemberR2012a</a> (<a href="matlab: opentoline('/home/kevin/matlab/toolbox/matlab/ops/@cell/ismember.m',199,0)">line 199</a>)
+Input A of class cell and input B of class double must be cell arrays of strings,
+unless one is a string.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('cell/ismember', '/home/kevin/matlab/toolbox/matlab/ops/@cell/ismember.m', 71)" style="font-weight:bold">cell/ismember</a> (<a href="matlab: opentoline('/home/kevin/matlab/toolbox/matlab/ops/@cell/ismember.m',71,0)">line 71</a>)
+    [varargout{1:nlhs}] = cellismemberR2012a(varargin{:});
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 145)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',145,0)">line 145</a>)
+    if ismember(kResponse, kButtYes)
+} 
+ra.Trial(1,1)
+{Index exceeds matrix dimensions.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 145)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',145,0)">line 145</a>)
+    if ismember(kResponse{1}, kButtYes)
+} 
+ra.Trial(1,1)
+{Index exceeds matrix dimensions.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 145)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',145,0)">line 145</a>)
+    if ismember(kResponse{1}, kButtYes)
+} 
+ra.Trial(1,1)
+<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',145,1)">145 </a>    if ismember(kResponse{1}, kButtYes)
+kResponse
+
+kResponse = 
+
+     {}
+
+tResponse
+
+tResponse = 
+
+     {}
+
+ra.Trial(1,1)
+<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',145,1)">145 </a>    if ismember(kResponse{1}, kButtYes)
+kResponse
+
+kResponse = 
+
+     {}
+
+tResponse
+
+tResponse = 
+
+     {}
+
+ra.Trial(1,1)
+<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',145,1)">145 </a>    if ismember(kResponse{1}, kButtYes)
+kResponse
+
+kResponse = 
+
+     {}
+
+tResponse
+
+tResponse = 
+
+     {}
+
+help PTB.Device.Input.Downonce
+  <strong>PTB.Device.Input/DownOnce</strong>
+  
+  Description:	test if a button is down.  if it is down, don't return true again
+ 				until it is released and down again.
+  
+  Syntax:	[b,err,t,kState] = inp.State.<strong>DownOnce</strong>(strButton,[bLog]=true) OR
+ 			inp.State.<strong>DownOnce</strong>(strButton,'reset')
+  
+  In:
+ 	strButton	- the button name
+ 	[bLog]		- true to add a log event if the button was pressed
+ 	'reset'		- reset the state of the button
+ 
+  Out:
+ 	b		- true if the button is down after being up, or false if err==true
+ 	err		- true if any of the bad buttons were down along with strButton
+ 	t		- the time associated with the query
+ 	kState	- if b is true, an array of the state indices that were down
+ 
+  Updated: 2012-02-10
+  Copyright 2012 Alex Schlegel (schlegel@gmail.com).  This work is licensed
+  under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported
+  License.
+
+ra.Trial(1,1)
+{Undefined function or variable "kResponse".
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial/DoBlank', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 299)" style="font-weight:bold">RelAbs/Trial/DoBlank</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',299,0)">line 299</a>)
+    while isempty(kResponse)
+
+Error in <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 210)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',210,0)">line 210</a>)
+						[bAbort,bNext]	= tSequence{kS}(tNowRel);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('PTB.Show/Sequence', '/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m', 206)" style="font-weight:bold">PTB.Show/Sequence</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m',206,0)">line 206</a>)
+	[varargout{1:nargout}]	= shw.parent.Sequence.Linear(cF,tShow,...
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 118)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',118,0)">line 118</a>)
+[tStart,tEnd,tShow,bAbort,kResponse, tResponse] = ra.Experiment.Show.Sequence(...
+} 
+ra.Trial(1,1)
+{Undefined function or variable "kResponse".
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial/DoBlank', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 301)" style="font-weight:bold">RelAbs/Trial/DoBlank</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',301,0)">line 301</a>)
+    while isempty(kResponse)
+
+Error in <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 210)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',210,0)">line 210</a>)
+						[bAbort,bNext]	= tSequence{kS}(tNowRel);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('PTB.Show/Sequence', '/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m', 206)" style="font-weight:bold">PTB.Show/Sequence</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m',206,0)">line 206</a>)
+	[varargout{1:nargout}]	= shw.parent.Sequence.Linear(cF,tShow,...
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 120)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',120,0)">line 120</a>)
+[tStart,tEnd,tShow,bAbort,kResponse, tResponse] = ra.Experiment.Show.Sequence(...
+} 
+kResponse = [];
+isempty(kResponse)
+
+ans =
+
+     1
+
+ra.Trial(1,1)
+<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',145,1)">145 </a>    if ismember(kResponse{1}, kButtYes)
+kResponse
+
+kResponse = 
+
+     {}
+
+tResponse
+
+tResponse = 
+
+     {}
+
+ra.Trial(1,1)
+<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',145,1)">145 </a>    if ismember(kResponse, kButtYes)
+kResponse
+
+kResponse = 
+
+     {}
+
+ra.Trial(1,1)
+<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',145,1)">145 </a>    if ismember(kResponse, kButtYes)
+kResponse
+
+kResponse = 
+
+     {}
+
+ra.Trial(1,1)
+<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',145,1)">145 </a>    if ismember(res.kResponse, kButtYes)
+res.kResponse
+
+ans =
+
+   114
+
+class(ans)
+
+ans =
+
+double
+
+res.tResponse
+{Reference to non-existent field 'tResponse'.
+} 
+res.rt
+
+ans =
+
+   1.3895e+03
+
+ra.Run2
+Next run (default=1): 
+2015-09-02 11:23:07/63608498587697.289 | event: keyboard         | info: down: response
+2015-09-02 11:23:12/63608498592001.023 | event: keyboard         | info: down: response
+2015-09-02 11:24:03/63608498643584.836 | event: keyboard         | info: down: response
+2015-09-02 11:24:11/63608498651225.430 | event: keyboard         | info: down: response
+2015-09-02 11:24:37/63608498677527.281 | event: keyboard         | info: down: response
+2015-09-02 11:35:58/63608499358000.758 | event: keyboard         | info: down: response
+2015-09-02 11:37:58/63608499478744.312 | event: keyboard         | info: down: response
+2015-09-02 11:40:26/63608499626022.617 | event: keyboard         | info: down: response
+2015-09-02 11:43:54/63608499834844.375 | event: keyboard         | info: down: response
+2015-09-02 11:46:07/63608499967746.344 | event: experiment       | info: run 1 start
+2015-09-02 11:46:07/63608499967795.891 | event: flip             | info: waiting for scanner
+2015-09-02 11:46:07/63608499967917.547 | event: experiment       | info: rest
+2015-09-02 11:46:08/63608499968062.602 | event: flip             | info: block 1, type: level one | same
+2015-09-02 11:46:08/63608499968067.359 | event: experiment       | info: waiting (for prompt HRF decay)
+{Reference to non-existent field 'TrialLoop'.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 110)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',110,0)">line 110</a>)
+    blockTime = t.TrialLoop;
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2/DoBlock', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 154)" style="font-weight:bold">RelAbs/Run2/DoBlock</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',154,0)">line 154</a>)
+        resCur = ra.Trial(blockType, kTrial, tNow);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 199)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',199,0)">line 199</a>)
+			tSeq(kS)	= cF{kS}(tNowRel,tNext);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 67)" style="font-weight:bold">RelAbs/Run2</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',67,0)">line 67</a>)
+	[tStartActual,tEndActual,tSequenceActual] = ra.Experiment.Sequence.Linear(...
+} 
+ra.Run2
+Next run (default=1): 
+2015-09-02 11:46:08/63608499968105.656 | event: experiment       | info: trial 1
+2015-09-02 11:47:50/63608500070592.930 | event: experiment       | info: run 1 start
+2015-09-02 11:47:50/63608500070628.219 | event: flip             | info: waiting for scanner
+2015-09-02 11:47:50/63608500070678.484 | event: experiment       | info: rest
+2015-09-02 11:47:50/63608500070811.586 | event: flip             | info: block 1, type: level one | same
+2015-09-02 11:47:50/63608500070815.305 | event: experiment       | info: waiting (for prompt HRF decay)
+{Undefined function or variable 'tStart'.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2/DoBlock', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 154)" style="font-weight:bold">RelAbs/Run2/DoBlock</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',154,0)">line 154</a>)
+        resCur = ra.Trial(blockType, kTrial, tStart);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 199)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',199,0)">line 199</a>)
+			tSeq(kS)	= cF{kS}(tNowRel,tNext);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 67)" style="font-weight:bold">RelAbs/Run2</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',67,0)">line 67</a>)
+	[tStartActual,tEndActual,tSequenceActual] = ra.Experiment.Sequence.Linear(...
+} 
+ra.Run2
+Next run (default=1): 
+2015-09-02 11:47:50/63608500070853.422 | event: experiment       | info: trial 1
+2015-09-02 11:48:33/63608500113448.438 | event: experiment       | info: run 1 start
+2015-09-02 11:48:33/63608500113468.117 | event: flip             | info: waiting for scanner
+2015-09-02 11:48:33/63608500113515.086 | event: experiment       | info: rest
+2015-09-02 11:48:33/63608500113634.805 | event: flip             | info: block 1, type: level one | same
+2015-09-02 11:48:33/63608500113638.633 | event: experiment       | info: waiting (for prompt HRF decay)
+{Error using <a href="matlab:helpUtils.errorDocCallback('cell/ismember>cellismemberR2012a', '/home/kevin/matlab/toolbox/matlab/ops/@cell/ismember.m', 199)" style="font-weight:bold">cell/ismember>cellismemberR2012a</a> (<a href="matlab: opentoline('/home/kevin/matlab/toolbox/matlab/ops/@cell/ismember.m',199,0)">line 199</a>)
+Input A of class cell and input B of class double must be cell arrays of strings,
+unless one is a string.
+
+Error in <a href="matlab:helpUtils.errorDocCallback('cell/ismember', '/home/kevin/matlab/toolbox/matlab/ops/@cell/ismember.m', 71)" style="font-weight:bold">cell/ismember</a> (<a href="matlab: opentoline('/home/kevin/matlab/toolbox/matlab/ops/@cell/ismember.m',71,0)">line 71</a>)
+    [varargout{1:nlhs}] = cellismemberR2012a(varargin{:});
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 168)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',168,0)">line 168</a>)
+    res.correct     = (numSameYes == numSame && ismember(kResponse,kButtYes))...
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2/DoBlock', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 154)" style="font-weight:bold">RelAbs/Run2/DoBlock</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',154,0)">line 154</a>)
+        resCur = ra.Trial(blockType, kTrial);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 199)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',199,0)">line 199</a>)
+			tSeq(kS)	= cF{kS}(tNowRel,tNext);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 67)" style="font-weight:bold">RelAbs/Run2</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',67,0)">line 67</a>)
+	[tStartActual,tEndActual,tSequenceActual] = ra.Experiment.Sequence.Linear(...
+} 
+ra.Run2
+Next run (default=1): 
+2015-09-02 11:48:33/63608500113676.883 | event: experiment       | info: trial 1
+2015-09-02 11:48:34/63608500114921.805 | event: keyboard         | info: down: response
+2015-09-02 11:49:25/63608500165392.562 | event: experiment       | info: run 1 start
+2015-09-02 11:49:25/63608500165409.406 | event: flip             | info: waiting for scanner
+2015-09-02 11:49:25/63608500165458.172 | event: experiment       | info: rest
+2015-09-02 11:49:25/63608500165576.102 | event: flip             | info: block 1, type: level one | same
+2015-09-02 11:49:25/63608500165578.445 | event: experiment       | info: waiting (for prompt HRF decay)
+{Attempted to access trial.numSame(1,1,33); index out of bounds because size(trial.numSame)=[12,8,32].
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 54)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',54,0)">line 54</a>)
+numSame = trial.numSame(kRun, kBlock, kTrial);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2/DoBlock', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 154)" style="font-weight:bold">RelAbs/Run2/DoBlock</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',154,0)">line 154</a>)
+        resCur = ra.Trial(blockType, kTrial);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 199)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',199,0)">line 199</a>)
+			tSeq(kS)	= cF{kS}(tNowRel,tNext);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 67)" style="font-weight:bold">RelAbs/Run2</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',67,0)">line 67</a>)
+	[tStartActual,tEndActual,tSequenceActual] = ra.Experiment.Sequence.Linear(...
+} 
+ra.Run2
+Next run (default=1): 
+2015-09-02 11:49:25/63608500165603.391 | event: experiment       | info: trial 1
+2015-09-02 11:49:26/63608500166641.602 | event: keyboard         | info: down: response
+2015-09-02 11:49:26/63608500166672.422 | event: experiment       | info: feedback (y, 1/1)
+2015-09-02 11:49:27/63608500167845.500 | event: experiment       | info: trial 2
+2015-09-02 11:49:33/63608500173377.266 | event: keyboard         | info: down: response
+2015-09-02 11:49:33/63608500173400.383 | event: experiment       | info: feedback (n, 1/2)
+2015-09-02 11:49:34/63608500174480.016 | event: experiment       | info: trial 3
+2015-09-02 11:49:35/63608500175194.133 | event: keyboard         | info: down: response
+2015-09-02 11:49:35/63608500175217.328 | event: experiment       | info: feedback (n, 1/3)
+2015-09-02 11:49:36/63608500176296.992 | event: experiment       | info: trial 4
+2015-09-02 11:49:37/63608500177193.484 | event: keyboard         | info: down: response
+2015-09-02 11:49:37/63608500177217.648 | event: experiment       | info: feedback (y, 2/4)
+2015-09-02 11:49:38/63608500178297.266 | event: experiment       | info: trial 5
+2015-09-02 11:49:39/63608500179025.719 | event: keyboard         | info: down: response
+2015-09-02 11:49:39/63608500179051.227 | event: experiment       | info: feedback (n, 2/5)
+2015-09-02 11:49:40/63608500180130.984 | event: experiment       | info: trial 6
+2015-09-02 11:49:41/63608500181097.211 | event: keyboard         | info: down: response
+2015-09-02 11:49:41/63608500181118.609 | event: experiment       | info: feedback (n, 2/6)
+2015-09-02 11:49:42/63608500182198.031 | event: experiment       | info: trial 7
+2015-09-02 11:49:42/63608500182657.203 | event: keyboard         | info: down: response
+2015-09-02 11:49:42/63608500182668.828 | event: experiment       | info: feedback (n, 2/7)
+2015-09-02 11:49:43/63608500183748.398 | event: experiment       | info: trial 8
+2015-09-02 11:49:44/63608500184321.195 | event: keyboard         | info: down: response
+2015-09-02 11:49:44/63608500184339.477 | event: experiment       | info: feedback (n, 2/8)
+2015-09-02 11:49:45/63608500185415.875 | event: experiment       | info: trial 9
+2015-09-02 11:49:45/63608500185953.195 | event: keyboard         | info: down: response
+2015-09-02 11:49:45/63608500185974.297 | event: experiment       | info: feedback (n, 2/9)
+2015-09-02 11:49:47/63608500187066.266 | event: experiment       | info: trial 10
+2015-09-02 11:49:47/63608500187569.570 | event: keyboard         | info: down: response
+2015-09-02 11:49:47/63608500187593.797 | event: experiment       | info: feedback (y, 3/10)
+2015-09-02 11:49:48/63608500188700.180 | event: experiment       | info: trial 11
+2015-09-02 11:49:49/63608500189185.172 | event: keyboard         | info: down: response
+2015-09-02 11:49:49/63608500189208.945 | event: experiment       | info: feedback (n, 3/11)
+2015-09-02 11:49:50/63608500190283.812 | event: experiment       | info: trial 12
+2015-09-02 11:49:50/63608500190825.156 | event: keyboard         | info: down: response
+2015-09-02 11:49:50/63608500190857.578 | event: experiment       | info: feedback (y, 4/12)
+2015-09-02 11:49:51/63608500191950.352 | event: experiment       | info: trial 13
+2015-09-02 11:49:52/63608500192441.148 | event: keyboard         | info: down: response
+2015-09-02 11:49:52/63608500192457.625 | event: experiment       | info: feedback (y, 5/13)
+2015-09-02 11:49:53/63608500193550.617 | event: experiment       | info: trial 14
+2015-09-02 11:49:53/63608500193905.375 | event: keyboard         | info: down: response
+2015-09-02 11:49:53/63608500193924.656 | event: experiment       | info: feedback (y, 6/14)
+2015-09-02 11:49:55/63608500195018.219 | event: experiment       | info: trial 15
+2015-09-02 11:49:55/63608500195489.109 | event: keyboard         | info: down: response
+2015-09-02 11:49:55/63608500195508.109 | event: experiment       | info: feedback (y, 7/15)
+2015-09-02 11:49:56/63608500196584.398 | event: experiment       | info: trial 16
+2015-09-02 11:49:56/63608500196993.250 | event: keyboard         | info: down: response
+2015-09-02 11:49:57/63608500197025.203 | event: experiment       | info: feedback (n, 7/16)
+2015-09-02 11:49:58/63608500198118.320 | event: experiment       | info: trial 17
+2015-09-02 11:49:58/63608500198649.234 | event: keyboard         | info: down: response
+2015-09-02 11:49:58/63608500198675.289 | event: experiment       | info: feedback (n, 7/17)
+2015-09-02 11:49:59/63608500199768.531 | event: experiment       | info: trial 18
+2015-09-02 11:50:00/63608500200297.094 | event: keyboard         | info: down: response
+2015-09-02 11:50:00/63608500200325.617 | event: experiment       | info: feedback (n, 7/18)
+2015-09-02 11:50:01/63608500201421.523 | event: experiment       | info: trial 19
+2015-09-02 11:50:01/63608500201993.781 | event: keyboard         | info: down: response
+2015-09-02 11:50:02/63608500202028.852 | event: experiment       | info: feedback (y, 8/19)
+2015-09-02 11:50:03/63608500203135.781 | event: experiment       | info: trial 20
+2015-09-02 11:50:03/63608500203625.328 | event: keyboard         | info: down: response
+2015-09-02 11:50:03/63608500203665.391 | event: experiment       | info: feedback (y, 9/20)
+2015-09-02 11:50:04/63608500204785.805 | event: experiment       | info: trial 21
+2015-09-02 11:50:05/63608500205425.164 | event: keyboard         | info: down: response
+2015-09-02 11:50:05/63608500205443.320 | event: experiment       | info: feedback (y, 10/21)
+2015-09-02 11:50:06/63608500206539.148 | event: experiment       | info: trial 22
+2015-09-02 11:50:07/63608500207185.234 | event: keyboard         | info: down: response
+2015-09-02 11:50:07/63608500207210.148 | event: experiment       | info: feedback (y, 11/22)
+2015-09-02 11:50:08/63608500208302.641 | event: experiment       | info: trial 23
+2015-09-02 11:50:09/63608500209609.000 | event: keyboard         | info: down: response
+2015-09-02 11:50:09/63608500209623.797 | event: experiment       | info: feedback (y, 12/23)
+2015-09-02 11:50:10/63608500210706.469 | event: experiment       | info: trial 24
+2015-09-02 11:50:11/63608500211257.008 | event: keyboard         | info: down: response
+2015-09-02 11:50:11/63608500211273.969 | event: experiment       | info: feedback (y, 13/24)
+2015-09-02 11:50:12/63608500212353.828 | event: experiment       | info: trial 25
+2015-09-02 11:50:12/63608500212920.984 | event: keyboard         | info: down: response
+2015-09-02 11:50:12/63608500212941.117 | event: experiment       | info: feedback (y, 14/25)
+2015-09-02 11:50:14/63608500214023.641 | event: experiment       | info: trial 26
+2015-09-02 11:50:14/63608500214577.266 | event: keyboard         | info: down: response
+2015-09-02 11:50:14/63608500214614.750 | event: experiment       | info: feedback (y, 15/26)
+2015-09-02 11:50:15/63608500215737.008 | event: experiment       | info: trial 27
+2015-09-02 11:50:16/63608500216312.891 | event: keyboard         | info: down: response
+2015-09-02 11:50:16/63608500216341.445 | event: experiment       | info: feedback (n, 15/27)
+2015-09-02 11:50:17/63608500217421.234 | event: experiment       | info: trial 28
+2015-09-02 11:50:17/63608500217961.305 | event: keyboard         | info: down: response
+2015-09-02 11:50:17/63608500217977.102 | event: experiment       | info: feedback (y, 16/28)
+2015-09-02 11:50:19/63608500219072.945 | event: experiment       | info: trial 29
+2015-09-02 11:50:19/63608500219633.062 | event: keyboard         | info: down: response
+2015-09-02 11:50:19/63608500219658.695 | event: experiment       | info: feedback (y, 17/29)
+2015-09-02 11:50:20/63608500220738.398 | event: experiment       | info: trial 30
+2015-09-02 11:50:21/63608500221256.852 | event: keyboard         | info: down: response
+2015-09-02 11:50:21/63608500221275.648 | event: experiment       | info: feedback (n, 17/30)
+2015-09-02 11:50:22/63608500222371.938 | event: experiment       | info: trial 31
+2015-09-02 11:50:22/63608500222984.859 | event: keyboard         | info: down: response
+2015-09-02 11:50:23/63608500223009.391 | event: experiment       | info: feedback (y, 18/31)
+2015-09-02 11:50:24/63608500224105.602 | event: experiment       | info: trial 32
+2015-09-02 11:50:24/63608500224713.586 | event: keyboard         | info: down: response
+2015-09-02 11:50:24/63608500224750.781 | event: experiment       | info: feedback (y, 19/32)
+2015-09-02 11:50:25/63608500225872.648 | event: experiment       | info: trial 33
+2015-09-02 11:51:54/63608500314847.594 | event: experiment       | info: run 1 start
+2015-09-02 11:51:54/63608500314865.570 | event: flip             | info: waiting for scanner
+2015-09-02 11:51:55/63608500315282.000 | event: experiment       | info: rest
+2015-09-02 11:51:55/63608500315382.320 | event: flip             | info: block 1, type: level one | same
+2015-09-02 11:51:55/63608500315384.328 | event: experiment       | info: waiting (for prompt HRF decay)
+<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',315,1)">315 </a>end
+tNow
+
+tNow =
+
+  231.3594
+
+tResponse
+
+tResponse =
+
+   6.3609e+13
+
+blockTime
+
+blockTime =
+
+       32000
+
+now
+
+ans =
+
+   7.3621e+05
+
+now
+
+ans =
+
+   7.3621e+05
+
+PTB.Now
+
+ans =
+
+   6.3609e+13
+
+format long
+PTB.Now
+
+ans =
+
+     6.360850038097314e+13
+
+dbquit
+ra.End
+
+
+INFO: PTB's Screen('Flip', 10) command seems to have missed the requested stimulus presentation deadline
+INFO: a total of 39 times out of a total of 195 flips during this session.
+
+INFO: This number is fairly accurate (and indicative of real timing problems in your own code or your system)
+INFO: if you provided requested stimulus onset times with the 'when' argument of Screen('Flip', window [, when]);
+INFO: If you called Screen('Flip', window); without the 'when' argument, this count is more of a ''mild'' indicator
+INFO: of timing behaviour than a hard reliable measurement. Large numbers may indicate problems and should at least
+INFO: deserve your closer attention. Cfe. 'help SyncTrouble', the FAQ section at www.psychtoolbox.org and the
+INFO: examples in the PDF presentation in PsychDocumentation/Psychtoolbox3-Slides.pdf for more info and timing tips.
+
+log saving to: "/home/kevin/studies/relabs/data/02sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/02sep15test.diary"
+2015-09-02 11:56:03/63608500563202.578 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.669205 ms [59.990862 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.668640 ms [59.992896 Hz]. (58 valid samples taken, stddev=0.791997 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+
+WARNING: Couldn't compute a reliable estimate of monitor refresh interval! Trouble with VBL syncing?!?
+
+
+----- ! PTB - ERROR: SYNCHRONIZATION FAILURE ! ----
+
+One or more internal checks (see Warnings above) indicate that synchronization
+of Psychtoolbox to the vertical retrace (VBL) is not working on your setup.
+
+This will seriously impair proper stimulus presentation and stimulus presentation timing!
+Please read 'help SyncTrouble' for information about how to solve or work-around the problem.
+You can force Psychtoolbox to continue, despite the severe problems, by adding the command
+Screen('Preference', 'SkipSyncTests', 1); at the top of your script, if you really know what you are doing.
+
+
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-02 11:56:06/63608500566129.078 | event: window           | info: opened main
+2015-09-02 11:56:06/63608500566303.812 | event: flip             | info: show start
+2015-09-02 11:56:06/63608500566313.258 | event: experiment       | info: using default block order
+2015-09-02 11:56:06/63608500566336.469 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.Run2
+Next run (default=1): 
+2015-09-02 11:56:32/63608500592996.008 | event: experiment       | info: run 1 start
+2015-09-02 11:56:33/63608500593007.867 | event: flip             | info: waiting for scanner
+2015-09-02 11:56:33/63608500593063.852 | event: experiment       | info: rest
+2015-09-02 11:56:33/63608500593157.891 | event: flip             | info: block 1, type: level one | same
+2015-09-02 11:56:33/63608500593161.500 | event: experiment       | info: waiting (for prompt HRF decay)
+<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',315,1)">315 </a>end
+ra.Run2
+Next run (default=1): 
+2015-09-02 11:56:33/63608500593186.320 | event: experiment       | info: trial 1
+2015-09-02 11:56:34/63608500594421.578 | event: keyboard         | info: down: response
+2015-09-02 11:56:48/63608500608428.625 | event: experiment       | info: run 1 start
+2015-09-02 11:56:48/63608500608443.547 | event: flip             | info: waiting for scanner
+2015-09-02 11:56:48/63608500608495.242 | event: experiment       | info: rest
+2015-09-02 11:56:48/63608500608610.242 | event: flip             | info: block 1, type: level one | same
+2015-09-02 11:56:48/63608500608613.852 | event: experiment       | info: waiting (for prompt HRF decay)
+{Attempted to access trial.numSame(1,1,33); index out of bounds because size(trial.numSame)=[12,8,32].
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 54)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',54,0)">line 54</a>)
+numSame = trial.numSame(kRun, kBlock, kTrial);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2/DoBlock', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 154)" style="font-weight:bold">RelAbs/Run2/DoBlock</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',154,0)">line 154</a>)
+        resCur = ra.Trial(blockType, kTrial);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 199)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',199,0)">line 199</a>)
+			tSeq(kS)	= cF{kS}(tNowRel,tNext);
+
+Error in <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 67)" style="font-weight:bold">RelAbs/Run2</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',67,0)">line 67</a>)
+	[tStartActual,tEndActual,tSequenceActual] = ra.Experiment.Sequence.Linear(...
+} 
+tNow
+
+tNow =
+
+     1.775078125000000e+02
+
+3200/1
+
+ans =
+
+        3200
+
+3200/16
+
+ans =
+
+   200
+
+ra.Run2
+Next run (default=1): 
+2015-09-02 11:56:48/63608500608638.586 | event: experiment       | info: trial 1
+2015-09-02 11:56:58/63608500618005.477 | event: keyboard         | info: down: response
+2015-09-02 11:56:58/63608500618050.305 | event: experiment       | info: feedback (n, 0/1)
+2015-09-02 11:56:59/63608500619149.062 | event: experiment       | info: trial 2
+2015-09-02 11:57:01/63608500621821.508 | event: keyboard         | info: down: response
+2015-09-02 11:57:01/63608500621837.781 | event: experiment       | info: feedback (y, 1/2)
+2015-09-02 11:57:02/63608500622917.883 | event: experiment       | info: trial 3
+2015-09-02 11:57:12/63608500632805.406 | event: keyboard         | info: down: response
+2015-09-02 11:57:12/63608500632823.016 | event: experiment       | info: feedback (y, 2/3)
+2015-09-02 11:57:13/63608500633904.148 | event: experiment       | info: trial 4
+2015-09-02 11:57:24/63608500644125.812 | event: keyboard         | info: down: response
+2015-09-02 11:57:24/63608500644141.016 | event: experiment       | info: feedback (y, 3/4)
+2015-09-02 11:57:25/63608500645219.664 | event: experiment       | info: trial 5
+2015-09-02 11:57:25/63608500645957.117 | event: keyboard         | info: down: response
+2015-09-02 11:57:25/63608500645974.836 | event: experiment       | info: feedback (y, 4/5)
+2015-09-02 11:57:27/63608500647053.211 | event: experiment       | info: trial 6
+2015-09-02 11:57:27/63608500647893.258 | event: keyboard         | info: down: response
+2015-09-02 11:57:27/63608500647911.375 | event: experiment       | info: feedback (n, 4/6)
+2015-09-02 11:57:28/63608500648986.797 | event: experiment       | info: trial 7
+2015-09-02 11:57:29/63608500649581.297 | event: keyboard         | info: down: response
+2015-09-02 11:57:29/63608500649608.781 | event: experiment       | info: feedback (y, 5/7)
+2015-09-02 11:57:30/63608500650687.133 | event: experiment       | info: trial 8
+2015-09-02 11:57:31/63608500651109.102 | event: keyboard         | info: down: response
+2015-09-02 11:57:31/63608500651125.453 | event: experiment       | info: feedback (y, 6/8)
+2015-09-02 11:57:32/63608500652203.539 | event: experiment       | info: trial 9
+2015-09-02 11:57:32/63608500652701.367 | event: keyboard         | info: down: response
+2015-09-02 11:57:32/63608500652725.750 | event: experiment       | info: feedback (y, 7/9)
+2015-09-02 11:57:33/63608500653804.328 | event: experiment       | info: trial 10
+2015-09-02 11:57:34/63608500654349.078 | event: keyboard         | info: down: response
+2015-09-02 11:57:34/63608500654383.836 | event: experiment       | info: feedback (y, 8/10)
+2015-09-02 11:57:35/63608500655487.836 | event: experiment       | info: trial 11
+2015-09-02 11:57:36/63608500656629.031 | event: keyboard         | info: down: response
+2015-09-02 11:57:36/63608500656643.016 | event: experiment       | info: feedback (n, 8/11)
+2015-09-02 11:57:37/63608500657721.570 | event: experiment       | info: trial 12
+2015-09-02 11:57:38/63608500658213.031 | event: keyboard         | info: down: response
+2015-09-02 11:57:38/63608500658246.109 | event: experiment       | info: feedback (n, 8/12)
+2015-09-02 11:57:39/63608500659338.625 | event: experiment       | info: trial 13
+2015-09-02 11:57:40/63608500660020.977 | event: keyboard         | info: down: response
+2015-09-02 11:57:40/63608500660043.508 | event: experiment       | info: feedback (y, 9/13)
+2015-09-02 11:57:41/63608500661122.141 | event: experiment       | info: trial 14
+2015-09-02 11:57:42/63608500662061.164 | event: keyboard         | info: down: response
+2015-09-02 11:57:42/63608500662080.250 | event: experiment       | info: feedback (y, 10/14)
+2015-09-02 11:57:43/63608500663172.094 | event: experiment       | info: trial 15
+2015-09-02 11:57:43/63608500663781.062 | event: keyboard         | info: down: response
+2015-09-02 11:57:43/63608500663818.398 | event: experiment       | info: feedback (y, 11/15)
+2015-09-02 11:57:44/63608500664922.805 | event: experiment       | info: trial 16
+2015-09-02 11:57:45/63608500665364.977 | event: keyboard         | info: down: response
+2015-09-02 11:57:45/63608500665394.375 | event: experiment       | info: feedback (y, 12/16)
+2015-09-02 11:57:46/63608500666472.094 | event: experiment       | info: trial 17
+2015-09-02 11:57:46/63608500666957.133 | event: keyboard         | info: down: response
+2015-09-02 11:57:46/63608500666978.086 | event: experiment       | info: feedback (y, 13/17)
+2015-09-02 11:57:48/63608500668056.570 | event: experiment       | info: trial 18
+2015-09-02 11:57:48/63608500668516.945 | event: keyboard         | info: down: response
+2015-09-02 11:57:48/63608500668544.883 | event: experiment       | info: feedback (y, 14/18)
+2015-09-02 11:57:49/63608500669623.477 | event: experiment       | info: trial 19
+2015-09-02 11:57:50/63608500670157.023 | event: keyboard         | info: down: response
+2015-09-02 11:57:50/63608500670178.367 | event: experiment       | info: feedback (n, 14/19)
+2015-09-02 11:57:51/63608500671256.422 | event: experiment       | info: trial 20
+2015-09-02 11:57:51/63608500671773.117 | event: keyboard         | info: down: response
+2015-09-02 11:57:51/63608500671795.344 | event: experiment       | info: feedback (n, 14/20)
+2015-09-02 11:57:52/63608500672873.891 | event: experiment       | info: trial 21
+2015-09-02 11:57:53/63608500673341.086 | event: keyboard         | info: down: response
+2015-09-02 11:57:53/63608500673362.844 | event: experiment       | info: feedback (y, 15/21)
+2015-09-02 11:57:54/63608500674440.836 | event: experiment       | info: trial 22
+2015-09-02 11:57:55/63608500675029.016 | event: keyboard         | info: down: response
+2015-09-02 11:57:55/63608500675045.859 | event: experiment       | info: feedback (y, 16/22)
+2015-09-02 11:57:56/63608500676124.320 | event: experiment       | info: trial 23
+2015-09-02 11:57:56/63608500676620.891 | event: keyboard         | info: down: response
+2015-09-02 11:57:56/63608500676646.039 | event: experiment       | info: feedback (y, 17/23)
+2015-09-02 11:57:57/63608500677724.633 | event: experiment       | info: trial 24
+2015-09-02 11:57:58/63608500678277.008 | event: keyboard         | info: down: response
+2015-09-02 11:57:58/63608500678296.250 | event: experiment       | info: feedback (y, 18/24)
+2015-09-02 11:57:59/63608500679374.578 | event: experiment       | info: trial 25
+2015-09-02 11:57:59/63608500679820.844 | event: keyboard         | info: down: response
+2015-09-02 11:57:59/63608500679846.516 | event: experiment       | info: feedback (y, 19/25)
+2015-09-02 11:58:00/63608500680925.125 | event: experiment       | info: trial 26
+2015-09-02 11:58:01/63608500681348.891 | event: keyboard         | info: down: response
+2015-09-02 11:58:01/63608500681363.469 | event: experiment       | info: feedback (y, 20/26)
+2015-09-02 11:58:02/63608500682442.047 | event: experiment       | info: trial 27
+2015-09-02 11:58:02/63608500682892.812 | event: keyboard         | info: down: response
+2015-09-02 11:58:02/63608500682913.789 | event: experiment       | info: feedback (y, 21/27)
+2015-09-02 11:58:03/63608500683995.109 | event: experiment       | info: trial 28
+2015-09-02 11:58:04/63608500684524.828 | event: keyboard         | info: down: response
+2015-09-02 11:58:04/63608500684547.969 | event: experiment       | info: feedback (y, 22/28)
+2015-09-02 11:58:05/63608500685625.859 | event: experiment       | info: trial 29
+2015-09-02 11:58:06/63608500686140.836 | event: keyboard         | info: down: response
+2015-09-02 11:58:06/63608500686164.305 | event: experiment       | info: feedback (n, 22/29)
+2015-09-02 11:58:07/63608500687242.766 | event: experiment       | info: trial 30
+2015-09-02 11:58:08/63608500688268.758 | event: keyboard         | info: down: response
+2015-09-02 11:58:08/63608500688298.047 | event: experiment       | info: feedback (y, 23/30)
+2015-09-02 11:58:09/63608500689375.930 | event: experiment       | info: trial 31
+2015-09-02 11:58:09/63608500689844.992 | event: keyboard         | info: down: response
+2015-09-02 11:58:09/63608500689865.188 | event: experiment       | info: feedback (n, 23/31)
+2015-09-02 11:58:10/63608500690943.375 | event: experiment       | info: trial 32
+2015-09-02 11:58:11/63608500691428.844 | event: keyboard         | info: down: response
+2015-09-02 11:58:11/63608500691448.398 | event: experiment       | info: feedback (y, 24/32)
+2015-09-02 11:58:12/63608500692526.859 | event: experiment       | info: trial 33
+2015-09-02 12:00:23/63608500823665.492 | event: experiment       | info: run 1 start
+2015-09-02 12:00:23/63608500823692.930 | event: flip             | info: waiting for scanner
+2015-09-02 12:00:23/63608500823993.602 | event: experiment       | info: rest
+2015-09-02 12:00:24/63608500824076.312 | event: flip             | info: block 1, type: level one | same
+2015-09-02 12:00:24/63608500824078.250 | event: experiment       | info: waiting (for prompt HRF decay)
+{Operation terminated by user during <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2/DoFeedback', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 205)" style="font-weight:bold">RelAbs/Run2/DoFeedback</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',205,0)">line 205</a>)
+
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2/DoBlock', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 162)" style="font-weight:bold">RelAbs/Run2/DoBlock</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',162,0)">line 162</a>)
+        DoFeedback;
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 199)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',199,0)">line 199</a>)
+			tSeq(kS)	= cF{kS}(tNowRel,tNext);
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 67)" style="font-weight:bold">RelAbs/Run2</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',67,0)">line 67</a>)
+	[tStartActual,tEndActual,tSequenceActual] = ra.Experiment.Sequence.Linear(...
+} 
+ra.Experiment.Scheduler.Wait(PRIORITY_LOW)
+{Undefined function or variable 'PRIORITY_LOW'.
+} 
+ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_LOW)
+2015-09-02 12:00:24/63608500824102.195 | event: experiment       | info: trial 1
+2015-09-02 12:00:25/63608500825460.352 | event: keyboard         | info: down: response
+2015-09-02 12:00:25/63608500825486.750 | event: experiment       | info: feedback (n, 0/1)
+2015-09-02 12:00:26/63608500826562.172 | event: experiment       | info: trial 2
+2015-09-02 12:00:27/63608500827300.367 | event: keyboard         | info: down: response
+2015-09-02 12:00:27/63608500827320.242 | event: experiment       | info: feedback (n, 0/2)
+2015-09-02 12:00:28/63608500828396.180 | event: experiment       | info: trial 3
+2015-09-02 12:00:28/63608500828964.047 | event: keyboard         | info: down: response
+2015-09-02 12:00:28/63608500828984.570 | event: experiment       | info: feedback (y, 1/3)
+2015-09-02 12:00:30/63608500830045.320 | event: experiment       | info: trial 4
+2015-09-02 12:00:30/63608500830539.539 | event: keyboard         | info: down: response
+2015-09-02 12:00:30/63608500830551.648 | event: experiment       | info: feedback (y, 2/4)
+2015-09-02 12:00:31/63608500831613.328 | event: experiment       | info: trial 5
+2015-09-02 12:00:32/63608500832147.438 | event: keyboard         | info: down: response
+2015-09-02 12:00:32/63608500832169.312 | event: experiment       | info: feedback (y, 3/5)
+2015-09-02 12:00:33/63608500833247.453 | event: experiment       | info: trial 6
+2015-09-02 12:00:33/63608500833731.711 | event: keyboard         | info: down: response
+2015-09-02 12:00:33/63608500833753.000 | event: experiment       | info: feedback (n, 3/6)
+2015-09-02 12:00:34/63608500834814.891 | event: experiment       | info: trial 7
+2015-09-02 12:00:35/63608500835395.594 | event: keyboard         | info: down: response
+2015-09-02 12:00:35/63608500835423.383 | event: experiment       | info: feedback (n, 3/7)
+2015-09-02 12:00:36/63608500836498.805 | event: experiment       | info: trial 8
+2015-09-02 12:00:37/63608500837067.641 | event: keyboard         | info: down: response
+2015-09-02 12:00:37/63608500837090.383 | event: experiment       | info: feedback (n, 3/8)
+2015-09-02 12:00:38/63608500838165.688 | event: experiment       | info: trial 9
+2015-09-02 12:00:38/63608500838772.375 | event: keyboard         | info: down: response
+2015-09-02 12:00:38/63608500838790.922 | event: experiment       | info: feedback (y, 4/9)
+2015-09-02 12:00:39/63608500839865.977 | event: experiment       | info: trial 10
+2015-09-02 12:00:40/63608500840539.484 | event: keyboard         | info: down: response
+2015-09-02 12:00:40/63608500840556.094 | event: experiment       | info: feedback (n, 4/10)
+ra.Run2
+Next run (default=1): 
+2015-09-02 12:02:35/63608500955337.352 | event: experiment       | info: run 1 start
+2015-09-02 12:02:35/63608500955346.117 | event: flip             | info: waiting for scanner
+2015-09-02 12:02:35/63608500955390.078 | event: experiment       | info: rest
+2015-09-02 12:02:35/63608500955479.477 | event: flip             | info: block 1, type: level one | same
+2015-09-02 12:02:35/63608500955483.062 | event: experiment       | info: waiting (for prompt HRF decay)
+2015-09-02 12:02:35/63608500955511.078 | event: experiment       | info: trial 1
+2015-09-02 12:02:36/63608500956730.375 | event: keyboard         | info: down: response
+2015-09-02 12:02:36/63608500956769.406 | event: experiment       | info: feedback (y, 1/1)
+2015-09-02 12:02:37/63608500957850.648 | event: experiment       | info: trial 2
+2015-09-02 12:02:38/63608500958515.234 | event: keyboard         | info: down: response
+2015-09-02 12:02:38/63608500958570.742 | event: experiment       | info: feedback (n, 1/2)
+2015-09-02 12:02:39/63608500959649.898 | event: experiment       | info: trial 3
+2015-09-02 12:02:40/63608500960146.453 | event: keyboard         | info: down: response
+2015-09-02 12:02:40/63608500960184.961 | event: experiment       | info: feedback (y, 2/3)
+2015-09-02 12:02:41/63608500961251.094 | event: experiment       | info: trial 4
+2015-09-02 12:02:41/63608500961786.406 | event: keyboard         | info: down: response
+2015-09-02 12:02:41/63608500961844.773 | event: experiment       | info: feedback (n, 2/4)
+2015-09-02 12:02:42/63608500962934.609 | event: experiment       | info: trial 5
+2015-09-02 12:02:43/63608500963506.297 | event: keyboard         | info: down: response
+2015-09-02 12:02:43/63608500963538.219 | event: experiment       | info: feedback (y, 3/5)
+2015-09-02 12:02:44/63608500964618.109 | event: experiment       | info: trial 6
+2015-09-02 12:02:44/63608500964970.344 | event: keyboard         | info: down: response
+2015-09-02 12:02:45/63608500965002.430 | event: experiment       | info: feedback (n, 3/6)
+2015-09-02 12:02:46/63608500966084.656 | event: experiment       | info: trial 7
+2015-09-02 12:02:46/63608500966458.297 | event: keyboard         | info: down: response
+2015-09-02 12:02:46/63608500966486.023 | event: experiment       | info: feedback (y, 4/7)
+2015-09-02 12:02:47/63608500967568.523 | event: experiment       | info: trial 8
+2015-09-02 12:02:47/63608500967954.492 | event: keyboard         | info: down: response
+2015-09-02 12:02:47/63608500967986.086 | event: experiment       | info: feedback (y, 5/8)
+2015-09-02 12:02:49/63608500969068.688 | event: experiment       | info: trial 9
+2015-09-02 12:02:49/63608500969762.250 | event: keyboard         | info: down: response
+2015-09-02 12:02:49/63608500969807.398 | event: experiment       | info: feedback (y, 6/9)
+2015-09-02 12:02:50/63608500970902.305 | event: experiment       | info: trial 10
+2015-09-02 12:02:51/63608500971386.555 | event: keyboard         | info: down: response
+2015-09-02 12:02:51/63608500971418.039 | event: experiment       | info: feedback (y, 7/10)
+2015-09-02 12:02:52/63608500972502.625 | event: experiment       | info: trial 11
+2015-09-02 12:02:53/63608500973202.258 | event: keyboard         | info: down: response
+2015-09-02 12:02:53/63608500973235.539 | event: experiment       | info: feedback (n, 7/11)
+2015-09-02 12:02:54/63608500974319.586 | event: experiment       | info: trial 12
+2015-09-02 12:02:55/63608500975282.281 | event: keyboard         | info: down: response
+2015-09-02 12:02:55/63608500975318.695 | event: experiment       | info: feedback (n, 7/12)
+2015-09-02 12:02:56/63608500976386.492 | event: experiment       | info: trial 13
+2015-09-02 12:02:56/63608500976866.367 | event: keyboard         | info: down: response
+2015-09-02 12:02:56/63608500976918.531 | event: experiment       | info: feedback (y, 8/13)
+2015-09-02 12:02:58/63608500978003.148 | event: experiment       | info: trial 14
+2015-09-02 12:02:58/63608500978378.273 | event: keyboard         | info: down: response
+2015-09-02 12:02:58/63608500978423.992 | event: experiment       | info: feedback (y, 9/14)
+2015-09-02 12:02:59/63608500979503.609 | event: experiment       | info: trial 15
+2015-09-02 12:03:00/63608500980018.492 | event: keyboard         | info: down: response
+2015-09-02 12:03:00/63608500980058.305 | event: experiment       | info: feedback (y, 10/15)
+2015-09-02 12:03:01/63608500981137.148 | event: experiment       | info: trial 16
+2015-09-02 12:03:01/63608500981554.516 | event: keyboard         | info: down: response
+2015-09-02 12:03:01/63608500981594.180 | event: experiment       | info: feedback (y, 11/16)
+2015-09-02 12:03:02/63608500982670.805 | event: experiment       | info: trial 17
+2015-09-02 12:03:03/63608500983083.188 | event: keyboard         | info: down: response
+2015-09-02 12:03:03/63608500983127.500 | event: experiment       | info: feedback (y, 12/17)
+2015-09-02 12:03:04/63608500984204.320 | event: experiment       | info: trial 18
+2015-09-02 12:03:04/63608500984466.445 | event: keyboard         | info: down: response
+2015-09-02 12:03:04/63608500984503.328 | event: experiment       | info: feedback (y, 13/18)
+2015-09-02 12:03:05/63608500985590.641 | event: experiment       | info: trial 19
+2015-09-02 12:03:06/63608500986010.359 | event: keyboard         | info: down: response
+2015-09-02 12:03:06/63608500986040.180 | event: experiment       | info: feedback (n, 13/19)
+2015-09-02 12:03:07/63608500987121.164 | event: experiment       | info: trial 20
+2015-09-02 12:03:07/63608500987442.133 | event: keyboard         | info: down: response
+2015-09-02 12:03:07/63608500987472.867 | event: experiment       | info: feedback (n, 13/20)
+2015-09-02 12:03:08/63608500988554.969 | event: experiment       | info: trial 21
+2015-09-02 12:03:08/63608500988826.094 | event: keyboard         | info: down: response
+2015-09-02 12:03:08/63608500988854.023 | event: experiment       | info: feedback (y, 14/21)
+2015-09-02 12:03:09/63608500989938.648 | event: experiment       | info: trial 22
+2015-09-02 12:03:10/63608500990338.078 | event: keyboard         | info: down: response
+2015-09-02 12:03:10/63608500990371.148 | event: experiment       | info: feedback (y, 15/22)
+2015-09-02 12:03:11/63608500991455.555 | event: experiment       | info: trial 23
+2015-09-02 12:03:12/63608500992162.062 | event: keyboard         | info: down: response
+2015-09-02 12:03:12/63608500992187.930 | event: experiment       | info: feedback (y, 16/23)
+2015-09-02 12:03:13/63608500993272.289 | event: experiment       | info: trial 24
+2015-09-02 12:03:13/63608500993570.602 | event: keyboard         | info: down: response
+2015-09-02 12:03:13/63608500993607.820 | event: experiment       | info: feedback (y, 17/24)
+2015-09-02 12:03:14/63608500994689.242 | event: experiment       | info: trial 25
+2015-09-02 12:03:15/63608500995090.125 | event: keyboard         | info: down: response
+{Operation terminated by user during <a href="matlab:helpUtils.errorDocCallback('ParseArgs/DoParse', '/home/kevin/matlab/matlab_lib/misc/ParseArgs.m', 0)" style="font-weight:bold">ParseArgs/DoParse</a>
+
+
+In <a href="matlab:helpUtils.errorDocCallback('ParseArgs', '/home/kevin/matlab/matlab_lib/misc/ParseArgs.m', 56)" style="font-weight:bold">ParseArgs</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/misc/ParseArgs.m',56,0)">line 56</a>)
+	varargout	= DoParse;
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Device.Input/DownOnce', '/home/kevin/matlab/matlab_lib/research/+PTB/+Device/@Input/DownOnce.m', 25)" style="font-weight:bold">PTB.Device.Input/DownOnce</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/+Device/@Input/DownOnce.m',25,0)">line 25</a>)
+bLog	= ParseArgs(varargin,true);
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial/DoBlank', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 297)" style="font-weight:bold">RelAbs/Trial/DoBlank</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',297,0)">line 297</a>)
+        [~,~,tResponse,kResponse]	= ra.Experiment.Input.DownOnce('response');
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 210)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',210,0)">line 210</a>)
+						[bAbort,bNext]	= tSequence{kS}(tNowRel);
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Show/Sequence', '/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m', 206)" style="font-weight:bold">PTB.Show/Sequence</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m',206,0)">line 206</a>)
+	[varargout{1:nargout}]	= shw.parent.Sequence.Linear(cF,tShow,...
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 118)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',118,0)">line 118</a>)
+[tStart,tEnd,tShow,bAbort,kResponse, tResponse] = ra.Experiment.Show.Sequence(...
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2/DoBlock', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 154)" style="font-weight:bold">RelAbs/Run2/DoBlock</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',154,0)">line 154</a>)
+        resCur = ra.Trial(blockType, kTrial);
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 199)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',199,0)">line 199</a>)
+			tSeq(kS)	= cF{kS}(tNowRel,tNext);
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 67)" style="font-weight:bold">RelAbs/Run2</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',67,0)">line 67</a>)
+	[tStartActual,tEndActual,tSequenceActual] = ra.Experiment.Sequence.Linear(...
+} 
+ra.End
+
+
+INFO: PTB's Screen('Flip', 10) command seems to have missed the requested stimulus presentation deadline
+INFO: a total of 57 times out of a total of 289 flips during this session.
+
+INFO: This number is fairly accurate (and indicative of real timing problems in your own code or your system)
+INFO: if you provided requested stimulus onset times with the 'when' argument of Screen('Flip', window [, when]);
+INFO: If you called Screen('Flip', window); without the 'when' argument, this count is more of a ''mild'' indicator
+INFO: of timing behaviour than a hard reliable measurement. Large numbers may indicate problems and should at least
+INFO: deserve your closer attention. Cfe. 'help SyncTrouble', the FAQ section at www.psychtoolbox.org and the
+INFO: examples in the PDF presentation in PsychDocumentation/Psychtoolbox3-Slides.pdf for more info and timing tips.
+
+log saving to: "/home/kevin/studies/relabs/data/02sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/02sep15test.diary"
+2015-09-02 12:04:56/63608501096438.117 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.669410 ms [59.990127 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.668879 ms [59.992038 Hz]. (58 valid samples taken, stddev=0.790403 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+
+WARNING: Couldn't compute a reliable estimate of monitor refresh interval! Trouble with VBL syncing?!?
+
+
+----- ! PTB - ERROR: SYNCHRONIZATION FAILURE ! ----
+
+One or more internal checks (see Warnings above) indicate that synchronization
+of Psychtoolbox to the vertical retrace (VBL) is not working on your setup.
+
+This will seriously impair proper stimulus presentation and stimulus presentation timing!
+Please read 'help SyncTrouble' for information about how to solve or work-around the problem.
+You can force Psychtoolbox to continue, despite the severe problems, by adding the command
+Screen('Preference', 'SkipSyncTests', 1); at the top of your script, if you really know what you are doing.
+
+
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-02 12:04:59/63608501099362.562 | event: window           | info: opened main
+2015-09-02 12:04:59/63608501099567.906 | event: flip             | info: show start
+2015-09-02 12:04:59/63608501099575.695 | event: experiment       | info: using default block order
+2015-09-02 12:04:59/63608501099598.930 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+help PTB.Show.Sequence
+  <strong>PTB.Show/Sequence</strong>
+  
+  Description:	show a sequence of stimuli
+  
+  Syntax:	[tStart,tEnd,tShow,bAbort,x1,...,xN] = shw.<strong>Sequence</strong>(cX,tShow,<options>)
+  
+  In:
+ 	cX		- a cell of stimuli to show.  each element can be:
+ 				h:			the handle to a texture to show
+ 				str:		a string input to shw.Text
+ 				f:			the handle to a function that accepts an option
+ 							named 'window' that specifies a texture handle and
+ 							draws its stimulus onto that texture (e.g.
+ 							f('window',hT)).
+ 				{h,...}:	the handle to a texture along with other inputs to
+ 							shw.Texture
+ 				{strF,...}:	inputs to shw.(strF), (i.e. {'Circle','red',1}
+ 							executes shw.Circle('red',1))
+ 				{f,...}:	the handle to a function along with its inputs. the
+ 							function must accept an option argument 'window' that
+ 							specifies a texture handle and draw its stimulus onto
+ 							that texture (e.g. f(...,'window',hT)).
+ 	tShow	- a time specifying when to move on to the next stimulus, or the
+ 			  handle to a function that takes the current time as input and
+ 			  returns two booleans: the first indicates whether to abort the
+ 			  sequence and the second whether to move on to the next stimulus in
+ 			  the sequence. can also be an array/cell of times or function
+ 			  handles, one for each step in the sequence.  the input times
+ 			  depend on the tbase option.
+ 	<options>:
+ 		window:			('main') the name of the window on which to show the
+ 						sequence
+ 		tunit:			(<auto>) the unit of time.  can either be 'ms' for
+ 						PTB.Now time or 'tr' for the TR number. defaults based
+ 						on context:
+ 							fmri: tr
+ 							eeg/pyschophysics: ms
+ 		tbase:			('step') either 'step', 'sequence', or 'absolute' to
+ 						specify whether times are relative to the start of the
+ 						current step, the start of the sequence, or are absolute
+ 		prerender:		(false) true to prerender each stimulus as a texture
+ 						before starting the sequence.  this will take more time
+ 						up front and memory but reduce the amount of time it
+ 						takes to draw each stimulus during the sequence. note
+ 						that prerendering doesn't work if a stimulus depends on
+ 						the time arguments to render correctly.
+ 		postrelease:	(false) true to release textures only after the sequence
+ 						ends.   this will take more time after the sequence is
+ 						over and memory but reduce the amount of time it takes to
+ 						prepare each stimulus during the sequence.
+ 		xnow:			(<nothing>) a stimulus to show immediately, before the
+ 						sequence is prepared (see cX for syntax)
+ 		tstart:			(<immediate>) the absolute time at which to start the
+ 						sequence, or the handle to a function that takes the
+ 						current time as input and returns two booleans: the first
+ 						indicates whether to abort the sequence and the second
+ 						whether to start the sequence
+ 		fwait:			(<PTB.Scheduler.Wait>) a handle or cell of handles the
+ 						same size as cX to functions that take the current time
+ 						and the time of the next stimulus presentation (or NaN
+ 						where tShow is a function handle) as input and return at
+ 						least a boolean as the first output that indicates
+ 						whether the sequence should be aborted, and are executed
+ 						while the sequence is waiting to move on to the next
+ 						stimulus. non-empty return values beyond the first output
+ 						are appended to the output arguments x1 ... xN. if a cell
+ 						of function handles is passed then each function must
+ 						return the same number of outputs.  set this to false to
+ 						do nothing but wait 1ms.
+ 		max_wait:		(10) the desired maximum execution time for calls to
+ 						PTB.Scheduler.Wait, in ms.  this only applies where
+ 						functions rather than times were specified in tShow.
+ 		wait_priority:	(PTB.Scheduler.PRIORITY_LOW) only execute scheduler tasks
+ 						at or above this priority while waiting to move on to the
+ 						next step in the sequence  only applies if the default
+ 						fwait function is used.
+ 		fixation:		(true) true to show the fixation dot on each stimulus
+ 		fixation_task:	(false) true to show the fixation task.  can also be a
+ 						logical array the same size as the sequence indicating
+ 						whether the fixation_task should be shown for each
+ 						stimulus.
+  
+  Out:
+ 	tStart				- the time at which the sequence started
+ 	tEnd				- the time at which the sequence aborted or ended
+ 	tShow				- the actual time at which each stimulus appeared on the
+ 						  screen
+ 	bAbort				- true if the sequence was aborted
+ 	xK					- a cell of all the non-empty (K+1)th outputs from the
+ 						  wait functions
+  
+  Example:
+ 	%show four strings spaced every one second 
+ 	cX	= {'this','is','a','test'};
+ 	shw.<strong>Sequence</strong>(cX,1000,'tunit','ms');
+ 	
+ 	%show three textures interspersed with a blank.  the subject must press
+ 	%the space bar to advance after each stimulus
+ 	cX		= {hTBlank hT1 hTBlank hT2 hTBlank hT3 hTBlank};
+ 	fShow	= @(t) deal(false,ptb.Input.DownOnce('key_space'));
+ 	tShow	= {1000 fShow 1000 fShow 1000 fShow 1000};
+ 	shw.<strong>Sequence</strong>(cX,tShow);
+  
+  Updated: 2012-07-05
+  Copyright 2012 Alex Schlegel (schlegel@gmail.com).  This work is licensed
+  under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported
+  License.
+
+clear all
+dbquit
+PTB.Clear
+PrepRa
+{Cannot find an exact (case-sensitive) match for 'PrepRa'
+
+The closest match is: PrepRA in /home/kevin/studies/relabs/PrepRA.m
+
+} 
+PrepRA
+2015-09-02 12:08:47     - base experiment directory: /home/kevin/studies/relabs
+2015-09-02 12:08:47     - relabs prepared...git er dun!
+ra = RelAbs('debug', 2)
+PTB-INFO: Display ':0' : X-Screen 0 : Assigning primary output as 3 with RandR-CRTC 0 and GPU-CRTC 0.
+subject initials: test
+Session data for 02sep15test already exist in "/home/kevin/studies/relabs/data/02sep15test.mat".  What should we do? (load,abort,rename,[overwrite]): Subject "test" exists.  Load existing subject info? ([y],n,abort): n
+log saving to: "/home/kevin/studies/relabs/data/02sep15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/02sep15test.diary"
+2015-09-02 12:08:53/63608501333273.352 | event: log              | info: started
+2015-09-02 12:08:53/63608501333273.352 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-46-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.669181 ms [59.990950 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.670480 ms [59.986276 Hz]. (50 valid samples taken, stddev=0.048946 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-09-02 12:08:56/63608501336817.727 | event: window           | info: opened main
+2015-09-02 12:08:57/63608501337387.414 | event: flip             | info: show start
+2015-09-02 12:08:57/63608501337471.914 | event: experiment       | info: using default block order
+2015-09-02 12:08:57/63608501337531.922 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.Run2
+Next run (default=1): 
+2015-09-02 12:10:04/63608501404214.297 | event: experiment       | info: run 1 start
+2015-09-02 12:10:04/63608501404264.320 | event: flip             | info: waiting for scanner
+2015-09-02 12:10:04/63608501404432.273 | event: experiment       | info: rest
+2015-09-02 12:10:04/63608501404681.055 | event: flip             | info: block 1, type: level one | same
+2015-09-02 12:10:04/63608501404685.570 | event: experiment       | info: waiting (for prompt HRF decay)
+2015-09-02 12:10:04/63608501404725.109 | event: experiment       | info: trial 1
+2015-09-02 12:10:08/63608501408806.438 | event: keyboard         | info: down: response
+2015-09-02 12:10:08/63608501408880.758 | event: experiment       | info: feedback (n, 0/1)
+2015-09-02 12:10:09/63608501409985.883 | event: experiment       | info: trial 2
+2015-09-02 12:10:19/63608501419230.531 | event: keyboard         | info: down: response
+2015-09-02 12:10:19/63608501419271.641 | event: experiment       | info: feedback (n, 0/2)
+2015-09-02 12:10:20/63608501420337.352 | event: experiment       | info: trial 3
+2015-09-02 12:10:22/63608501422902.586 | event: keyboard         | info: down: response
+2015-09-02 12:10:22/63608501422938.727 | event: experiment       | info: feedback (y, 1/3)
+2015-09-02 12:10:24/63608501424021.320 | event: experiment       | info: trial 4
+2015-09-02 12:10:26/63608501426646.258 | event: keyboard         | info: down: response
+2015-09-02 12:10:26/63608501426686.359 | event: experiment       | info: feedback (y, 2/4)
+2015-09-02 12:10:27/63608501427755.172 | event: experiment       | info: trial 5
+2015-09-02 12:10:29/63608501429046.234 | event: keyboard         | info: down: response
+2015-09-02 12:10:29/63608501429070.500 | event: experiment       | info: feedback (n, 2/5)
+2015-09-02 12:10:30/63608501430157.688 | event: experiment       | info: trial 6
+2015-09-02 12:10:31/63608501431878.727 | event: keyboard         | info: down: response
+{Operation terminated by user during <a href="matlab:helpUtils.errorDocCallback('KbCheck', '/home/kevin/matlab/toolbox/Psychtoolbox/PsychBasic/KbCheck.m', 190)" style="font-weight:bold">KbCheck</a> (<a href="matlab: opentoline('/home/kevin/matlab/toolbox/Psychtoolbox/PsychBasic/KbCheck.m',190,0)">line 190</a>)
+
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Device.Input.Keyboard/State', '/home/kevin/matlab/matlab_lib/research/+PTB/+Device/+Input/@Keyboard/State.m', 25)" style="font-weight:bold">PTB.Device.Input.Keyboard/State</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/+Device/+Input/@Keyboard/State.m',25,0)">line 25</a>)
+[dummy,tGS,bState]	= KbCheck;
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Device.Input/DownOnce', '/home/kevin/matlab/matlab_lib/research/+PTB/+Device/@Input/DownOnce.m', 31)" style="font-weight:bold">PTB.Device.Input/DownOnce</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/+Device/@Input/DownOnce.m',31,0)">line 31</a>)
+	[s,t]	= inp.State;
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial/DoBlank', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 286)" style="font-weight:bold">RelAbs/Trial/DoBlank</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',286,0)">line 286</a>)
+        [~,~,tResponse,kResponse]	= ra.Experiment.Input.DownOnce('response');
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 210)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',210,0)">line 210</a>)
+						[bAbort,bNext]	= tSequence{kS}(tNowRel);
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Show/Sequence', '/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m', 206)" style="font-weight:bold">PTB.Show/Sequence</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m',206,0)">line 206</a>)
+	[varargout{1:nargout}]	= shw.parent.Sequence.Linear(cF,tShow,...
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 118)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',118,0)">line 118</a>)
+[tStart,tEnd,tShow,bAbort,kResponse, tResponse] = ra.Experiment.Show.Sequence(...
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2/DoBlock', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 154)" style="font-weight:bold">RelAbs/Run2/DoBlock</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',154,0)">line 154</a>)
+        resCur = ra.Trial(blockType, kTrial);
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 199)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',199,0)">line 199</a>)
+			tSeq(kS)	= cF{kS}(tNowRel,tNext);
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 67)" style="font-weight:bold">RelAbs/Run2</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',67,0)">line 67</a>)
+	[tStartActual,tEndActual,tSequenceActual] = ra.Experiment.Sequence.Linear(...
+} 
+ra.trialloop
+{No appropriate method, property, or field trialloop for class RelAbs.
+} 
+RA.trialloop
+{Undefined variable "RA" or function "RA.trialloop".
+} 
+RA.Param('trialloop')
+
+ans =
+
+     []
+
+RA.Param('time', 'trialloop')
+
+ans =
+
+     4
+
+ra.Run2
+Next run (default=1): 
+2015-09-02 12:10:31/63608501431903.703 | event: experiment       | info: feedback (y, 3/6)
+2015-09-02 12:10:32/63608501432975.445 | event: experiment       | info: trial 7
+2015-09-02 12:12:16/63608501536604.531 | event: experiment       | info: run 1 start
+2015-09-02 12:12:16/63608501536617.875 | event: flip             | info: waiting for scanner
+2015-09-02 12:12:16/63608501536684.156 | event: experiment       | info: rest
+2015-09-02 12:12:16/63608501536784.570 | event: flip             | info: block 1, type: level one | same
+2015-09-02 12:12:16/63608501536786.867 | event: experiment       | info: waiting (for prompt HRF decay)
+2015-09-02 12:12:16/63608501536813.375 | event: experiment       | info: trial 1
+2015-09-02 12:12:20/63608501540949.227 | event: keyboard         | info: down: response
+2015-09-02 12:12:20/63608501540989.258 | event: experiment       | info: feedback (n, 0/1)
+2015-09-02 12:12:22/63608501542053.820 | event: experiment       | info: trial 2
+2015-09-02 12:12:25/63608501545701.164 | event: keyboard         | info: down: response
+2015-09-02 12:12:25/63608501545740.688 | event: experiment       | info: feedback (y, 1/2)
+2015-09-02 12:12:26/63608501546805.234 | event: experiment       | info: trial 3
+2015-09-02 12:12:29/63608501549701.555 | event: keyboard         | info: down: response
+2015-09-02 12:12:29/63608501549742.164 | event: experiment       | info: feedback (y, 2/3)
+2015-09-02 12:12:30/63608501550807.375 | event: experiment       | info: trial 4
+2015-09-02 12:12:31/63608501551701.102 | event: keyboard         | info: down: response
+2015-09-02 12:12:31/63608501551742.648 | event: experiment       | info: feedback (y, 3/4)
+2015-09-02 12:12:32/63608501552807.672 | event: experiment       | info: trial 5
+2015-09-02 12:12:33/63608501553301.664 | event: keyboard         | info: down: response
+2015-09-02 12:12:33/63608501553339.453 | event: experiment       | info: feedback (n, 3/5)
+2015-09-02 12:12:34/63608501554407.914 | event: experiment       | info: trial 6
+2015-09-02 12:12:34/63608501554661.266 | event: keyboard         | info: down: response
+2015-09-02 12:12:34/63608501554690.102 | event: experiment       | info: feedback (y, 4/6)
+2015-09-02 12:12:35/63608501555758.094 | event: experiment       | info: trial 7
+2015-09-02 12:12:36/63608501556181.180 | event: keyboard         | info: down: response
+2015-09-02 12:12:36/63608501556207.125 | event: experiment       | info: feedback (n, 4/7)
+2015-09-02 12:12:37/63608501557275.000 | event: experiment       | info: trial 8
+2015-09-02 12:12:37/63608501557725.211 | event: keyboard         | info: down: response
+{Operation terminated by user during <a href="matlab:helpUtils.errorDocCallback('p_TestBad', '/home/kevin/matlab/matlab_lib/research/+PTB/+Device/@Input/private/p_TestBad.m', 26)" style="font-weight:bold">p_TestBad</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/+Device/@Input/private/p_TestBad.m',26,0)">line 26</a>)
+
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Device.Input/DownOnce', '/home/kevin/matlab/matlab_lib/research/+PTB/+Device/@Input/DownOnce.m', 45)" style="font-weight:bold">PTB.Device.Input/DownOnce</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/+Device/@Input/DownOnce.m',45,0)">line 45</a>)
+	err	= p_TestBad(inp,s,t,strButton,kBad,bLog);
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial/DoBlank', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 286)" style="font-weight:bold">RelAbs/Trial/DoBlank</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',286,0)">line 286</a>)
+        [~,~,tResponse,kResponse]	= ra.Experiment.Input.DownOnce('response');
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 210)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',210,0)">line 210</a>)
+						[bAbort,bNext]	= tSequence{kS}(tNowRel);
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Show/Sequence', '/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m', 206)" style="font-weight:bold">PTB.Show/Sequence</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Show/Sequence.m',206,0)">line 206</a>)
+	[varargout{1:nargout}]	= shw.parent.Sequence.Linear(cF,tShow,...
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Trial', '/home/kevin/studies/relabs/code/@RelAbs/Trial.m', 118)" style="font-weight:bold">RelAbs/Trial</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',118,0)">line 118</a>)
+[tStart,tEnd,tShow,bAbort,kResponse, tResponse] = ra.Experiment.Show.Sequence(...
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2/DoBlock', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 154)" style="font-weight:bold">RelAbs/Run2/DoBlock</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',154,0)">line 154</a>)
+        resCur = ra.Trial(blockType, kTrial);
+
+In <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 199)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',199,0)">line 199</a>)
+			tSeq(kS)	= cF{kS}(tNowRel,tNext);
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run2', '/home/kevin/studies/relabs/code/@RelAbs/Run2.m', 67)" style="font-weight:bold">RelAbs/Run2</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run2.m',67,0)">line 67</a>)
+	[tStartActual,tEndActual,tSequenceActual] = ra.Experiment.Sequence.Linear(...
+} 
+ra.Run2
+Next run (default=1): 
+2015-09-02 12:12:37/63608501557756.664 | event: experiment       | info: feedback (y, 5/8)
+2015-09-02 12:12:38/63608501558827.273 | event: experiment       | info: trial 9
+2015-09-02 12:13:12/63608501592979.758 | event: experiment       | info: run 1 start
+2015-09-02 12:13:12/63608501592993.180 | event: flip             | info: waiting for scanner
+2015-09-02 12:13:13/63608501593046.078 | event: experiment       | info: rest
+2015-09-02 12:13:13/63608501593143.203 | event: flip             | info: block 1, type: level one | same
+2015-09-02 12:13:13/63608501593146.812 | event: experiment       | info: waiting (for prompt HRF decay)
+2015-09-02 12:13:13/63608501593171.922 | event: experiment       | info: trial 1
+2015-09-02 12:13:24/63608501604284.742 | event: keyboard         | info: down: response
+<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Trial.m',313,1)">313 </a>end      
+tNow
+
+tNow =
+
+     1.112471875000000e+04
+
+tStart
+
+tStart =
+
+     6.360850159317645e+13
+
+tNow - tStart
+
+ans =
+
+    -6.360850158205173e+13
+
+ra.End
+
+
+INFO: PTB's Screen('Flip', 10) command seems to have missed the requested stimulus presentation deadline
+INFO: a total of 12 times out of a total of 76 flips during this session.
+
+INFO: This number is fairly accurate (and indicative of real timing problems in your own code or your system)
+INFO: if you provided requested stimulus onset times with the 'when' argument of Screen('Flip', window [, when]);
+INFO: If you called Screen('Flip', window); without the 'when' argument, this count is more of a ''mild'' indicator
+INFO: of timing behaviour than a hard reliable measurement. Large numbers may indicate problems and should at least
+INFO: deserve your closer attention. Cfe. 'help SyncTrouble', the FAQ section at www.psychtoolbox.org and the
+INFO: examples in the PDF presentation in PsychDocumentation/Psychtoolbox3-Slides.pdf for more info and timing tips.
+

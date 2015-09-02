@@ -8,7 +8,7 @@ function Prepare(ra,varargin)
 % ToDo:         
 %           -   
 %
-% Updated: 08-07-2015
+% Updated: 08-31-2015
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 % global strDirBase;
@@ -16,8 +16,9 @@ function Prepare(ra,varargin)
 % block order
     nRep        = RA.Param('exp','reps');
     nRun        = RA.Param('exp','runs');
+    nBlock      = RA.Param('exp', 'blocks');
     
-    cBlocks = 1:8;
+    cBlocks = 1:nBlock;
     
     bBlockOrderExists = ~isempty(ra.Experiment.Subject.Get('block_order'));
     if bBlockOrderExists
@@ -42,6 +43,16 @@ function Prepare(ra,varargin)
     ra.Experiment.Info.Set('ra', 'result', cell(RA.Param('exp', 'runs'), RA.Param('blocksperrun')));
     ra.Experiment.Info.Set('ra', 'timing', cell(RA.Param('exp', 'runs'), 1));
     ra.reward	= RA.Param('reward','base');
+    
+    % set trial information
+    numSame = zeros(nRun, nBlock, 32);
+    for iRun = 1:nRun
+        for iBlock = 1:nBlock
+            numSame(iRun, iBlock, :) = [Shuffle(repmat(1:4, 1, 2)) Shuffle(repmat(1:4, 1, 2)) ...
+            Shuffle(repmat(1:4, 1, 2)) Shuffle(repmat(1:4, 1, 2))];
+        end
+    end
+    ra.Experiment.Info.Set('ra', {'trial', 'numSame'}, numSame);
     
     % set nCorrect if not already available (Get it if it is available?)
     % check if this is really necessary

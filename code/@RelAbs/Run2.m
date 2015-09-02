@@ -1,13 +1,14 @@
-function Run(ra)
-% RelAbs.Run
+function Run2(ra)
+% RelAbs.Run2
 %
-% Description: do the next relabs run
+% Description: do the next relabs run with Trial instead of TrialLoop
 %
-% Syntax: ra.Run
+% Syntax: ra.Run2
 %
-% ToDo:     - Scanner stuff
+% ToDo:     - Timing, timing, timing
+%           - Fix ra.Experiment.Sequence.Linear (line 67)
 %
-% Updated: 08-13-2015
+% Updated: 09-01-2015
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
     nBlock      = RA.Param('exp','blocks');
@@ -49,7 +50,7 @@ function Run(ra)
     
 cF          =    [
                     {@DoRest}
-                    repmat({@ShowPrompt; @DoWait; @DoTrialLoop; @DoTimeUp; @DoRest}, [nBlock 1])
+                    repmat({@ShowPrompt; @DoWait; @DoBlock; @DoTimeUp; @DoRest}, [nBlock 1])
                     ];
                 
 tSequence   = cumsum([
@@ -58,16 +59,16 @@ tSequence   = cumsum([
                         ]);
                     
 % because fake scanner
-    tStart		= PTB.Now;
     tSequence   = tSequence*tr;
-    strTUnit    = 'ms';
+    blockRes    = [];
+    nCorrect    = 0;
+    kTrial      = 0;
 
 	[tStartActual,tEndActual,tSequenceActual] = ra.Experiment.Sequence.Linear(...
                         cF              ,   tSequence   , ...
-                        'tunit'         ,   strTUnit    , ...
-                        'tstart'        ,   tStart      , ...
-                        'tbase'         ,   'sequence'  , ...
-                        'fwait'         ,   false         ...
+                        'tstart'        ,   []          , ...
+                        'tunit'         ,   'ms'        , ...
+                        'tbase'         ,   'absolute'    ...
                     );
     runTiming = struct('StartActual', tStartActual, 'EndActual', tEndActual, 'SequenceActual', tSequenceActual);
 % scanner stopped
@@ -138,11 +139,28 @@ function tNow = DoWait(tNow, tNext)
 	ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_LOW);
 end
 %------------------------------------------------------------------------------%
-function tNow = DoTrialLoop(tNow, tNext)
+function tNow = DoBlock(tNow, tNext)
     % execute the block
-    kBlock = ra.Experiment.Info.Get('ra', 'block');
-    blockType = blockOrder(kRun,kBlock);
-    blockRes	= ra.TrialLoop(blockType);        
+    kBlock      = ra.Experiment.Info.Get('ra', 'block');
+    blockType   = blockOrder(kRun,kBlock);
+    kTrial      = 0;
+    nCorrect    = 0;
+    bDone       = false;
+    blockRes         = [];
+    
+    while ~bDone
+        kTrial = kTrial+1;
+        ra.Experiment.AddLog(['trial ' num2str(kTrial)]);
+        resCur = ra.Trial(blockType, kTrial);
+        
+        if isempty(blockRes)
+            blockRes = resCur;
+        else
+            blockRes(end+1) = resCur;
+        end
+        
+        DoFeedback;
+    end
     
     % save results
     result = ra.Experiment.Info.Get('ra', 'result');
@@ -151,12 +169,40 @@ function tNow = DoTrialLoop(tNow, tNext)
     
     % increment block
     if kBlock < nBlock
-        ra.Experiment.Info.Set('ra','block',kBlock+1);
+        ra.Experiment.Info.Set('ra','block', kBlock+1);
     else
-        ra.Experiment.Info.Set('ra','block',1);
+        ra.Experiment.Info.Set('ra','block', 1);
     end
     ra.Experiment.Show.Blank;
     ra.Experiment.Window.Flip;
+end  
+%------------------------------------------------------------------------------%
+function [] = DoFeedback()
+    % add a log message
+    nCorrect	= nCorrect + blockRes(end).correct;
+    strCorrect	= conditional(blockRes(end).correct,'y','n');
+    strTally	= [num2str(nCorrect) '/' num2str(kTrial)];
+    
+    ra.Experiment.AddLog(['feedback (' strCorrect ', ' strTally ')']);
+	
+	% get the message and change in winnings
+		if blockRes(end).correct
+			strFeedback	= 'Yes!';
+			strColor	= 'green';
+			dWinning	= RA.Param('rewardpertrial');
+        else
+			strFeedback	= 'No!';
+			strColor	= 'red';
+            dWinning	= -RA.Param('penaltypertrial');
+        end
+        
+	% update the winnings and show feedback
+    ra.reward	= max(ra.reward + dWinning, RA.Param('reward','base'));
+    strText	= ['<color:' strColor '>' strFeedback ' (' StringMoney(dWinning,'sign',true) ')</color>\n\nCurrent total: ' StringMoney(ra.reward)]; 
+        
+	ra.Experiment.Show.Text(strText);
+    ra.Experiment.Window.Flip;
+    WaitSecs(1.0); % Not so sure about this bit
 end  
 %------------------------------------------------------------------------------%
 function tNow = DoTimeUp(tNow, tNext)

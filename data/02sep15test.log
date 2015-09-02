@@ -1,0 +1,458 @@
+time	type	info
+63608497694127.328	log	started
+63608497697584.109	window	opened main
+63608497698069.570	flip	show start
+63608497698145.914	experiment	using existing block order
+63608497698207.125	experiment	Setting nCorrect to 0
+63608497727149.547	window	closed
+63608497727472.258	log	ended
+63608497788616.406	log	started
+63608497791560.734	window	opened main
+63608497791733.922	flip	show start
+63608497791751.992	experiment	using default block order
+63608497791793.906	experiment	Setting nCorrect to 0
+63608498587697.289	keyboard	down: response
+63608498592001.023	keyboard	down: response
+63608498643584.836	keyboard	down: response
+63608498651225.430	keyboard	down: response
+63608498677527.281	keyboard	down: response
+63608499358000.758	keyboard	down: response
+63608499478744.312	keyboard	down: response
+63608499626022.617	keyboard	down: response
+63608499834844.375	keyboard	down: response
+63608499967746.344	experiment	run 1 start
+63608499967795.891	flip	waiting for scanner
+63608499967917.547	experiment	rest
+63608499968062.602	flip	block 1, type: level one | same
+63608499968067.359	experiment	waiting (for prompt HRF decay)
+63608499968105.656	experiment	trial 1
+63608500070592.930	experiment	run 1 start
+63608500070628.219	flip	waiting for scanner
+63608500070678.484	experiment	rest
+63608500070811.586	flip	block 1, type: level one | same
+63608500070815.305	experiment	waiting (for prompt HRF decay)
+63608500070853.422	experiment	trial 1
+63608500113448.438	experiment	run 1 start
+63608500113468.117	flip	waiting for scanner
+63608500113515.086	experiment	rest
+63608500113634.805	flip	block 1, type: level one | same
+63608500113638.633	experiment	waiting (for prompt HRF decay)
+63608500113676.883	experiment	trial 1
+63608500114921.805	keyboard	down: response
+63608500165392.562	experiment	run 1 start
+63608500165409.406	flip	waiting for scanner
+63608500165458.172	experiment	rest
+63608500165576.102	flip	block 1, type: level one | same
+63608500165578.445	experiment	waiting (for prompt HRF decay)
+63608500165603.391	experiment	trial 1
+63608500166641.602	keyboard	down: response
+63608500166672.422	experiment	feedback (y, 1/1)
+63608500167845.500	experiment	trial 2
+63608500173377.266	keyboard	down: response
+63608500173400.383	experiment	feedback (n, 1/2)
+63608500174480.016	experiment	trial 3
+63608500175194.133	keyboard	down: response
+63608500175217.328	experiment	feedback (n, 1/3)
+63608500176296.992	experiment	trial 4
+63608500177193.484	keyboard	down: response
+63608500177217.648	experiment	feedback (y, 2/4)
+63608500178297.266	experiment	trial 5
+63608500179025.719	keyboard	down: response
+63608500179051.227	experiment	feedback (n, 2/5)
+63608500180130.984	experiment	trial 6
+63608500181097.211	keyboard	down: response
+63608500181118.609	experiment	feedback (n, 2/6)
+63608500182198.031	experiment	trial 7
+63608500182657.203	keyboard	down: response
+63608500182668.828	experiment	feedback (n, 2/7)
+63608500183748.398	experiment	trial 8
+63608500184321.195	keyboard	down: response
+63608500184339.477	experiment	feedback (n, 2/8)
+63608500185415.875	experiment	trial 9
+63608500185953.195	keyboard	down: response
+63608500185974.297	experiment	feedback (n, 2/9)
+63608500187066.266	experiment	trial 10
+63608500187569.570	keyboard	down: response
+63608500187593.797	experiment	feedback (y, 3/10)
+63608500188700.180	experiment	trial 11
+63608500189185.172	keyboard	down: response
+63608500189208.945	experiment	feedback (n, 3/11)
+63608500190283.812	experiment	trial 12
+63608500190825.156	keyboard	down: response
+63608500190857.578	experiment	feedback (y, 4/12)
+63608500191950.352	experiment	trial 13
+63608500192441.148	keyboard	down: response
+63608500192457.625	experiment	feedback (y, 5/13)
+63608500193550.617	experiment	trial 14
+63608500193905.375	keyboard	down: response
+63608500193924.656	experiment	feedback (y, 6/14)
+63608500195018.219	experiment	trial 15
+63608500195489.109	keyboard	down: response
+63608500195508.109	experiment	feedback (y, 7/15)
+63608500196584.398	experiment	trial 16
+63608500196993.250	keyboard	down: response
+63608500197025.203	experiment	feedback (n, 7/16)
+63608500198118.320	experiment	trial 17
+63608500198649.234	keyboard	down: response
+63608500198675.289	experiment	feedback (n, 7/17)
+63608500199768.531	experiment	trial 18
+63608500200297.094	keyboard	down: response
+63608500200325.617	experiment	feedback (n, 7/18)
+63608500201421.523	experiment	trial 19
+63608500201993.781	keyboard	down: response
+63608500202028.852	experiment	feedback (y, 8/19)
+63608500203135.781	experiment	trial 20
+63608500203625.328	keyboard	down: response
+63608500203665.391	experiment	feedback (y, 9/20)
+63608500204785.805	experiment	trial 21
+63608500205425.164	keyboard	down: response
+63608500205443.320	experiment	feedback (y, 10/21)
+63608500206539.148	experiment	trial 22
+63608500207185.234	keyboard	down: response
+63608500207210.148	experiment	feedback (y, 11/22)
+63608500208302.641	experiment	trial 23
+63608500209609.000	keyboard	down: response
+63608500209623.797	experiment	feedback (y, 12/23)
+63608500210706.469	experiment	trial 24
+63608500211257.008	keyboard	down: response
+63608500211273.969	experiment	feedback (y, 13/24)
+63608500212353.828	experiment	trial 25
+63608500212920.984	keyboard	down: response
+63608500212941.117	experiment	feedback (y, 14/25)
+63608500214023.641	experiment	trial 26
+63608500214577.266	keyboard	down: response
+63608500214614.750	experiment	feedback (y, 15/26)
+63608500215737.008	experiment	trial 27
+63608500216312.891	keyboard	down: response
+63608500216341.445	experiment	feedback (n, 15/27)
+63608500217421.234	experiment	trial 28
+63608500217961.305	keyboard	down: response
+63608500217977.102	experiment	feedback (y, 16/28)
+63608500219072.945	experiment	trial 29
+63608500219633.062	keyboard	down: response
+63608500219658.695	experiment	feedback (y, 17/29)
+63608500220738.398	experiment	trial 30
+63608500221256.852	keyboard	down: response
+63608500221275.648	experiment	feedback (n, 17/30)
+63608500222371.938	experiment	trial 31
+63608500222984.859	keyboard	down: response
+63608500223009.391	experiment	feedback (y, 18/31)
+63608500224105.602	experiment	trial 32
+63608500224713.586	keyboard	down: response
+63608500224750.781	experiment	feedback (y, 19/32)
+63608500225872.648	experiment	trial 33
+63608500314847.594	experiment	run 1 start
+63608500314865.570	flip	waiting for scanner
+63608500315282.000	experiment	rest
+63608500315382.320	flip	block 1, type: level one | same
+63608500315384.328	experiment	waiting (for prompt HRF decay)
+63608500315409.070	experiment	trial 1
+63608500317688.367	keyboard	down: response
+63608500388665.562	window	closed
+63608500388928.781	log	ended
+63608500563202.578	log	started
+63608500566129.078	window	opened main
+63608500566303.812	flip	show start
+63608500566313.258	experiment	using default block order
+63608500566336.469	experiment	Setting nCorrect to 0
+63608500592996.008	experiment	run 1 start
+63608500593007.867	flip	waiting for scanner
+63608500593063.852	experiment	rest
+63608500593157.891	flip	block 1, type: level one | same
+63608500593161.500	experiment	waiting (for prompt HRF decay)
+63608500593186.320	experiment	trial 1
+63608500594421.578	keyboard	down: response
+63608500608428.625	experiment	run 1 start
+63608500608443.547	flip	waiting for scanner
+63608500608495.242	experiment	rest
+63608500608610.242	flip	block 1, type: level one | same
+63608500608613.852	experiment	waiting (for prompt HRF decay)
+63608500608638.586	experiment	trial 1
+63608500618005.477	keyboard	down: response
+63608500618050.305	experiment	feedback (n, 0/1)
+63608500619149.062	experiment	trial 2
+63608500621821.508	keyboard	down: response
+63608500621837.781	experiment	feedback (y, 1/2)
+63608500622917.883	experiment	trial 3
+63608500632805.406	keyboard	down: response
+63608500632823.016	experiment	feedback (y, 2/3)
+63608500633904.148	experiment	trial 4
+63608500644125.812	keyboard	down: response
+63608500644141.016	experiment	feedback (y, 3/4)
+63608500645219.664	experiment	trial 5
+63608500645957.117	keyboard	down: response
+63608500645974.836	experiment	feedback (y, 4/5)
+63608500647053.211	experiment	trial 6
+63608500647893.258	keyboard	down: response
+63608500647911.375	experiment	feedback (n, 4/6)
+63608500648986.797	experiment	trial 7
+63608500649581.297	keyboard	down: response
+63608500649608.781	experiment	feedback (y, 5/7)
+63608500650687.133	experiment	trial 8
+63608500651109.102	keyboard	down: response
+63608500651125.453	experiment	feedback (y, 6/8)
+63608500652203.539	experiment	trial 9
+63608500652701.367	keyboard	down: response
+63608500652725.750	experiment	feedback (y, 7/9)
+63608500653804.328	experiment	trial 10
+63608500654349.078	keyboard	down: response
+63608500654383.836	experiment	feedback (y, 8/10)
+63608500655487.836	experiment	trial 11
+63608500656629.031	keyboard	down: response
+63608500656643.016	experiment	feedback (n, 8/11)
+63608500657721.570	experiment	trial 12
+63608500658213.031	keyboard	down: response
+63608500658246.109	experiment	feedback (n, 8/12)
+63608500659338.625	experiment	trial 13
+63608500660020.977	keyboard	down: response
+63608500660043.508	experiment	feedback (y, 9/13)
+63608500661122.141	experiment	trial 14
+63608500662061.164	keyboard	down: response
+63608500662080.250	experiment	feedback (y, 10/14)
+63608500663172.094	experiment	trial 15
+63608500663781.062	keyboard	down: response
+63608500663818.398	experiment	feedback (y, 11/15)
+63608500664922.805	experiment	trial 16
+63608500665364.977	keyboard	down: response
+63608500665394.375	experiment	feedback (y, 12/16)
+63608500666472.094	experiment	trial 17
+63608500666957.133	keyboard	down: response
+63608500666978.086	experiment	feedback (y, 13/17)
+63608500668056.570	experiment	trial 18
+63608500668516.945	keyboard	down: response
+63608500668544.883	experiment	feedback (y, 14/18)
+63608500669623.477	experiment	trial 19
+63608500670157.023	keyboard	down: response
+63608500670178.367	experiment	feedback (n, 14/19)
+63608500671256.422	experiment	trial 20
+63608500671773.117	keyboard	down: response
+63608500671795.344	experiment	feedback (n, 14/20)
+63608500672873.891	experiment	trial 21
+63608500673341.086	keyboard	down: response
+63608500673362.844	experiment	feedback (y, 15/21)
+63608500674440.836	experiment	trial 22
+63608500675029.016	keyboard	down: response
+63608500675045.859	experiment	feedback (y, 16/22)
+63608500676124.320	experiment	trial 23
+63608500676620.891	keyboard	down: response
+63608500676646.039	experiment	feedback (y, 17/23)
+63608500677724.633	experiment	trial 24
+63608500678277.008	keyboard	down: response
+63608500678296.250	experiment	feedback (y, 18/24)
+63608500679374.578	experiment	trial 25
+63608500679820.844	keyboard	down: response
+63608500679846.516	experiment	feedback (y, 19/25)
+63608500680925.125	experiment	trial 26
+63608500681348.891	keyboard	down: response
+63608500681363.469	experiment	feedback (y, 20/26)
+63608500682442.047	experiment	trial 27
+63608500682892.812	keyboard	down: response
+63608500682913.789	experiment	feedback (y, 21/27)
+63608500683995.109	experiment	trial 28
+63608500684524.828	keyboard	down: response
+63608500684547.969	experiment	feedback (y, 22/28)
+63608500685625.859	experiment	trial 29
+63608500686140.836	keyboard	down: response
+63608500686164.305	experiment	feedback (n, 22/29)
+63608500687242.766	experiment	trial 30
+63608500688268.758	keyboard	down: response
+63608500688298.047	experiment	feedback (y, 23/30)
+63608500689375.930	experiment	trial 31
+63608500689844.992	keyboard	down: response
+63608500689865.188	experiment	feedback (n, 23/31)
+63608500690943.375	experiment	trial 32
+63608500691428.844	keyboard	down: response
+63608500691448.398	experiment	feedback (y, 24/32)
+63608500692526.859	experiment	trial 33
+63608500823665.492	experiment	run 1 start
+63608500823692.930	flip	waiting for scanner
+63608500823993.602	experiment	rest
+63608500824076.312	flip	block 1, type: level one | same
+63608500824078.250	experiment	waiting (for prompt HRF decay)
+63608500824102.195	experiment	trial 1
+63608500825460.352	keyboard	down: response
+63608500825486.750	experiment	feedback (n, 0/1)
+63608500826562.172	experiment	trial 2
+63608500827300.367	keyboard	down: response
+63608500827320.242	experiment	feedback (n, 0/2)
+63608500828396.180	experiment	trial 3
+63608500828964.047	keyboard	down: response
+63608500828984.570	experiment	feedback (y, 1/3)
+63608500830045.320	experiment	trial 4
+63608500830539.539	keyboard	down: response
+63608500830551.648	experiment	feedback (y, 2/4)
+63608500831613.328	experiment	trial 5
+63608500832147.438	keyboard	down: response
+63608500832169.312	experiment	feedback (y, 3/5)
+63608500833247.453	experiment	trial 6
+63608500833731.711	keyboard	down: response
+63608500833753.000	experiment	feedback (n, 3/6)
+63608500834814.891	experiment	trial 7
+63608500835395.594	keyboard	down: response
+63608500835423.383	experiment	feedback (n, 3/7)
+63608500836498.805	experiment	trial 8
+63608500837067.641	keyboard	down: response
+63608500837090.383	experiment	feedback (n, 3/8)
+63608500838165.688	experiment	trial 9
+63608500838772.375	keyboard	down: response
+63608500838790.922	experiment	feedback (y, 4/9)
+63608500839865.977	experiment	trial 10
+63608500840539.484	keyboard	down: response
+63608500840556.094	experiment	feedback (n, 4/10)
+63608500955337.352	experiment	run 1 start
+63608500955346.117	flip	waiting for scanner
+63608500955390.078	experiment	rest
+63608500955479.477	flip	block 1, type: level one | same
+63608500955483.062	experiment	waiting (for prompt HRF decay)
+63608500955511.078	experiment	trial 1
+63608500956730.375	keyboard	down: response
+63608500956769.406	experiment	feedback (y, 1/1)
+63608500957850.648	experiment	trial 2
+63608500958515.234	keyboard	down: response
+63608500958570.742	experiment	feedback (n, 1/2)
+63608500959649.898	experiment	trial 3
+63608500960146.453	keyboard	down: response
+63608500960184.961	experiment	feedback (y, 2/3)
+63608500961251.094	experiment	trial 4
+63608500961786.406	keyboard	down: response
+63608500961844.773	experiment	feedback (n, 2/4)
+63608500962934.609	experiment	trial 5
+63608500963506.297	keyboard	down: response
+63608500963538.219	experiment	feedback (y, 3/5)
+63608500964618.109	experiment	trial 6
+63608500964970.344	keyboard	down: response
+63608500965002.430	experiment	feedback (n, 3/6)
+63608500966084.656	experiment	trial 7
+63608500966458.297	keyboard	down: response
+63608500966486.023	experiment	feedback (y, 4/7)
+63608500967568.523	experiment	trial 8
+63608500967954.492	keyboard	down: response
+63608500967986.086	experiment	feedback (y, 5/8)
+63608500969068.688	experiment	trial 9
+63608500969762.250	keyboard	down: response
+63608500969807.398	experiment	feedback (y, 6/9)
+63608500970902.305	experiment	trial 10
+63608500971386.555	keyboard	down: response
+63608500971418.039	experiment	feedback (y, 7/10)
+63608500972502.625	experiment	trial 11
+63608500973202.258	keyboard	down: response
+63608500973235.539	experiment	feedback (n, 7/11)
+63608500974319.586	experiment	trial 12
+63608500975282.281	keyboard	down: response
+63608500975318.695	experiment	feedback (n, 7/12)
+63608500976386.492	experiment	trial 13
+63608500976866.367	keyboard	down: response
+63608500976918.531	experiment	feedback (y, 8/13)
+63608500978003.148	experiment	trial 14
+63608500978378.273	keyboard	down: response
+63608500978423.992	experiment	feedback (y, 9/14)
+63608500979503.609	experiment	trial 15
+63608500980018.492	keyboard	down: response
+63608500980058.305	experiment	feedback (y, 10/15)
+63608500981137.148	experiment	trial 16
+63608500981554.516	keyboard	down: response
+63608500981594.180	experiment	feedback (y, 11/16)
+63608500982670.805	experiment	trial 17
+63608500983083.188	keyboard	down: response
+63608500983127.500	experiment	feedback (y, 12/17)
+63608500984204.320	experiment	trial 18
+63608500984466.445	keyboard	down: response
+63608500984503.328	experiment	feedback (y, 13/18)
+63608500985590.641	experiment	trial 19
+63608500986010.359	keyboard	down: response
+63608500986040.180	experiment	feedback (n, 13/19)
+63608500987121.164	experiment	trial 20
+63608500987442.133	keyboard	down: response
+63608500987472.867	experiment	feedback (n, 13/20)
+63608500988554.969	experiment	trial 21
+63608500988826.094	keyboard	down: response
+63608500988854.023	experiment	feedback (y, 14/21)
+63608500989938.648	experiment	trial 22
+63608500990338.078	keyboard	down: response
+63608500990371.148	experiment	feedback (y, 15/22)
+63608500991455.555	experiment	trial 23
+63608500992162.062	keyboard	down: response
+63608500992187.930	experiment	feedback (y, 16/23)
+63608500993272.289	experiment	trial 24
+63608500993570.602	keyboard	down: response
+63608500993607.820	experiment	feedback (y, 17/24)
+63608500994689.242	experiment	trial 25
+63608500995090.125	keyboard	down: response
+63608500995124.805	experiment	feedback (y, 18/25)
+63608500996205.898	experiment	trial 26
+63608501044555.297	window	closed
+63608501044758.539	log	ended
+63608501096438.117	log	started
+63608501099362.562	window	opened main
+63608501099567.906	flip	show start
+63608501099575.695	experiment	using default block order
+63608501099598.930	experiment	Setting nCorrect to 0
+63608501333273.352	log	started
+63608501333273.352	log	started
+63608501336817.727	window	opened main
+63608501337387.414	flip	show start
+63608501337471.914	experiment	using default block order
+63608501337531.922	experiment	Setting nCorrect to 0
+63608501404214.297	experiment	run 1 start
+63608501404264.320	flip	waiting for scanner
+63608501404432.273	experiment	rest
+63608501404681.055	flip	block 1, type: level one | same
+63608501404685.570	experiment	waiting (for prompt HRF decay)
+63608501404725.109	experiment	trial 1
+63608501408806.438	keyboard	down: response
+63608501408880.758	experiment	feedback (n, 0/1)
+63608501409985.883	experiment	trial 2
+63608501419230.531	keyboard	down: response
+63608501419271.641	experiment	feedback (n, 0/2)
+63608501420337.352	experiment	trial 3
+63608501422902.586	keyboard	down: response
+63608501422938.727	experiment	feedback (y, 1/3)
+63608501424021.320	experiment	trial 4
+63608501426646.258	keyboard	down: response
+63608501426686.359	experiment	feedback (y, 2/4)
+63608501427755.172	experiment	trial 5
+63608501429046.234	keyboard	down: response
+63608501429070.500	experiment	feedback (n, 2/5)
+63608501430157.688	experiment	trial 6
+63608501431878.727	keyboard	down: response
+63608501431903.703	experiment	feedback (y, 3/6)
+63608501432975.445	experiment	trial 7
+63608501536604.531	experiment	run 1 start
+63608501536617.875	flip	waiting for scanner
+63608501536684.156	experiment	rest
+63608501536784.570	flip	block 1, type: level one | same
+63608501536786.867	experiment	waiting (for prompt HRF decay)
+63608501536813.375	experiment	trial 1
+63608501540949.227	keyboard	down: response
+63608501540989.258	experiment	feedback (n, 0/1)
+63608501542053.820	experiment	trial 2
+63608501545701.164	keyboard	down: response
+63608501545740.688	experiment	feedback (y, 1/2)
+63608501546805.234	experiment	trial 3
+63608501549701.555	keyboard	down: response
+63608501549742.164	experiment	feedback (y, 2/3)
+63608501550807.375	experiment	trial 4
+63608501551701.102	keyboard	down: response
+63608501551742.648	experiment	feedback (y, 3/4)
+63608501552807.672	experiment	trial 5
+63608501553301.664	keyboard	down: response
+63608501553339.453	experiment	feedback (n, 3/5)
+63608501554407.914	experiment	trial 6
+63608501554661.266	keyboard	down: response
+63608501554690.102	experiment	feedback (y, 4/6)
+63608501555758.094	experiment	trial 7
+63608501556181.180	keyboard	down: response
+63608501556207.125	experiment	feedback (n, 4/7)
+63608501557275.000	experiment	trial 8
+63608501557725.211	keyboard	down: response
+63608501557756.664	experiment	feedback (y, 5/8)
+63608501558827.273	experiment	trial 9
+63608501592979.758	experiment	run 1 start
+63608501592993.180	flip	waiting for scanner
+63608501593046.078	experiment	rest
+63608501593143.203	flip	block 1, type: level one | same
+63608501593146.812	experiment	waiting (for prompt HRF decay)
+63608501593171.922	experiment	trial 1
+63608501604284.742	keyboard	down: response
+63608501645011.945	window	closed
+63608501645266.766	log	ended

@@ -1,0 +1,172 @@
+log saving to: "/home/kevin/studies/relabs/data/25aug15test.log"
+diary saving to: "/home/kevin/studies/relabs/data/25aug15test.diary"
+2015-08-25 11:30:31/63607807831720.672 | event: log              | info: started
+
+
+PTB-INFO: This is Psychtoolbox-3 for GNU/Linux X11, under Matlab 64-Bit (Version 3.0.12 - Build date: Apr 18 2015).
+PTB-INFO: Support status on this operating system release: Linux 3.16.0-45-generic Supported.
+PTB-INFO: Type 'PsychtoolboxVersion' for more detailed version information.
+PTB-INFO: Most parts of the Psychtoolbox distribution are licensed to you under terms of the MIT License, with
+PTB-INFO: some restrictions. See file 'License.txt' in the Psychtoolbox root folder for the exact licensing conditions.
+
+PTB-INFO: NVIDIA Corporation - GK107M [GeForce GT 650M Mac Edition] GPU found. Trying to establish low-level access...
+PTB-INFO: Connected to NVidia GK107M [GeForce GT 650M Mac Edition] GPU of NV-0e0 family with 4 display heads. Beamposition timestamping enabled.
+PTB-INFO: Many graphics cards do not support proper timing and timestamping of visual stimulus onset
+PTB-INFO: when running in windowed mode (non-fullscreen). If PTB aborts with 'Synchronization failure'
+PTB-INFO: you can disable the sync test via call to Screen('Preference', 'SkipSyncTests', 2); .
+PTB-INFO: You won't get proper stimulus onset timestamps though, so windowed mode may be of limited use.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+PTB-INFO: Failed to enable realtime-scheduling [Operation not permitted]!
+PTB-INFO: You need to run Matlab or Octave with root-privileges, or run the script PsychLinuxConfiguration once for this to work.
+
+
+PTB-INFO: OpenGL-Renderer is NVIDIA Corporation :: GeForce GT 650M/PCIe/SSE2 :: 4.4.0 NVIDIA 340.76
+PTB-INFO: VBL startline = 1800 , VBL Endline = 1851
+PTB-INFO: Measured monitor refresh interval from beamposition = 16.677506 ms [59.961003 Hz].
+PTB-INFO: Will use beamposition query for accurate Flip time stamping.
+PTB-INFO: Measured monitor refresh interval from VBLsync = 16.678081 ms [59.958938 Hz]. (50 valid samples taken, stddev=0.040278 ms.)
+PTB-INFO: Reported monitor refresh interval from operating system = 16.669723 ms [59.988998 Hz].
+PTB-INFO: Small deviations between reported values are normal and no reason to worry.
+PTB-INFO: Support for fast OffscreenWindows enabled.
+2015-08-25 11:30:35/63607807835248.797 | event: window           | info: opened main
+2015-08-25 11:30:35/63607807835743.875 | event: flip             | info: show start
+2015-08-25 11:30:35/63607807835821.680 | event: experiment       | info: using default block order
+2015-08-25 11:30:35/63607807835856.320 | event: experiment       | info: Setting nCorrect to 0
+
+ra = 
+
+  <a href="matlab:helpPopup RelAbs" style="font-weight:bold">RelAbs</a> with properties:
+
+         Experiment: [1x1 PTB.Experiment]
+          colorIcon: [64x64x4 uint8]
+         numberIcon: [64x64x4 uint8]
+    orientationIcon: [64x64x4 uint8]
+          shapeIcon: [64x64x4 uint8]
+             reward: 20
+             parent: []
+           children: {}
+               type: 'relabs'
+
+ra.Trial(3)
+2015-08-25 11:30:43/63607807843037.734 | event: keyboard         | info: down: response
+2015-08-25 11:30:43/63607807843108.227 | event: experiment       | info: feedback (y)
+
+ans = 
+
+          level: 3
+          color: {'red'  'red'}
+         number: {[2]  [2]}
+    orientation: {'vertical'  'vertical'}
+          shape: {'circle'  'circle'}
+       response: 'No'
+             rt: 1.6235e+03
+        numSame: 4
+     numSameYes: 1
+        correct: 1
+
+ra.Trial(4)
+2015-08-25 11:30:48/63607807848207.750 | event: keyboard         | info: down: response
+2015-08-25 11:30:48/63607807848220.719 | event: experiment       | info: feedback (y)
+
+ans = 
+
+          level: 4
+          color: {'red'  'red'}
+         number: {[2]  [2]}
+    orientation: {'horizontal'  'horizontal'}
+          shape: {'rectangle'  'rectangle'}
+       response: 'No'
+             rt: 1.7235e+03
+        numSame: 4
+     numSameYes: 3
+        correct: 1
+
+ra.Trial(5)
+2015-08-25 11:31:07/63607807867257.086 | event: keyboard         | info: down: response
+2015-08-25 11:31:07/63607807867266.586 | event: experiment       | info: feedback (y)
+
+ans = 
+
+          level: 5
+          color: {'red'  'red'}
+         number: {[4]  [2]}
+    orientation: {'vertical'  'vertical'}
+          shape: {'rectangle'  'circle'}
+       response: 'No'
+             rt: 1.4569e+04
+        numSame: 2
+     numSameYes: 1
+        correct: 1
+
+ra.Trial(1)
+2015-08-25 11:31:15/63607807875445.117 | event: keyboard         | info: down: response
+2015-08-25 11:31:15/63607807875456.805 | event: experiment       | info: feedback (y)
+
+ans = 
+
+          level: 1
+          color: {'deepskyblue'  'deepskyblue'}
+         number: {[2]  [2]}
+    orientation: {'horizontal'  'horizontal'}
+          shape: {'circle'  'circle'}
+       response: 'No'
+             rt: 3.2108e+03
+        numSame: 4
+     numSameYes: 1
+        correct: 1
+
+ra.Trial(1)
+2015-08-25 11:31:29/63607807889948.586 | event: keyboard         | info: down: response
+2015-08-25 11:31:29/63607807889969.102 | event: experiment       | info: feedback (n)
+
+ans = 
+
+          level: 1
+          color: {'red'  'red'}
+         number: {[4]  [4]}
+    orientation: {'vertical'  'vertical'}
+          shape: {'rectangle'  'rectangle'}
+       response: 'Yes'
+             rt: 8.0413e+03
+        numSame: 4
+     numSameYes: 1
+        correct: 0
+
+ra.Run
+Next run (default=1): 
+2015-08-25 11:31:36/63607807896815.828 | event: experiment       | info: run 1 start
+2015-08-25 11:31:37/63607807897000.570 | event: experiment       | info: rest
+2015-08-25 11:31:41/63607807901086.461 | event: flip             | info: block 1, type: level one | same
+2015-08-25 11:31:44/63607807904965.609 | event: experiment       | info: waiting (for prompt HRF decay)
+2015-08-25 11:31:54/63607807914545.750 | event: keyboard         | info: down: response
+2015-08-25 11:31:54/63607807914573.875 | event: experiment       | info: feedback (y, 1/1)
+2015-08-25 11:31:57/63607807917137.578 | event: keyboard         | info: down: response
+2015-08-25 11:31:57/63607807917152.039 | event: experiment       | info: feedback (n, 1/2)
+2015-08-25 11:31:59/63607807919011.031 | event: keyboard         | info: down: response
+2015-08-25 11:31:59/63607807919037.070 | event: experiment       | info: feedback (y, 2/3)
+2015-08-25 11:32:02/63607807922962.125 | event: experiment       | info: rest
+2015-08-25 11:32:07/63607807927053.359 | event: flip             | info: block 2, type: level one | different
+2015-08-25 11:32:10/63607807930961.219 | event: experiment       | info: waiting (for prompt HRF decay)
+{Operation terminated by user during <a href="matlab:helpUtils.errorDocCallback('PTB.Sequence/Linear', '/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m', 237)" style="font-weight:bold">PTB.Sequence/Linear</a> (<a href="matlab: opentoline('/home/kevin/matlab/matlab_lib/research/+PTB/@Sequence/Linear.m',237,0)">line 237</a>)
+
+
+In <a href="matlab:helpUtils.errorDocCallback('RelAbs/Run', '/home/kevin/studies/relabs/code/@RelAbs/Run.m', 63)" style="font-weight:bold">RelAbs/Run</a> (<a href="matlab: opentoline('/home/kevin/studies/relabs/code/@RelAbs/Run.m',63,0)">line 63</a>)
+	[tStartActual,tEndActual,tSequenceActual] = ra.Experiment.Sequence.Linear(...
+} 
+sca
+
+
+INFO: PTB's Screen('Flip', 10) command seems to have missed the requested stimulus presentation deadline
+INFO: a total of 4 times out of a total of 35 flips during this session.
+
+INFO: This number is fairly accurate (and indicative of real timing problems in your own code or your system)
+INFO: if you provided requested stimulus onset times with the 'when' argument of Screen('Flip', window [, when]);
+INFO: If you called Screen('Flip', window); without the 'when' argument, this count is more of a ''mild'' indicator
+INFO: of timing behaviour than a hard reliable measurement. Large numbers may indicate problems and should at least
+INFO: deserve your closer attention. Cfe. 'help SyncTrouble', the FAQ section at www.psychtoolbox.org and the
+INFO: examples in the PDF presentation in PsychDocumentation/Psychtoolbox3-Slides.pdf for more info and timing tips.
+
+ra.End
+Error in function Close: 	Invalid Window (or Texture) Index provided: It doesn't correspond to an open window or texture.
+Did you close it accidentally via Screen('Close') or Screen('CloseAll') ?

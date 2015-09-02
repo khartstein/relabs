@@ -13,13 +13,11 @@ function res = TrialLoop(ra, blockType, varargin)
 % Out:
 % 	res         - a struct of results
 %
-% ToDo:         
-%               - Make icons for level 3 labels
+% ToDo:         - PTB.Show.Sequence for showing trials?
+%               - Fix timing issues
 %
-% Updated: 08-14-2015
+% Updated: 08-31-2015
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
-
-global strDirCode
 
 [tStart] = ParseArgs(varargin, []);
 
@@ -134,6 +132,7 @@ while PTB.Now < tEnd
     resCur.response     = sResponse;
     resCur.rt           = tResponse-tTrialStart;
     resCur.numSame      = numSame(kTrial);
+    resCur.numSameYes   = numSameYes;
     resCur.correct      = (numSameYes == numSame(kTrial) && ismember(kResponse,kButtYes))...
                         ||(numSameYes ~= numSame(kTrial) && ismember(kResponse,kButtNo));
     
@@ -204,7 +203,6 @@ function [] = DrawL1Box(stimNum)
 end
 %------------------------------------------------------------------------------%
 function [] = DrawL3Box()
-    % replace text with icons
     boxLocs = {[6 0]-largeXOff, [6 0]-smallXOff, ...
         [6 0]+smallXOff, [6 0]+largeXOff};
     SD = Replace(bSame2, [0 1], ['D' 'S']);
@@ -215,7 +213,6 @@ function [] = DrawL3Box()
     ra.Experiment.Show.Image(cLabelIms{loc}, (boxLocs{loc} - [0 1.5]), 1.5);
     end
 end
-
 %------------------------------------------------------------------------------%
 function [] = DrawStimulus()
     ra.Experiment.Show.Fixation;
@@ -279,7 +276,7 @@ function [] = DoFeedback()
 	ra.Experiment.Show.Text(strText);
     ra.Experiment.Window.Flip;
     
-    WaitSecs(1.0); % balderdash
+    WaitSecs(1.0); % FIX this can extend block time past deadline
 end        
 %------------------------------------------------------------------------------%
 end

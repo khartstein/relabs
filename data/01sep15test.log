@@ -1,0 +1,295 @@
+time	type	info
+63608406985885.328	log	started
+63608406989460.008	window	opened main
+63608406989941.891	flip	show start
+63608406990028.117	experiment	using default block order
+63608406990094.898	experiment	Setting nCorrect to 0
+63608406997265.664	keyboard	down: response
+63608406997297.695	experiment	feedback (y, 1/1)
+63608406998857.477	keyboard	down: response
+63608406998884.461	experiment	feedback (y, 2/2)
+63608407427445.117	log	started
+63608407430899.727	window	opened main
+63608407431386.188	flip	show start
+63608407431467.461	experiment	using default block order
+63608407431467.461	experiment	using default block order
+63608407431532.461	experiment	Setting nCorrect to 0
+63608407434834.695	experiment	run 1 start
+63608407434870.055	flip	waiting for scanner
+63608407435080.773	experiment	rest
+63608407439320.734	flip	block 1, type: level one | same
+63608407443019.969	experiment	waiting (for prompt HRF decay)
+63608407452279.227	keyboard	down: response
+63608407452312.844	experiment	feedback (y, 1/1)
+63608407454543.336	keyboard	down: response
+63608407454559.773	experiment	feedback (y, 2/2)
+63608407455951.148	keyboard	down: response
+63608407455960.031	experiment	feedback (n, 2/3)
+63608407457383.133	keyboard	down: response
+63608407457393.641	experiment	feedback (y, 3/4)
+63608407458743.156	keyboard	down: response
+63608407458760.656	experiment	feedback (y, 4/5)
+63608407461017.367	experiment	rest
+63608407465091.359	flip	block 2, type: level one | different
+63608407471908.633	window	closed (Usage: Screen('Close', [windowOrTextureIndex or list of textureIndices/offscreenWindowIndices]);)
+63608407472280.914	log	ended
+63608408827195.852	log	started
+63608408830088.547	window	opened main
+63608408830330.539	flip	show start
+63608408830373.031	experiment	using default block order
+63608408830424.094	experiment	Setting nCorrect to 0
+63608408877137.000	window	closed
+63608408877429.578	log	ended
+63608408950448.734	log	started
+63608408953493.641	window	opened main
+63608408953699.203	flip	show start
+63608408953725.789	experiment	using default block order
+63608408953759.375	experiment	Setting nCorrect to 0
+63608408978176.555	window	closed
+63608408978231.570	log	ended
+63608409153572.969	log	started
+63608409153572.969	log	started
+63608409153572.969	log	started
+63608409157166.195	window	opened main
+63608409157635.891	flip	show start
+63608409157714.125	experiment	using default block order
+63608409157782.672	experiment	Setting nCorrect to 0
+63608409160749.766	experiment	run 1 start
+63608409160803.047	flip	waiting for scanner
+63608409160964.555	experiment	rest
+63608409165287.062	flip	block 1, type: level one | same
+63608409168933.445	experiment	waiting (for prompt HRF decay)
+63608409176953.523	experiment	trial 1
+63608409189457.781	window	closed
+63608409189714.750	log	ended
+63608409760906.914	log	started
+63608409763869.109	window	opened main
+63608409764027.891	flip	show start
+63608409764037.156	experiment	using default block order
+63608409764067.367	experiment	Setting nCorrect to 0
+63608409769279.609	experiment	run 1 start
+63608409769312.016	flip	waiting for scanner
+63608409769361.508	experiment	rest
+63608409773479.305	flip	block 1, type: level one | same
+63608409777352.000	experiment	waiting (for prompt HRF decay)
+63608409785362.000	experiment	trial 1
+63608409829511.211	window	closed
+63608409829716.117	log	ended
+63608409904509.273	log	started
+63608409907378.398	window	opened main
+63608409907532.711	flip	show start
+63608409907540.430	experiment	using default block order
+63608409907563.719	experiment	Setting nCorrect to 0
+63608409911852.750	experiment	run 1 start
+63608409911866.688	flip	waiting for scanner
+63608409911911.805	experiment	rest
+63608409915950.633	flip	block 1, type: level one | same
+63608409919904.477	experiment	waiting (for prompt HRF decay)
+63608409927905.156	experiment	trial 1
+63608409975587.727	experiment	run 1 start
+63608409975642.953	flip	waiting for scanner
+63608409975695.250	experiment	rest
+63608409979760.242	flip	block 1, type: level one | same
+63608409983688.836	experiment	waiting (for prompt HRF decay)
+63608409991687.836	experiment	trial 1
+63608409993196.766	keyboard	down: response
+63608410004014.539	experiment	feedback (y, 1/1)
+63608410024411.008	window	closed
+63608410024440.023	log	ended
+63608411994157.742	log	started
+63608411997054.000	window	opened main
+63608411997246.078	flip	show start
+63608411997254.195	experiment	using default block order
+63608411997278.078	experiment	Setting nCorrect to 0
+63608412001531.281	experiment	run 1 start
+63608412001563.398	flip	waiting for scanner
+63608412001610.078	experiment	rest
+63608412005664.008	flip	block 1, type: level one | same
+63608412009603.062	experiment	waiting (for prompt HRF decay)
+63608412017615.883	experiment	trial 1
+63608412019129.453	keyboard	down: response
+63608412019156.250	experiment	feedback (y, 1/1)
+63608412020253.422	experiment	trial 2
+63608412021313.484	keyboard	down: response
+63608412021336.172	experiment	feedback (n, 1/2)
+63608412022437.023	experiment	trial 3
+63608412023313.406	keyboard	down: response
+63608412023322.578	experiment	feedback (y, 2/3)
+63608412024422.055	experiment	trial 4
+63608412024985.422	keyboard	down: response
+63608412025003.281	experiment	feedback (y, 3/4)
+63608412026087.594	experiment	trial 5
+63608412026577.516	keyboard	down: response
+63608412026586.812	experiment	feedback (y, 4/5)
+63608412027670.883	experiment	trial 6
+63608412028217.422	keyboard	down: response
+63608412028237.203	experiment	feedback (n, 4/6)
+63608412029323.984	experiment	trial 7
+63608412029825.625	keyboard	down: response
+63608412029840.742	experiment	feedback (y, 5/7)
+63608412030956.945	experiment	trial 8
+63608412031473.273	keyboard	down: response
+63608412031487.641	experiment	feedback (y, 6/8)
+63608412032571.898	experiment	trial 9
+63608412033129.352	keyboard	down: response
+63608412033137.805	experiment	feedback (y, 7/9)
+63608412034222.125	experiment	trial 10
+63608412034705.367	keyboard	down: response
+63608412034721.383	experiment	feedback (y, 8/10)
+63608412035805.562	experiment	trial 11
+63608412036313.156	keyboard	down: response
+63608412036323.938	experiment	feedback (y, 9/11)
+63608412037405.938	experiment	trial 12
+63608412037817.188	keyboard	down: response
+63608412037842.109	experiment	feedback (y, 10/12)
+63608412038921.227	experiment	trial 13
+63608412039361.398	keyboard	down: response
+63608412039372.180	experiment	feedback (y, 11/13)
+63608412040456.227	experiment	trial 14
+63608412040969.344	keyboard	down: response
+63608412040989.102	experiment	feedback (y, 12/14)
+63608412042075.195	experiment	trial 15
+63608412042593.586	keyboard	down: response
+63608412042607.391	experiment	feedback (n, 12/15)
+63608412043740.328	experiment	trial 16
+63608412044217.367	keyboard	down: response
+63608412044239.547	experiment	feedback (n, 12/16)
+63608412045323.836	experiment	trial 17
+63608412045905.328	keyboard	down: response
+63608412045924.523	experiment	feedback (y, 13/17)
+63608412047057.461	experiment	trial 18
+63608412047601.188	keyboard	down: response
+63608412047623.438	experiment	feedback (y, 14/18)
+63608412048706.711	experiment	trial 19
+63608412049169.148	keyboard	down: response
+63608412049190.266	experiment	feedback (y, 15/19)
+63608412050274.469	experiment	trial 20
+63608412051185.195	keyboard	down: response
+63608412051207.234	experiment	feedback (y, 16/20)
+63608412052291.477	experiment	trial 21
+63608412052801.180	keyboard	down: response
+63608412052807.547	experiment	feedback (n, 16/21)
+63608412053894.578	experiment	trial 22
+63608412054408.984	keyboard	down: response
+63608412054424.406	experiment	feedback (y, 17/22)
+63608412055508.711	experiment	trial 23
+63608412056048.984	keyboard	down: response
+63608412056057.938	experiment	feedback (y, 18/23)
+63608412057142.180	experiment	trial 24
+63608412057696.961	keyboard	down: response
+63608412057708.164	experiment	feedback (n, 18/24)
+63608412058792.453	experiment	trial 25
+63608412059233.188	keyboard	down: response
+63608412059241.766	experiment	feedback (y, 19/25)
+63608412060327.844	experiment	trial 26
+63608412060841.156	keyboard	down: response
+63608412060858.656	experiment	feedback (y, 20/26)
+63608412061941.875	experiment	trial 27
+63608412062400.953	keyboard	down: response
+63608412062408.961	experiment	feedback (y, 21/27)
+63608412063492.547	experiment	trial 28
+63608412064000.906	keyboard	down: response
+63608412064009.164	experiment	feedback (n, 21/28)
+63608412065110.188	experiment	trial 29
+63608412065656.953	keyboard	down: response
+63608412065676.203	experiment	feedback (n, 21/29)
+63608412066760.297	experiment	trial 30
+63608412067256.953	keyboard	down: response
+63608412067276.438	experiment	feedback (y, 22/30)
+63608412068360.625	experiment	trial 31
+63608412068856.875	keyboard	down: response
+63608412068876.523	experiment	feedback (y, 23/31)
+63608412069960.820	experiment	trial 32
+63608412070472.844	keyboard	down: response
+63608412070493.469	experiment	feedback (y, 24/32)
+63608412071579.516	experiment	trial 33
+63608412080575.039	window	closed
+63608412080606.492	log	ended
+63608427354944.344	log	started
+63608427358615.133	window	opened main
+63608427359100.156	flip	show start
+63608427359178.812	experiment	using default block order
+63608427359251.258	experiment	Setting nCorrect to 0
+63608427396681.570	window	closed
+63608427396981.953	log	ended
+63608428059970.773	log	started
+63608428062998.391	window	opened main
+63608428063207.164	flip	show start
+63608428063216.695	experiment	using default block order
+63608428063257.383	experiment	Setting nCorrect to 0
+63608428120956.000	window	closed
+63608428120956.000	window	closed
+63608428121169.656	log	ended
+63608428157123.695	log	started
+63608428160062.984	window	opened main
+63608428160221.781	flip	show start
+63608428160230.305	experiment	using default block order
+63608428160254.297	experiment	Setting nCorrect to 0
+63608428180252.477	keyboard	down: response
+63608428181308.359	keyboard	down: response
+63608428184198.242	keyboard	down: response
+63608428885642.141	log	started
+63608428889209.289	window	opened main
+63608428889793.055	flip	show start
+63608428889941.336	experiment	using default block order
+63608428889941.336	experiment	using default block order
+63608428890022.906	experiment	Setting nCorrect to 0
+63608428896458.797	keyboard	down: response
+63608428923665.977	window	closed
+63608428923912.852	log	ended
+63608429404455.258	log	started
+63608429407354.289	window	opened main
+63608429407513.000	flip	show start
+63608429407522.352	experiment	using default block order
+63608429407561.953	experiment	Setting nCorrect to 0
+63608430521525.852	log	started
+63608430524506.062	window	opened main
+63608430524681.781	flip	show start
+63608430524689.930	experiment	using default block order
+63608430524713.477	experiment	Setting nCorrect to 0
+63608430530613.609	keyboard	down: response
+63608430548893.062	window	closed
+63608430548911.711	log	ended
+63608430619272.281	log	started
+63608430622255.406	window	opened main
+63608430622413.109	flip	show start
+63608430622420.352	experiment	using default block order
+63608430622455.008	experiment	Setting nCorrect to 0
+63608430639972.273	window	closed
+63608430639989.641	log	ended
+63608430683035.516	log	started
+63608430685880.203	window	opened main
+63608430686039.328	flip	show start
+63608430686047.141	experiment	using default block order
+63608430686070.477	experiment	Setting nCorrect to 0
+63608430692915.516	keyboard	down: response
+63608430776538.195	keyboard	down: response
+63608430832171.508	keyboard	down: response
+63608430923171.539	window	closed
+63608430923358.344	log	ended
+63608430932695.000	log	started
+63608430935604.727	window	opened main
+63608430935760.531	flip	show start
+63608430935769.547	experiment	using default block order
+63608430935793.922	experiment	Setting nCorrect to 0
+63608430944890.164	experiment	run 1 start
+63608430944911.922	flip	waiting for scanner
+63608430945026.742	experiment	rest
+63608430949162.586	flip	block 1, type: level one | same
+63608430953010.789	experiment	waiting (for prompt HRF decay)
+63608430961021.625	experiment	trial 1
+63608430989205.875	window	closed
+63608430989389.969	log	ended
+63608431206680.578	log	started
+63608431209576.625	window	opened main
+63608431209735.555	flip	show start
+63608431209743.289	experiment	using default block order
+63608431209775.492	experiment	Setting nCorrect to 0
+63608431212612.859	experiment	run 1 start
+63608431212636.000	flip	waiting for scanner
+63608431212706.391	experiment	rest
+63608431216769.953	flip	block 1, type: level one | same
+63608431220704.281	experiment	waiting (for prompt HRF decay)
+63608431228717.055	experiment	trial 1
+63608431318625.648	window	closed
+63608431318816.352	log	ended
