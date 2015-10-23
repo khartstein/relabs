@@ -1,74 +1,196 @@
-function [color, number, orientation, shape] = ChooseStimFeatures(ra, bSame)
+function [stimColors, stimNumbers, stimOrientations, stimShapes] = ChooseStimFeatures(ra, bSame, blockType, bCorrect, fixFeat, fixVal)
 % RelAbs.ChooseStimFeatures
 %
-% Description: choose features for a stimulus in RelAbs experiment
+% Description: choose stimulus features for a RelAbs trial
 %
 % Syntax: ra.ChooseStimFeature(bSame)
 %
 % In:
-%   bSame           - a vector containing dimension(s) along  which the 
+%   bSame           - a vector containing features (level 2) or 
+%                       dimensions (level 3) along  which the 
 %                       stimuli should be the same (these are boolean 
 %                       values, in alphabetical order: color, number, 
-%                       orientation, shape)
+%                       orientation, shape). This variable is ignored for 
+%                       level 1 trials (i.e. blockType == 1 or 2) 
+%   blockType       - the block type. Odd numbers are 1S, evens are 1D
+%                       (1=1S, 2=1D, 3=2S, 4=2D, 5=3S, 6=3D)
+%   bCorrect        - a boolean specifying whether the answer for the
+%                       current trial should be correct (1) or 
+%                       incorrect (0)
+%   fixFeat         - an integer (1:4) used to let this function know which
+%                       feature is being drawn at fixation in the trial.
+%                       This variable is used for stimulus selection in
+%                       level 1, but ignored in levels 2 and 3.
+%   fixVal          - an integer (1 or 2) used to let this function know
+%                       which value of the fixFeat variable (e.g. 'red' or 
+%                       'deepskyblue' for color) is being drawn at fixation
+%                       on this trial. Similar to fixFeat, it is used in
+%                       level 1 and ignored in levels 2 and 3.
 %
 % Out:
-%   color           - a cell of 2 strings containing the colors for
+%   stimColors      - a cell of strings containing the colors for
 %                       a stimulus set
-%   number          - a cell of 2 strings containing the number of
+%   stimNumbers     - a cell of strings containing the number of
 %                       units for a stimulus set
-%   orientation     - a cell of 2 strings containing the orientations 
+%   stimOrientations- a cell of strings containing the orientations 
 %                       for a stimulus set
-%   shape           - a cell of 2 strings containing the shapes for 
+%   stimShapes      - a cell of strings containing the shapes for 
 %                       a stimulus set
 %
-% Notes:    - Only implemented for features with 2 values (call twice for
-%               levels 3 and 4)
+% Notes:            - the matching output values and dimensions are always
+%                       first in the output arguments, followed by
+%                       non-matching values and dimensions
+%                       This is a bit confusing, so here are some examples:
+%                        1. if blockType is 1, bCorrect is 1, fixFeature 
+%                           is 1 (color), and fixVal is 1 ('deepskyblue'),
+%                           then the first item in stimColors will match
+%                           fixation (i.e. will be deepskyblue)
+%                        2. if blockType is 2 and the other arguments are
+%                           the same as in example 1, then stimColors(1:3) 
+%                           will match fixation
+%                       
 %
 % ToDo:    
-%           - Maybe choose stimuli using blockdesign instead of randomly
+%                   - It's working! Maybe streamline the code a little bit
 %
-% Updated: 08-03-2015
+% Updated: 10-02-2015
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
-colors      = fieldnames(RA.Param('stim_color'));
-numbers     = struct2cell(RA.Param('stim_number'));
-orientations= fieldnames(RA.Param('stim_orient'));
-shapes      = fieldnames(RA.Param('stim_shape'));
+% parse the arguments
+% [opt]   = ParseArgs(varargin, 'L1feature', [], );
 
-[color,number,orientation,shape] = deal(cell(1,2));
-nFeature = length(colors);
-iFeature = randi(nFeature, [1,4]);
-iFeatureFlip = Replace(iFeature, [1, 2], [2, 1]);
+% get feature values from RA.Param
+colors          = struct2cell(RA.Param('stim_color'));
+numbers         = struct2cell(RA.Param('stim_number'));
+orientations    = fieldnames(RA.Param('stim_orient'));
+shapes          = fieldnames(RA.Param('stim_shape'));
 
-% choose feature values for first stimulus
-color{1}        = colors{iFeature(1)};
-number{1}       = numbers{iFeature(2)};
-orientation{1}  = orientations{iFeature(3)};
-shape{1}        = shapes{iFeature(4)};
+% create normal and flipped array for indexing, values chosen randomly
+[stimColors,stimNumbers,stimOrientations,stimShapes] = deal(cell(1,4));
+iFeatureFlip    = [];
+% nFeature        = length(colors);
+% iFeature        = randi(nFeature, [1,4]);
+% iFeatureFlip    = Replace(iFeature, [1, 2], [2, 1]);
 
-% choose feature values for second stimulus
-if bSame(1)
-    color{2} = color{1};
-else
-    color{2} = colors{iFeatureFlip(1)};
+    switch blockType
+        case {1, 2}
+            % if called for level 1, choose all random features 
+            % (don't use bSame)
+            [s1Color, s1Number, s1Orientation, s1Shape] = randFeatures();
+            [s2Color, s2Number, s2Orientation, s2Shape] = randFeatures();
+            [s3Color, s3Number, s3Orientation, s3Shape] = randFeatures();
+            [s4Color, s4Number, s4Orientation, s4Shape] = randFeatures();
+        case {3,4}
+            % choose feature values for 2 framed stimuli with bSame 
+            % mapping and other 2 randomly        
+            [s1Color, s1Number, s1Orientation, s1Shape] = randFeatures();
+            [s2Color, s2Number, s2Orientation, s2Shape] = mapFeatures(bSame, {s1Color, s1Number, s1Orientation, s1Shape});
+            [s3Color, s3Number, s3Orientation, s3Shape] = randFeatures();
+            [s4Color, s4Number, s4Orientation, s4Shape] = randFeatures();
+        case {5, 6}
+            % choose feature values for framed and unframed stimuli according
+            % to bSame mapping for match/mismatch between pairs
+            bSame2 = transmogrify(bSame);
+            [s1Color, s1Number, s1Orientation, s1Shape] = randFeatures();
+            [s2Color, s2Number, s2Orientation, s2Shape] = mapFeatures(bSame, {s1Color, s1Number, s1Orientation, s1Shape});
+            [s3Color, s3Number, s3Orientation, s3Shape] = randFeatures();
+            [s4Color, s4Number, s4Orientation, s4Shape] = mapFeatures(bSame2, {s3Color, s3Number, s3Orientation, s3Shape});
+
+        otherwise
+            % should never get here
+            error('invalid value for blockType');
+    end
+
+    for k = 1:4
+        stimColors{k}       = eval(['s' num2str(k) 'Color']);
+        stimNumbers{k}      = eval(['s' num2str(k) 'Number']);
+        stimOrientations{k} = eval(['s' num2str(k) 'Orientation']);
+        stimShapes{k}       = eval(['s' num2str(k) 'Shape']);
+    end
+    
+    if ismember(blockType, [1 2])
+        if bCorrect
+            nSame = switch2(blockType, 1, 1, 2, 3);
+        else
+            nSame = switch2(blockType, 1, randFrom(2:4), 2, randFrom([1 2 4]));
+        end
+        
+        notFixVal = switch2(fixVal, 1, 2, 2, 1);
+        
+        switch fixFeat
+            case 1
+                stimColors(1:nSame)             = repmat(colors(fixVal), 1, nSame);
+                stimColors(nSame+1:end)         = repmat(colors(notFixVal), 1, 4-nSame); 
+            case 2
+                stimNumbers(1:nSame)            = repmat(numbers(fixVal), 1, nSame);
+                stimNumbers(nSame+1:end)        = repmat(numbers(notFixVal), 1, 4-nSame);
+            case 3
+                stimOrientations(1:nSame)       = repmat(orientations(fixVal), 1, nSame);
+                stimOrientations(nSame+1:end)   = repmat(orientations(notFixVal), 1, 4-nSame);
+            case 4
+                stimShapes(1:nSame)             = repmat(shapes(fixVal), 1, nSame);
+                stimShapes(nSame+1:end)         = repmat(shapes(notFixVal), 1, 4-nSame);
+            otherwise
+                error('fixFeat must be a and integer from 1 to 4');
+        end
+    end
+
+%------------------------------------------------------------------------------%
+function [bSameOut] = transmogrify(bSameIn)
+    % figure out pair 2 same/different values
+    % Chooses which features to change randomly
+    bSameOut = zeros(1, length(bSameIn));
+    iChange = randFrom(1:4, length(bSameIn) - sum(bSameIn)); 
+    for n = 1:length(bSameIn)
+        if ismember(n, iChange) && bSameIn(n) == 0
+            bSameOut(n) = 1;
+        elseif ismember(n, iChange) && bSameIn(n) == 1
+            bSameOut(n) = 0;
+        else
+            bSameOut(n) = bSameIn(n);
+        end
+    end
 end
-
-if bSame(2)
-    number{2} = number{1};
-else
-    number{2} = numbers{iFeatureFlip(2)};
+%------------------------------------------------------------------------------%
+function [colorOut, numberOut, orientationOut, shapeOut] = randFeatures()
+    % choose indices randomly
+    nFeature        = length(colors);
+    iFeature        = randi(nFeature, [1,4]);
+    iFeatureFlip    = Replace(iFeature, [1, 2], [2, 1]);
+    
+    % assign feature values to output
+    colorOut       = colors{iFeature(1)};
+    numberOut      = numbers{iFeature(2)};
+    orientationOut = orientations{iFeature(3)};
+    shapeOut       = shapes{iFeature(4)};
 end
+%------------------------------------------------------------------------------%
+function [colorOut, numberOut, orientationOut, shapeOut] = mapFeatures(bSameN, cBaseSet)
+    % choose a set of feature values in a way that maps to a given set via
+    % a bSame array
+    if bSameN(1)
+        colorOut = cBaseSet{1};
+    else
+        colorOut = colors{iFeatureFlip(1)};
+    end
 
-if bSame(3)
-    orientation{2} = orientation{1};
-else
-    orientation{2} = orientations{iFeatureFlip(3)};
+    if bSameN(2)
+        numberOut = cBaseSet{2};
+    else
+        numberOut = numbers{iFeatureFlip(2)};
+    end
+
+    if bSameN(3)
+        orientationOut = cBaseSet{3};
+    else
+        orientationOut = orientations{iFeatureFlip(3)};
+    end
+
+    if bSameN(4)
+        shapeOut = cBaseSet{4};
+    else
+        shapeOut = shapes{iFeatureFlip(4)};
+    end
 end
-
-if bSame(4)
-    shape{2} = shape{1};
-else
-    shape{2} = shapes{iFeatureFlip(4)};
-end
-
+%------------------------------------------------------------------------------%
 end

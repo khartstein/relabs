@@ -1,7 +1,7 @@
 classdef RelAbs < PTB.Object
 % RelAbs
 %
-% Description: the nestif experiment object
+% Description: the relabs experiment object
 %
 % Syntax RA = RelAbs(<options>)
 %
@@ -17,7 +17,7 @@ classdef RelAbs < PTB.Object
 %
 % Out: 
 %
-% Updated 08-14-2015
+% Updated 09-03-2015
 % Writted by Kevin Hartstein (kevinhartstein@gmail.com)
 
 	% PUBLIC PROPERTIES---------------------------------------------------------%
@@ -69,14 +69,14 @@ classdef RelAbs < PTB.Object
 			opt.name	= 'relabs';
             opt.context	= switch2(opt.session,1,'psychophysics',2,'fmri');
             opt.input_scheme = 'lrud';
-            opt.text_size = NIF.Param('text', 'instructSize');
-            opt.text_color = NIF.Param('text', 'color');
+            opt.text_size = RA.Param('text', 'instructSize');
+            opt.text_color = RA.Param('text', 'color');
 			
 			% window
-            opt.background	= NIF.Param('color','back');
-            opt.text_color	= NIF.Param('color','text');
-            opt.text_size	= NIF.Param('text','size');
-            opt.text_family	= NIF.Param('text','font');
+            opt.background	= RA.Param('color','back');
+            opt.text_color	= RA.Param('color','text');
+            opt.text_size	= RA.Param('text','size');
+            opt.text_family	= RA.Param('text','font');
 			
 			% options for PTB.Experiment object
 			cOpt = opt2cell(opt);

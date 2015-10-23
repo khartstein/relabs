@@ -5,14 +5,14 @@ function Run(ra)
 %
 % Syntax: ra.Run
 %
-% ToDo:     - Scanner stuff
+% ToDo:     - Timing
 %
-% Updated: 08-13-2015
+% Updated: 09-28-2015
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
     nBlock      = RA.Param('exp','blocks');
     nRun        = RA.Param('exp','runs');
-    tRun        = RA.Param('trrun');  
+    trRun        = RA.Param('trrun');  
     
     trRest      = RA.Param('time', 'rest');
     trTrialLoop = RA.Param('time', 'trialloop');                
@@ -42,34 +42,32 @@ function Run(ra)
 % start the scanner
     ra.Experiment.Show.Blank;
     ra.Experiment.Window.Flip('waiting for scanner');
-    ra.Experiment.Scanner.StartScan(tRun);
+    ra.Experiment.Scanner.StartScan(trRun);
  	
 % let idle processes execute
     ra.Experiment.Scheduler.Wait;
     
-cF          =    [
+    cF          =   [
                     {@DoRest}
                     repmat({@ShowPrompt; @DoWait; @DoTrialLoop; @DoTimeUp; @DoRest}, [nBlock 1])
                     ];
                 
-tSequence   = cumsum([
+    tSequence   = cumsum([
                         trRest
                         repmat([trPrompt; trWait; trTrialLoop; trTimeUp; trRest], [nBlock 1])
                         ]);
                     
 % because fake scanner
-    tStart		= PTB.Now;
     tSequence   = tSequence*tr;
-    strTUnit    = 'ms';
+    tUnit       = 'ms';
 
 	[tStartActual,tEndActual,tSequenceActual] = ra.Experiment.Sequence.Linear(...
                         cF              ,   tSequence   , ...
-                        'tunit'         ,   strTUnit    , ...
-                        'tstart'        ,   tStart      , ...
-                        'tbase'         ,   'sequence'  , ...
-                        'fwait'         ,   false         ...
+                        'tunit'         ,   tUnit       , ...
+                        'tbase'         ,   'sequence'    ...
                     );
-    runTiming = struct('StartActual', tStartActual, 'EndActual', tEndActual, 'SequenceActual', tSequenceActual);
+
+    runTimes = struct('StartActual', tStartActual, 'EndActual', tEndActual, 'SequenceActual', tSequenceActual);
 % scanner stopped
     ra.Experiment.Scanner.StopScan;
 % blank the screen
@@ -77,9 +75,9 @@ tSequence   = cumsum([
     ra.Experiment.Window.Flip;
 
 % save timing results
-    timing = ra.Experiment.Info.Get('ra', 'timing');
-    timing{kRun} = runTiming;
-    ra.Experiment.Info.Set('ra', 'timing', timing);
+    runTiming = ra.Experiment.Info.Get('ra', 'runtiming');
+    runTiming{kRun} = runTimes;
+    ra.Experiment.Info.Set('ra', 'runtiming', runTiming);
     
 % % enable the keyboard
 % 	ListenChar(1);
@@ -105,11 +103,11 @@ function tNow = DoRest(tNow, tNext)
     ra.Experiment.AddLog('rest');
     
 	% blank the screen
-    ra.Experiment.Show.Blank;
+    ra.Experiment.Show.Blank('fixation', true);
     ra.Experiment.Window.Flip;
 	
 	ra.Experiment.Scheduler.Wait;
-end  
+end
 %------------------------------------------------------------------------------%
 function tNow = ShowPrompt(tNow, tNext)
     % get current block
@@ -120,9 +118,7 @@ function tNow = ShowPrompt(tNow, tNext)
                                         3, 'level two | same'         ,   ...
                                         4, 'level two | different'    ,   ...
                                         5, 'level three | same'       ,   ...
-                                        6, 'level three | different'  ,   ...
-                                        7, 'level four | same'        ,   ...
-                                        8, 'level four | different'       ...
+                                        6, 'level three | different'      ...
                                         );
     ra.Experiment.Show.Text(['<size:1><style:normal><color:black>' sBlockType '</color></style></size>']);
     % flip and log
@@ -140,23 +136,26 @@ end
 %------------------------------------------------------------------------------%
 function tNow = DoTrialLoop(tNow, tNext)
     % execute the block
-    kBlock = ra.Experiment.Info.Get('ra', 'block');
-    blockType = blockOrder(kRun,kBlock);
-    blockRes	= ra.TrialLoop(blockType);        
+    kBlock                      = ra.Experiment.Info.Get('ra', 'block');
+    blockType                   = blockOrder(kRun,kBlock);
+    [blockRes, loopTiming]      = ra.TrialLoop(blockType);
+
+    % save results and timing
+    result                      = ra.Experiment.Info.Get('ra', 'result');
+    result{kRun, kBlock}        = blockRes;
+    blockTiming                 = ra.Experiment.Info.Get('ra', 'blocktiming');
+    blockTiming{kRun, kBlock}   = loopTiming;
     
-    % save results
-    result = ra.Experiment.Info.Get('ra', 'result');
-    result{kRun, kBlock} = blockRes;
     ra.Experiment.Info.Set('ra', 'result', result);
+    ra.Experiment.Info.Set('ra', 'blocktiming', blockTiming);
     
     % increment block
     if kBlock < nBlock
-        ra.Experiment.Info.Set('ra','block',kBlock+1);
+        ra.Experiment.Info.Set('ra','block', kBlock+1);
     else
-        ra.Experiment.Info.Set('ra','block',1);
+        ra.Experiment.Info.Set('ra','block', 1);
     end
-    ra.Experiment.Show.Blank;
-    ra.Experiment.Window.Flip;
+    
 end  
 %------------------------------------------------------------------------------%
 function tNow = DoTimeUp(tNow, tNext)

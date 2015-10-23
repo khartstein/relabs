@@ -1,4 +1,4 @@
-function res = TrialLoop(ra, blockType, varargin)
+function [blockRes, loopTiming] = TrialLoop(ra, blockType)
 % RelAbs.TrialLoop
 % 
 % Description:	run a loop of RelAbs trials
@@ -6,159 +6,120 @@ function res = TrialLoop(ra, blockType, varargin)
 % Syntax:	res = ra.TrialLoop(blockType)
 % 
 % In:
-%   blockType   - the type of block to run as an integer 1:8
-%                   (1=1s,2=1d,3=2s,4=2d,5=3s,6=3d,7=4s,8=4d)
-%   tStart      - <immediate> the time to start
+%	blockType   - the block type. Odd numbers are 1S, evens are 1D
+%                   (1=1S, 2=1D, 3=2S, 4=2D, 5=3S, 6=3D)
 %
 % Out:
-% 	res         - a struct of results
+% 	blockRes    - a struct of results for the current block
+%   loopTiming  - a struct of timing information from 
+%                   ra.Experiment.Sequence.Loop
 %
-% ToDo:         - PTB.Show.Sequence for showing trials?
-%               - Fix timing issues
+% ToDo:         - Assign stimuli and frames to quadrants in some reasonable
+%                   way.
+%                   - always draw frames around stimulus 1 and 2, but they
+%                       should be in random (or maybe counterbalanced)
+%                       quadrants by trial
+%               - Figure out blipping fixation task
 %
-% Updated: 08-31-2015
+% Updated: 10-02-2015
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
-[tStart] = ParseArgs(varargin, []);
+tLoopStart = PTB.Now;
 
-% find correct/incorrect keys
-kButtYes = cell2mat(ra.Experiment.Input.Get('yes'));
-kButtNo = cell2mat(ra.Experiment.Input.Get('no'));
+% get feature values from RA.Param
+colors          = fieldnames(RA.Param('stim_color'));
+numbers         = struct2cell(RA.Param('stim_number'));
+orientations    = fieldnames(RA.Param('stim_orient'));
+shapes          = fieldnames(RA.Param('stim_shape'));
 
-topCenter       = RA.Param('screenlocs' , 'topcenter');
-bottomCenter    = RA.Param('screenlocs' , 'bottomcenter');
-radius          = RA.Param('stim_size'  , 'circradius');
-squareSide      = RA.Param('stim_size'  , 'sqside');
+% screen locations
+stimOff         = RA.Param('stim_size' , 'offset');
+radius          = RA.Param('stim_size' , 'circradius');
+squareSide      = RA.Param('stim_size' , 'sqside');
 smallXOff       = RA.Param('smallXOffset');
 largeXOff       = RA.Param('largeXOffset');
 smallYOff       = RA.Param('smallYOffset');
 largeYOff       = RA.Param('largeYOffset');
-    
-trTrialLoop = RA.Param('time', 'trialloop');
-tr          = RA.Param('time', 'tr');
 
-nCorrect    = 0;
-kTrial      = 0;
-res         = [];
+% info for frames
+frameColor      = RA.Param('color', 'frame');
+frameSize       = RA.Param('framesize');
+% timing info
+t               = RA.Param('time');
+maxLoopTime     = t.trialloop;
+
+% block, run, and trial info
+kRun            = ra.Experiment.Info.Get('ra', 'run');
+kBlock          = ra.Experiment.Info.Get('ra', 'block');
+trialInfo       = ra.Experiment.Info.Get('ra', 'trialinfo');
+
+% find correct/incorrect keys
+kButtYes        = cell2mat(ra.Experiment.Input.Get('yes'));
+kButtNo         = cell2mat(ra.Experiment.Input.Get('no'));
 
 % same/different arrays
-bOneSame    = unique(perms([1 0 0 0]), 'rows');
-bTwoSame    = unique(perms([0 0 1 1]), 'rows');
-bThreeSame  = unique(perms([0 1 1 1]), 'rows');
-bAllSame    = [1 1 1 1];
-bNoneSame   = [0 0 0 0];
+bOneSame        = unique(perms([1 0 0 0]), 'rows');
+bTwoSame        = unique(perms([0 0 1 1]), 'rows');
+bThreeSame      = unique(perms([0 1 1 1]), 'rows');
+bAllSame        = [1 1 1 1];
+bNoneSame       = [0 0 0 0];
 
-% Pseudo-random numSame (same freq within every 8 trials)
-numSame = [Shuffle(repmat(1:4, 1, 2)) Shuffle(repmat(1:4, 1, 2)) ...
-        Shuffle(repmat(1:4, 1, 2)) Shuffle(repmat(1:4, 1, 2))];
-numSameYes = switch2(blockType,{1, 3, 5, 7}, 1, {2, 4, 6, 8}, 3);
+% stimulus to quadrant orders
+stimOrders      = unique(perms(1:4), 'rows');
 
-if isempty(tStart);
-%     bPractice = true;
-    tStart = PTB.Now;
-end
- 
-tEnd = tStart + trTrialLoop*tr;
+% each row is a possible SD array, each cateogry (bSameOne, bSame2, etc.) 
+% has the same number of rows (least common multiple is 12)
+bNotOneSame     = [repmat(bTwoSame, 2, []);     ...
+                   repmat(bThreeSame, 3, []);   ...
+                   repmat(bAllSame, 12, []);    ... 
+                   repmat(bNoneSame, 12, [])];
+bNotThreeSame   = [repmat(bOneSame, 3, []);     ...
+                   repmat(bTwoSame, 2, []);     ...
+                   repmat(bAllSame, 12, []);    ... 
+                   repmat(bNoneSame, 12, [])];
+% bAllPossibleSD  = [repmat(bOneSame, 3, []);     ...
+%                    repmat(bTwoSame, 2, []);     ...
+%                    repmat(bThreeSame, 3, []);   ...
+%                    repmat(bAllSame, 12, []);    ...
+%                    repmat(bNoneSame, 12, [])];
+                   
 
-while PTB.Now < tEnd
-    resCur = struct;
-    kTrial = kTrial + 1;
-    bResponse   = false;
+% initialize some things
+blockRes        = [];
+kTrial          = 0;
+nCorrect        = 0;
+frameStims      = [];
+[trialColors,trialNumbers,trialOrientations,trialShapes] = deal(cell(1,4));
 
-    % choose stimuli for the trial
-    bSame1 = switch2(numSame(kTrial), 0, bNoneSame                  , ...  
-                        1, bOneSame(randi(length(bOneSame)),:)      , ...
-                        2, bTwoSame(randi(length(bTwoSame)),:)      , ...
-                        3, bThreeSame(randi(length(bThreeSame)),:)  , ...
-                        4, bAllSame);
-                    
-    if ismember(blockType, [5 6 7 8])
-        bSame2 = zeros(1, length(bSame1));
-        iChange = randFrom(1:4, numSame(kTrial)); 
-        for n = 1:length(bSame1)
-            if ismember(n, iChange) && bSame1(n) == 0
-                bSame2(n) = 1;
-            elseif ismember(n, iChange) && bSame1(n) == 1
-                bSame2(n) = 0;
-            else
-                bSame2(n) = bSame1(n); 
-            end
-        end
-    end
-    % choose features and show the stimulus
-    [color1, number1, orientation1, shape1] = ra.ChooseStimFeatures(bSame1);
-    [trialColors, trialNumbers, trialOrientations, trialShapes] = deal(color1, number1, orientation1, shape1);
+% because fake scanner
+tUnit           = 'ms';
+maxLoopTime     = maxLoopTime*t.tr;
 
-    if ismember(blockType, [7 8])
-        [color2, number2, orientation2, shape2] = ra.ChooseStimFeatures(bSame2);
-        trialColors = [color1, color2];
-        trialNumbers = [number1, number2];
-        trialOrientations = [orientation1, orientation2];
-        trialShapes = [shape1, shape2];
-    end
+% loop through trials until maxLoopTime is reached
+[tStart, tEnd, tLoop, bAbort, kResponse, tResponse] = ra.Experiment.Sequence.Loop(@DoTrial, @DoNext, ...
+            'tunit'         ,       tUnit           , ...
+            'tbase'         ,       'sequence'      , ...
+            'fwait'         ,       @loopWait       , ...
+            'return'        ,       't');    
+        
+%             'tend'          ,       maxLoopTime     , ...
+        
+% save loop timing for output
+loopTiming = struct('tStart', tStart, 'tEnd', tEnd, 'tLoop', tLoop, 'bAbort', bAbort);
 
-    % draw stimulus
-    DrawStimulus;
-    tTrialStart = ra.Experiment.Window.Flip;
-    
-    % wait for response, then flip the blank screen
-    while ~bResponse && PTB.Now < tEnd        
-        [bResponse, ~, tResponse, kResponse] = ra.Experiment.Input.DownOnce('response');
-    end
-    
-    ra.Experiment.Show.Blank;
-    ra.Experiment.Window.Flip;
-    
-    ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_CRITICAL);
-    
-    % determine whether answer is correct
-    if ismember(kResponse, kButtYes)
-        sResponse = 'Yes';
-    elseif ismember(kResponse, kButtNo)
-        sResponse = 'No';
-    elseif isempty(kResponse) 
-        sResponse = 'Timeout, end of block';
-        kResponse = 0;
-    else
-        sResponse = 'Incorrect Key';
-    end
-    
-    % record trial results
-    resCur.level        = blockType;
-    resCur.color        = trialColors;
-    resCur.number       = trialNumbers;
-    resCur.orientation  = trialOrientations;
-    resCur.shape        = trialShapes;
-    resCur.response     = sResponse;
-    resCur.rt           = tResponse-tTrialStart;
-    resCur.numSame      = numSame(kTrial);
-    resCur.numSameYes   = numSameYes;
-    resCur.correct      = (numSameYes == numSame(kTrial) && ismember(kResponse,kButtYes))...
-                        ||(numSameYes ~= numSame(kTrial) && ismember(kResponse,kButtNo));
-    
-    % feedback
-    if PTB.Now < tEnd
-        DoFeedback;
-    end
-    
-    if isempty(res)
-        res         = resCur;
-    else
-        res(end+1)  = resCur;
-    end
-end
-    
+% blank the screen
+ra.Experiment.Show.Blank('fixation', true);
+ra.Experiment.Window.Flip;
+
 %------------------------------------------------------------------------------%
-function [] = DrawSet(stimNum)
-    if ismember(blockType, [1 2 3 4])
-        center = switch2(stimNum, 1, topCenter, 2, bottomCenter, [0 0]);
-    elseif ismember(blockType, [5 6 7 8])
-        center = switch2(stimNum, 1, topCenter - [6 0], 2, bottomCenter - [6 0], ...
-            3, topCenter + [6 0], 4, bottomCenter + [6 0]);
-    end
+function [] = DrawSet(stimNum, stimPos)
+    % handle screen coordinates
+    center = switch2(stimPos, 1, [stimOff, -stimOff], 2, [-stimOff, -stimOff], ...
+            3, [-stimOff, stimOff], 4, [stimOff, stimOff]);
     smallOffset = switch2(trialOrientations{stimNum}, 'horizontal', smallXOff, 'vertical', smallYOff, 0);
     largeOffset = switch2(trialOrientations{stimNum}, 'horizontal', largeXOff, 'vertical', largeYOff, 0);
-    bitLoc = {center-largeOffset, center-smallOffset,center+smallOffset, center+largeOffset};
+    bitLoc = {center-largeOffset, center-smallOffset, center+smallOffset, center+largeOffset};
+    
     if strcmpi(trialShapes{stimNum},'rectangle')
         ra.Experiment.Show.Rectangle(trialColors{stimNum}, squareSide, bitLoc{2});
         ra.Experiment.Show.Rectangle(trialColors{stimNum}, squareSide, bitLoc{3});
@@ -176,97 +137,145 @@ function [] = DrawSet(stimNum)
     else
             error('stimulus shape cannot be identified');
     end
-end
-%------------------------------------------------------------------------------%
-function [] = DrawL1Box(stimNum)
-    oriDims = switch2(trialOrientations{stimNum}, 'vertical', [.125*squareSide squareSide], ...
-                'horizontal', [squareSide, .125*squareSide]);
-    iLoc = randperm(4);
-    boxLocs = {bottomCenter-largeXOff, bottomCenter-smallXOff, ...
-        bottomCenter+smallXOff, bottomCenter+largeXOff};
-    % color
-    ra.Experiment.Show.Rectangle(trialColors{stimNum}, squareSide, boxLocs{iLoc(1)});
-    % number
-    ra.Experiment.Show.Text(['<size:1.5><style:normal><color:black>'...
-        num2str(trialNumbers{stimNum}) '</color></style></size>'], ...
-        (boxLocs{iLoc(4)} + [0 .5]));
-    % orientation
-    ra.Experiment.Show.Rectangle('black', oriDims, boxLocs{iLoc(2)});
-    % shape 
-    if strcmpi(trialShapes{stimNum}, 'rectangle')
-        ra.Experiment.Show.Rectangle('black', squareSide, boxLocs{iLoc(3)}); 
-    elseif strcmpi(trialShapes{stimNum}, 'circle')
-        ra.Experiment.Show.Circle('black', radius, boxLocs{iLoc(3)});
-    else
-        error('stimulus shape cannot be identified');
+    
+    % draw frame
+    if ismember(stimNum, [1 2])
+        ra.Experiment.Show.Rectangle(frameColor, frameSize, center, 'border', true)
     end
 end
 %------------------------------------------------------------------------------%
-function [] = DrawL3Box()
-    boxLocs = {[6 0]-largeXOff, [6 0]-smallXOff, ...
-        [6 0]+smallXOff, [6 0]+largeXOff};
-    SD = Replace(bSame2, [0 1], ['D' 'S']);
-    cLabelIms = {ra.colorIcon, ra.numberIcon, ra.orientationIcon, ra.shapeIcon};
-    for loc = 1:4
-    ra.Experiment.Show.Text(['<size:1.5><style:normal><color:black>' char(SD(loc)) '</color></style></size>'], ...
-        (boxLocs{loc} + [0 1.5]));
-    ra.Experiment.Show.Image(cLabelIms{loc}, (boxLocs{loc} - [0 1.5]), 1.5);
-    end
-end
-%------------------------------------------------------------------------------%
-function [] = DrawStimulus()
-    ra.Experiment.Show.Fixation;
-    switch blockType
-        case {1 2}
-            DrawSet(1);
-            DrawL1Box(2);
-        case {3 4}
-            DrawSet(1);
-            DrawSet(2);
-        case {5 6}
-            DrawSet(1);
-            DrawSet(2);
-            DrawL3Box();
-        case {7 8}
-            for k = 1:4
-                DrawSet(k);
+function [NaN] = DoTrial(tNow, NaN)
+    kTrial      = kTrial+1;
+    ra.Experiment.AddLog(['trial ' num2str(kTrial)]);
+    
+    % get trial info
+    bCorrect        = trialInfo.bcorrect(kRun, kBlock, kTrial);
+    numSameCorrect  = switch2(blockType, {1, 3, 5}, 1, {2, 4, 6}, 3);
+    frameType       = trialInfo.frametype(kRun, kBlock, kTrial);
+    kFixFeature     = trialInfo.fixfeature(kRun, kBlock, kTrial);           % will be an integer 1:4
+    kFixValue       = randi(2);
+    
+    switch kFixFeature
+        case 1
+            % color
+            val     = colors{kFixValue};
+            ra.Experiment.Show.Rectangle(val, 0.25, [0,0], 45)
+        case 2
+            % number
+            val     = num2str(numbers{kFixValue});
+            ra.Experiment.Show.Text(['<color: black><size: 0.5>' val '</color></size>'], [0,0]);
+        case 3
+            % orientation
+            val     = switch2(orientations{kFixValue}, 'horizontal', [0.5, 0.125], 'vertical', [0.125, 0.5]);
+            ra.Experiment.Show.Rectangle('black', val, [0, 0]);
+        case 4
+            % shape
+            val     = shapes{kFixValue};
+            if strcmpi(val, 'rectangle') 
+                ra.Experiment.Show.Rectangle('black', 0.25, [0,0]);
+            elseif strcmpi(val, 'circle')
+                ra.Experiment.Show.Circle('black', 0.25, [0,0]);
             end
         otherwise
-            error('blockType must be an integer between 1 and 8!');
+            error('Invalid index for fixation feauture');
+    end
+            
+    % choose same/different values for relevant trial stimulus
+    if bCorrect
+        bSame   = switch2(blockType, {1, 2}, zeros(1,4), ...             
+                                     {3, 5}, bOneSame(randi(length(bOneSame)), :), ...
+                                     {4, 6}, bThreeSame(randi(length(bThreeSame)), :));
+    else
+        bSame   = switch2(blockType, {1, 2}, zeros(1,4), ...
+                                     {3, 5}, bNotOneSame(randi(length(bNotOneSame)), :), ...
+                                     {4, 6}, bNotThreeSame(randi(length(bNotThreeSame)), :));
+    end
+    
+    % figure out which stimuli will have frames - first two always have
+    % frames, so this won't be used.
+%     frameStims  = switch2(frameType, 1, [1 2], 2, [1 3], 3, [1 4], ...
+%                                      4, [2 3], 5, [2 4], 6, [3 4]);
+    
+    % choose stimuli
+    [trialColors, trialNumbers, trialOrientations, trialShapes] = ra.ChooseStimFeatures(bSame, blockType, bCorrect, kFixFeature, kFixValue);
+
+    % choose which stimuli go in which quadrant
+    stimOrder = stimOrders(randi(length(stimOrders)), :);
+    
+    % draw the stimuli
+    for k = 1:4
+        DrawSet(k, stimOrder(k));
+    end
+    
+    % initialize kResponse and flip
+    kResponse = [];
+    tFlip = ra.Experiment.Window.Flip;
+
+    % get response (ok to do this with PTB.Now or use
+    % ra.Experiment.Scanner.TR() ?
+    while isempty(kResponse) && PTB.Now - tLoopStart < maxLoopTime - 1
+        [~,~,tResponse,kResponse]	= ra.Experiment.Input.DownOnce('response');
+    end
+    
+    % determine whether answer is correct
+    if ismember(kResponse, kButtYes)
+        sResponse = 'Yes';
+    elseif ismember(kResponse, kButtNo)
+        sResponse = 'No';
+    elseif isempty(kResponse)
+        sResponse = 'No response';
+        kResponse = NaN;
+    else
+        sResponse = 'Incorrect Key';
+    end
+    
+    % record trial results
+    trialRes.level          = blockType;
+    trialRes.trial          = kTrial;
+    trialRes.color          = trialColors;
+    trialRes.number         = trialNumbers;
+    trialRes.orientation    = trialOrientations;
+    trialRes.shape          = trialShapes;
+    trialRes.fixValue       = val; 
+    trialRes.response       = sResponse;
+    trialRes.kResponse      = kResponse;
+    trialRes.numSame        = sum(bSame);
+    trialRes.numSameCorrect = numSameCorrect;
+    trialRes.rt             = tResponse - tFlip; 
+    trialRes.correct        = (bCorrect && ismember(kResponse,kButtYes))...
+                            ||(~bCorrect && ismember(kResponse,kButtNo));
+
+    if isempty(blockRes)
+        blockRes        = trialRes;
+    else
+        blockRes(end+1) = trialRes;
+    end 
+    
+    if maxLoopTime - tNow > 1
+        DoFeedback;
+    else
+        ra.Experiment.Show.Blank('fixation', true);
+        ra.Experiment.Window.Flip;
     end
 end
-%------------------------------------------------------------------------------%
-% function [] = Wait_Response()
-% % 	bAbort = false;
-% 	
-%     while ~bResponse && PTB.Now < tEnd
-%         [bResponse, ~, tResponse, kResponse]	= ra.Experiment.Input.DownOnce('response');
-%     end
-% 	
-% 	ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_CRITICAL);
-% end
 %------------------------------------------------------------------------------%
 function [] = DoFeedback()
     % add a log message
-    nCorrect	= nCorrect + resCur.correct;
-    strCorrect	= conditional(resCur.correct,'y','n');
+    nCorrect	= nCorrect + blockRes(end).correct;
+    strCorrect	= conditional(blockRes(end).correct,'y','n');
     strTally	= [num2str(nCorrect) '/' num2str(kTrial)];
     
     ra.Experiment.AddLog(['feedback (' strCorrect ', ' strTally ')']);
 	
 	% get the message and change in winnings
-		if resCur.correct
+		if blockRes(end).correct
 			strFeedback	= 'Yes!';
 			strColor	= 'green';
 			dWinning	= RA.Param('rewardpertrial');
         else
 			strFeedback	= 'No!';
 			strColor	= 'red';
-			if kResponse == 0
-                dWinning = 0;
-            else
-                dWinning	= -RA.Param('penaltypertrial');
-            end
+            dWinning	= -RA.Param('penaltypertrial');
         end
         
 	% update the winnings and show feedback
@@ -275,8 +284,40 @@ function [] = DoFeedback()
         
 	ra.Experiment.Show.Text(strText);
     ra.Experiment.Window.Flip;
+    ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_LOW);
+    WaitSecs(0.9835); % Do this without WaitSecs?
+end 
+%------------------------------------------------------------------------------%
+function [bAbort, bContinue] = DoNext(tNow)
+    % abort if current time greater than allowed
+    if tNow > maxLoopTime
+        bAbort      = true;
+        bContinue   = false;
+    elseif isempty(blockRes(end).kResponse)
+        bAbort = false;
+        bContinue = false;
+    else
+        bAbort = false;
+        bContinue = true;
+    end
+end
+%------------------------------------------------------------------------------%
+function [bAbort] = loopWait(tNow, NaN)
+    % FIX - this function doesn't get called even though it is supplied as
+    % as the fWait function in ra.Sequence.Loop
     
-    WaitSecs(1.0); % FIX this can extend block time past deadline
-end        
+    % abort if current time greater than allowed
+    if tNow > maxLoopTime
+        bAbort = true;
+    else
+        bAbort = false;
+    end
+
+% 	[~,~,~,kResponse]   = ra.Experiment.Input.DownOnce('response');
+% 	
+% 	tResponse           = conditional(isempty(kResponse),[],tNow);
+% 	
+% 	ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_CRITICAL);
+end
 %------------------------------------------------------------------------------%
 end

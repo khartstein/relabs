@@ -8,7 +8,7 @@ function Prepare(ra,varargin)
 % ToDo:         
 %           -   
 %
-% Updated: 08-31-2015
+% Updated: 09-30-2015
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 % global strDirBase;
@@ -25,65 +25,44 @@ function Prepare(ra,varargin)
         strOrderExist = 'existing';
     elseif ra.Experiment.Info.Get('experiment', 'debug') < 2
         % counterbalanced if running for real
-        blockOrder = blockdesign(cBlocks, nRep, nRun);
+        blockOrder  = blockdesign(cBlocks, nRep, nRun);
         ra.Experiment.Subject.Set('block_order', blockOrder);
         strOrderExist = 'new';
     else
-        % debug mode, 1:8 in order for all runs
-        blockOrder = repmat(cBlocks, nRun, nRep);
+        % debug mode, 1:6 in order for all runs
+        blockOrder  = repmat(cBlocks, nRun, nRep);        
         ra.Experiment.Subject.Set('block_order', blockOrder);
         strOrderExist = 'default';
     end
     
     ra.Experiment.AddLog(['using ' strOrderExist ' block order']);
     
-    % set run, block, results
+    % set run, block, timing, results
     ra.Experiment.Info.Set('ra', 'run', 1);
     ra.Experiment.Info.Set('ra', 'block', 1);
+    ra.Experiment.Info.Set('ra', 'blocktiming', cell(RA.Param('exp', 'runs'), RA.Param('blocksperrun')));
     ra.Experiment.Info.Set('ra', 'result', cell(RA.Param('exp', 'runs'), RA.Param('blocksperrun')));
-    ra.Experiment.Info.Set('ra', 'timing', cell(RA.Param('exp', 'runs'), 1));
+    ra.Experiment.Info.Set('ra', 'runtiming', cell(RA.Param('exp', 'runs'), 1));
     ra.reward	= RA.Param('reward','base');
     
     % set trial information
-    numSame = zeros(nRun, nBlock, 32);
+    bCorrect    = zeros(nRun, nBlock, 36);
+    frameType   = zeros(nRun, nBlock, 36);
+    fixFeature  = zeros(nRun, nBlock, 36);
+    
     for iRun = 1:nRun
         for iBlock = 1:nBlock
-            numSame(iRun, iBlock, :) = [Shuffle(repmat(1:4, 1, 2)) Shuffle(repmat(1:4, 1, 2)) ...
-            Shuffle(repmat(1:4, 1, 2)) Shuffle(repmat(1:4, 1, 2))];
+            bCorrect(iRun, iBlock, :)   = [Shuffle(repmat(0:1, 1, 3)) Shuffle(repmat(0:1, 1, 3)) Shuffle(repmat(0:1, 1, 3)) ...
+                                    Shuffle(repmat(0:1, 1, 3)) Shuffle(repmat(0:1, 1, 3)) Shuffle(repmat(0:1, 1, 3))];
+            frameType(iRun, iBlock, :)  = [Shuffle(1:6) Shuffle(1:6) Shuffle(1:6) Shuffle(1:6) Shuffle(1:6) Shuffle(1:6)];
+            fixFeature(iRun, iBlock, :) = [Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) ...
+                                    Shuffle(1:4) Shuffle(1:4) Shuffle(1:4)];
         end
     end
-    ra.Experiment.Info.Set('ra', {'trial', 'numSame'}, numSame);
     
-    % set nCorrect if not already available (Get it if it is available?)
-    % check if this is really necessary
-    bnCorrectExists = ~isempty(ra.Experiment.Info.Get('ra', 'nCorrect'));
-    if ~bnCorrectExists
-        ra.Experiment.Subject.Set('ra', 'nCorrect', 0);
-        ra.Experiment.AddLog('Setting nCorrect to 0');
-    end
-    
-    %load some images
-	strDirImage             = DirAppend(ra.Experiment.File.GetDirectory('code'),'@RelAbs','Images');
-
-	strPathColor            = PathUnsplit(strDirImage,'RA_color','png');
-    [imColor, ~, alpha]     = imread(strPathColor);
-    imColor(:,:,4)          = alpha;
-    ra.colorIcon            = imColor;
-    
-    strPathNumber           = PathUnsplit(strDirImage, 'RA_number', 'png');
-    [imNumber, ~, alpha]    = imread(strPathNumber);
-    imNumber(:,:,4)         = alpha;
-    ra.numberIcon           = imNumber;
-    
-    strPathOrientation      = PathUnsplit(strDirImage, 'RA_orientation', 'png');
-    [imOrientation,~, alpha]= imread(strPathOrientation);
-    imOrientation(:,:,4)    = alpha;
-    ra.orientationIcon      = imOrientation;
-    
-    strPathShape           = PathUnsplit(strDirImage, 'RA_shape', 'png');
-    [imShape, ~, alpha]    = imread(strPathShape);
-    imShape(:,:,4)         = alpha;
-    ra.shapeIcon           = imShape;
+    ra.Experiment.Info.Set('ra', {'trialinfo', 'frametype'}, frameType);
+    ra.Experiment.Info.Set('ra', {'trialinfo', 'bcorrect'}, bCorrect);
+    ra.Experiment.Info.Set('ra', {'trialinfo', 'fixfeature'}, fixFeature);
     
     % set responses
     ra.Experiment.Input.Set('response', struct2cell(RA.Param('response'))');
