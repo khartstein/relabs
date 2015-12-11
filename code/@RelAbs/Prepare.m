@@ -6,9 +6,10 @@ function Prepare(ra,varargin)
 % Syntax: ra.Prepare()
 %
 % ToDo:         
-%           -   
+%           -   Prepare bBlip values - equate blip likelihood within each
+%               block. Right now it is 1 out of every 3 trials
 %
-% Updated: 09-30-2015
+% Updated: 11-03-2015
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 % global strDirBase;
@@ -47,6 +48,7 @@ function Prepare(ra,varargin)
     
     % set trial information
     bCorrect    = zeros(nRun, nBlock, 36);
+    bBlip       = zeros(nRun, nBlock, 36);
     frameType   = zeros(nRun, nBlock, 36);
     fixFeature  = zeros(nRun, nBlock, 36);
     
@@ -54,6 +56,8 @@ function Prepare(ra,varargin)
         for iBlock = 1:nBlock
             bCorrect(iRun, iBlock, :)   = [Shuffle(repmat(0:1, 1, 3)) Shuffle(repmat(0:1, 1, 3)) Shuffle(repmat(0:1, 1, 3)) ...
                                     Shuffle(repmat(0:1, 1, 3)) Shuffle(repmat(0:1, 1, 3)) Shuffle(repmat(0:1, 1, 3))];
+            bBlip(iRun, iBlock, :)      = [Shuffle(repmat([0 0 1], 1, 2)) Shuffle(repmat([0 0 1], 1, 2)) Shuffle(repmat([0 0 1], 1, 2)) ...
+                                    Shuffle(repmat([0 0 1], 1,2)) Shuffle(repmat([0 0 1], 1, 2)) Shuffle(repmat([0 0 1], 1, 2))];
             frameType(iRun, iBlock, :)  = [Shuffle(1:6) Shuffle(1:6) Shuffle(1:6) Shuffle(1:6) Shuffle(1:6) Shuffle(1:6)];
             fixFeature(iRun, iBlock, :) = [Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) ...
                                     Shuffle(1:4) Shuffle(1:4) Shuffle(1:4)];
@@ -61,6 +65,7 @@ function Prepare(ra,varargin)
     end
     
     ra.Experiment.Info.Set('ra', {'trialinfo', 'frametype'}, frameType);
+    ra.Experiment.Info.Set('ra', {'trialinfo', 'frametype'}, bBlip);
     ra.Experiment.Info.Set('ra', {'trialinfo', 'bcorrect'}, bCorrect);
     ra.Experiment.Info.Set('ra', {'trialinfo', 'fixfeature'}, fixFeature);
     

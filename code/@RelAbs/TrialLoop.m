@@ -14,27 +14,22 @@ function [blockRes, loopTiming] = TrialLoop(ra, blockType)
 %   loopTiming  - a struct of timing information from 
 %                   ra.Experiment.Sequence.Loop
 %
-% ToDo:         - Assign stimuli and frames to quadrants in some reasonable
-%                   way.
-%                   - always draw frames around stimulus 1 and 2, but they
-%                       should be in random (or maybe counterbalanced)
-%                       quadrants by trial
-%               - Figure out blipping fixation task
+% ToDo:         
+%               - blipping fixation task
 %
-% Updated: 10-02-2015
+% Updated: 11-03-2015
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 tLoopStart = PTB.Now;
 
 % get feature values from RA.Param
-colors          = fieldnames(RA.Param('stim_color'));
+colors          = struct2cell(RA.Param('stim_color'));
 numbers         = struct2cell(RA.Param('stim_number'));
 orientations    = fieldnames(RA.Param('stim_orient'));
 shapes          = fieldnames(RA.Param('stim_shape'));
 
 % screen locations
 stimOff         = RA.Param('stim_size' , 'offset');
-radius          = RA.Param('stim_size' , 'circradius');
 squareSide      = RA.Param('stim_size' , 'sqside');
 smallXOff       = RA.Param('smallXOffset');
 largeXOff       = RA.Param('largeXOffset');
@@ -44,6 +39,7 @@ largeYOff       = RA.Param('largeYOffset');
 % info for frames
 frameColor      = RA.Param('color', 'frame');
 frameSize       = RA.Param('framesize');
+
 % timing info
 t               = RA.Param('time');
 maxLoopTime     = t.trialloop;
@@ -69,26 +65,28 @@ stimOrders      = unique(perms(1:4), 'rows');
 
 % each row is a possible SD array, each cateogry (bSameOne, bSame2, etc.) 
 % has the same number of rows (least common multiple is 12)
-bNotOneSame     = [repmat(bTwoSame, 2, []);     ...
-                   repmat(bThreeSame, 3, []);   ...
-                   repmat(bAllSame, 12, []);    ... 
-                   repmat(bNoneSame, 12, [])];
-bNotThreeSame   = [repmat(bOneSame, 3, []);     ...
-                   repmat(bTwoSame, 2, []);     ...
-                   repmat(bAllSame, 12, []);    ... 
-                   repmat(bNoneSame, 12, [])];
-% bAllPossibleSD  = [repmat(bOneSame, 3, []);     ...
-%                    repmat(bTwoSame, 2, []);     ...
+% SHOULD ALL INCORRECT ANSWERS BE EQUALLY LIKELY? no
+
+% Not equally likely:
+bNotOneSame     = [bTwoSame; bThreeSame; bAllSame; bNoneSame];
+bNotThreeSame   = [bOneSame; bTwoSame; bAllSame; bNoneSame];
+
+% Equally likely:
+% bNotOneSame     = [repmat(bTwoSame, 2, []);     ...
 %                    repmat(bThreeSame, 3, []);   ...
-%                    repmat(bAllSame, 12, []);    ...
+%                    repmat(bAllSame, 12, []);    ... 
 %                    repmat(bNoneSame, 12, [])];
+% bNotThreeSame   = [repmat(bOneSame, 3, []);     ...
+%                    repmat(bTwoSame, 2, []);     ...
+%                    repmat(bAllSame, 12, []);    ... 
+%                    repmat(bNoneSame, 12, [])];
+% bAllPossibleSD  = [bOneSame; bTwoSame; bThreeSame; bAllSame; bNoneSame];
                    
 
 % initialize some things
 blockRes        = [];
 kTrial          = 0;
 nCorrect        = 0;
-frameStims      = [];
 [trialColors,trialNumbers,trialOrientations,trialShapes] = deal(cell(1,4));
 
 % because fake scanner
@@ -113,32 +111,26 @@ ra.Experiment.Window.Flip;
 
 %------------------------------------------------------------------------------%
 function [] = DrawSet(stimNum, stimPos)
-    % handle screen coordinates
+    % find screen coordinates
     center = switch2(stimPos, 1, [stimOff, -stimOff], 2, [-stimOff, -stimOff], ...
             3, [-stimOff, stimOff], 4, [stimOff, stimOff]);
     smallOffset = switch2(trialOrientations{stimNum}, 'horizontal', smallXOff, 'vertical', smallYOff, 0);
     largeOffset = switch2(trialOrientations{stimNum}, 'horizontal', largeXOff, 'vertical', largeYOff, 0);
-    bitLoc = {center-largeOffset, center-smallOffset, center+smallOffset, center+largeOffset};
     
-    if strcmpi(trialShapes{stimNum},'rectangle')
-        ra.Experiment.Show.Rectangle(trialColors{stimNum}, squareSide, bitLoc{2});
-        ra.Experiment.Show.Rectangle(trialColors{stimNum}, squareSide, bitLoc{3});
-            if trialNumbers{stimNum} == 4
-                ra.Experiment.Show.Rectangle(trialColors{stimNum}, squareSide, bitLoc{1});
-                ra.Experiment.Show.Rectangle(trialColors{stimNum}, squareSide, bitLoc{4});    
-            end
-    elseif strcmpi(trialShapes{stimNum}, 'circle')
-        ra.Experiment.Show.Circle(trialColors{stimNum}, radius, bitLoc{2});
-        ra.Experiment.Show.Circle(trialColors{stimNum}, radius, bitLoc{3});
-            if trialNumbers{stimNum} == 4
-                ra.Experiment.Show.Circle(trialColors{stimNum}, radius, bitLoc{1});
-                ra.Experiment.Show.Circle(trialColors{stimNum}, radius, bitLoc{4});
-            end
-    else
-            error('stimulus shape cannot be identified');
+    % find locoation and rotation (i.e. square/diamond)
+    bitLoc = {center-largeOffset, center-smallOffset, center+smallOffset, center+largeOffset};
+    bitRot = switch2(trialShapes{stimNum}, 'square', 0, 'diamond', 45);
+    
+    % draw stimuls
+    ra.Experiment.Show.Rectangle(trialColors{stimNum}, squareSide, bitLoc{2}, bitRot);
+    ra.Experiment.Show.Rectangle(trialColors{stimNum}, squareSide, bitLoc{3}, bitRot);
+    if trialNumbers{stimNum} == 4
+        ra.Experiment.Show.Rectangle(trialColors{stimNum}, squareSide, bitLoc{1}, bitRot);
+        ra.Experiment.Show.Rectangle(trialColors{stimNum}, squareSide, bitLoc{4}, bitRot);    
     end
     
-    % draw frame
+    % draw frame - frames are drawn for correct stimuli, but in random
+    % positions (the quadrants result from stimOrder in DoTrial
     if ismember(stimNum, [1 2])
         ra.Experiment.Show.Rectangle(frameColor, frameSize, center, 'border', true)
     end
@@ -151,7 +143,7 @@ function [NaN] = DoTrial(tNow, NaN)
     % get trial info
     bCorrect        = trialInfo.bcorrect(kRun, kBlock, kTrial);
     numSameCorrect  = switch2(blockType, {1, 3, 5}, 1, {2, 4, 6}, 3);
-    frameType       = trialInfo.frametype(kRun, kBlock, kTrial);
+    % frameType       = trialInfo.frametype(kRun, kBlock, kTrial);
     kFixFeature     = trialInfo.fixfeature(kRun, kBlock, kTrial);           % will be an integer 1:4
     kFixValue       = randi(2);
     
@@ -159,7 +151,7 @@ function [NaN] = DoTrial(tNow, NaN)
         case 1
             % color
             val     = colors{kFixValue};
-            ra.Experiment.Show.Rectangle(val, 0.25, [0,0], 45)
+            ra.Experiment.Show.Circle(val, 0.25, [0,0])
         case 2
             % number
             val     = num2str(numbers{kFixValue});
@@ -171,18 +163,19 @@ function [NaN] = DoTrial(tNow, NaN)
         case 4
             % shape
             val     = shapes{kFixValue};
-            if strcmpi(val, 'rectangle') 
+            if strcmpi(val, 'square') 
                 ra.Experiment.Show.Rectangle('black', 0.25, [0,0]);
-            elseif strcmpi(val, 'circle')
-                ra.Experiment.Show.Circle('black', 0.25, [0,0]);
+            elseif strcmpi(val, 'diamond')
+                ra.Experiment.Show.Rectangle('black', 0.25, [0,0], 45);
             end
         otherwise
-            error('Invalid index for fixation feauture');
+            error('Invalid index for fixation feature');
     end
             
-    % choose same/different values for relevant trial stimulus
+    % choose same/different values for relevant trial stimulus - the 
+    % ChooseStimFeatures function will ignore the bSame array for level 1
     if bCorrect
-        bSame   = switch2(blockType, {1, 2}, zeros(1,4), ...             
+        bSame   = switch2(blockType, {1, 2}, zeros(1,4), ...           
                                      {3, 5}, bOneSame(randi(length(bOneSame)), :), ...
                                      {4, 6}, bThreeSame(randi(length(bThreeSame)), :));
     else
@@ -190,11 +183,6 @@ function [NaN] = DoTrial(tNow, NaN)
                                      {3, 5}, bNotOneSame(randi(length(bNotOneSame)), :), ...
                                      {4, 6}, bNotThreeSame(randi(length(bNotThreeSame)), :));
     end
-    
-    % figure out which stimuli will have frames - first two always have
-    % frames, so this won't be used.
-%     frameStims  = switch2(frameType, 1, [1 2], 2, [1 3], 3, [1 4], ...
-%                                      4, [2 3], 5, [2 4], 6, [3 4]);
     
     % choose stimuli
     [trialColors, trialNumbers, trialOrientations, trialShapes] = ra.ChooseStimFeatures(bSame, blockType, bCorrect, kFixFeature, kFixValue);

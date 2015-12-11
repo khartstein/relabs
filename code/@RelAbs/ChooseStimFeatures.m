@@ -11,7 +11,7 @@ function [stimColors, stimNumbers, stimOrientations, stimShapes] = ChooseStimFea
 %                       stimuli should be the same (these are boolean 
 %                       values, in alphabetical order: color, number, 
 %                       orientation, shape). This variable is ignored for 
-%                       level 1 trials (i.e. blockType == 1 or 2) 
+%                       level 1 trials (i.e. blockType 1 or 2) 
 %   blockType       - the block type. Odd numbers are 1S, evens are 1D
 %                       (1=1S, 2=1D, 3=2S, 4=2D, 5=3S, 6=3D)
 %   bCorrect        - a boolean specifying whether the answer for the
@@ -22,14 +22,13 @@ function [stimColors, stimNumbers, stimOrientations, stimShapes] = ChooseStimFea
 %                       This variable is used for stimulus selection in
 %                       level 1, but ignored in levels 2 and 3.
 %   fixVal          - an integer (1 or 2) used to let this function know
-%                       which value of the fixFeat variable (e.g. 'red' or 
-%                       'deepskyblue' for color) is being drawn at fixation
+%                       which value of the fixFeat variable (e.g. 'light' or 
+%                       'dark' for color) is being drawn at fixation
 %                       on this trial. Similar to fixFeat, it is used in
 %                       level 1 and ignored in levels 2 and 3.
 %
 % Out:
-%   stimColors      - a cell of strings containing the colors for
-%                       a stimulus set
+%   stimColors      - a cell of RGB values for a stimulus set
 %   stimNumbers     - a cell of strings containing the number of
 %                       units for a stimulus set
 %   stimOrientations- a cell of strings containing the orientations 
@@ -42,22 +41,22 @@ function [stimColors, stimNumbers, stimOrientations, stimShapes] = ChooseStimFea
 %                       non-matching values and dimensions
 %                       This is a bit confusing, so here are some examples:
 %                        1. if blockType is 1, bCorrect is 1, fixFeature 
-%                           is 1 (color), and fixVal is 1 ('deepskyblue'),
+%                           is 1 (color), and fixVal is 1 ('light'),
 %                           then the first item in stimColors will match
-%                           fixation (i.e. will be deepskyblue)
+%                           fixation (i.e. will be light grey)
 %                        2. if blockType is 2 and the other arguments are
 %                           the same as in example 1, then stimColors(1:3) 
 %                           will match fixation
 %                       
 %
 % ToDo:    
-%                   - It's working! Maybe streamline the code a little bit
+%                   - Streamline code
 %
-% Updated: 10-02-2015
+% Updated: 12-08-2015
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 % parse the arguments
-% [opt]   = ParseArgs(varargin, 'L1feature', [], );
+% [opt]   = ParseArgs(varargin);
 
 % get feature values from RA.Param
 colors          = struct2cell(RA.Param('stim_color'));
@@ -98,7 +97,7 @@ iFeatureFlip    = [];
 
         otherwise
             % should never get here
-            error('invalid value for blockType');
+            error(['invalid value (' num2str(blockType) ') for blockType']);
     end
 
     for k = 1:4
@@ -131,7 +130,7 @@ iFeatureFlip    = [];
                 stimShapes(1:nSame)             = repmat(shapes(fixVal), 1, nSame);
                 stimShapes(nSame+1:end)         = repmat(shapes(notFixVal), 1, 4-nSame);
             otherwise
-                error('fixFeat must be a and integer from 1 to 4');
+                error(['fixFeat is ' num2str(fixFeat) ', but should be an integer from 1 to 4']);
         end
     end
 
@@ -156,7 +155,7 @@ function [colorOut, numberOut, orientationOut, shapeOut] = randFeatures()
     % choose indices randomly
     nFeature        = length(colors);
     iFeature        = randi(nFeature, [1,4]);
-    iFeatureFlip    = Replace(iFeature, [1, 2], [2, 1]);
+    iFeatureFlip    = mod(iFeature, 2) + 1;
     
     % assign feature values to output
     colorOut       = colors{iFeature(1)};
