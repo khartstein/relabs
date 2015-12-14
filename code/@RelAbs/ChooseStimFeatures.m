@@ -52,7 +52,7 @@ function [stimColors, stimNumbers, stimOrientations, stimShapes] = ChooseStimFea
 % ToDo:    
 %                   - Streamline code
 %
-% Updated: 12-08-2015
+% Updated: 12-14-2015
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 % parse the arguments
@@ -111,7 +111,7 @@ iFeatureFlip    = [];
         if bCorrect
             nSame = switch2(blockType, 1, 1, 2, 3);
         else
-            nSame = switch2(blockType, 1, randFrom(2:4), 2, randFrom([1 2 4]));
+            nSame = switch2(blockType, 1, randFrom([0 2 3 4]), 2, randFrom([0 1 2 4]));
         end
         
         notFixVal = switch2(fixVal, 1, 2, 2, 1);
