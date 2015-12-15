@@ -28,12 +28,12 @@ function [stimColors, stimNumbers, stimOrientations, stimShapes] = ChooseStimFea
 %                       level 1 and ignored in levels 2 and 3.
 %
 % Out:
-%   stimColors      - a cell of RGB values for a stimulus set
-%   stimNumbers     - a cell of strings containing the number of
+%   stimColors      - a cell array of RGB values for a stimulus set
+%   stimNumbers     - a cell array of strings containing the number of
 %                       units for a stimulus set
-%   stimOrientations- a cell of strings containing the orientations 
+%   stimOrientations- a cell array of strings containing the orientations 
 %                       for a stimulus set
-%   stimShapes      - a cell of strings containing the shapes for 
+%   stimShapes      - a cell array of strings containing the shapes for 
 %                       a stimulus set
 %
 % Notes:            - the matching output values and dimensions are always
@@ -50,9 +50,9 @@ function [stimColors, stimNumbers, stimOrientations, stimShapes] = ChooseStimFea
 %                       
 %
 % ToDo:    
-%                   - Streamline code
+%                   - 
 %
-% Updated: 12-14-2015
+% Updated: 12-15-2015
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 % parse the arguments
@@ -89,11 +89,12 @@ iFeatureFlip    = [];
         case {5, 6}
             % choose feature values for framed and unframed stimuli according
             % to bSame mapping for match/mismatch between pairs
-            bSame2 = transmogrify(bSame);
             [s1Color, s1Number, s1Orientation, s1Shape] = randFeatures();
-            [s2Color, s2Number, s2Orientation, s2Shape] = mapFeatures(bSame, {s1Color, s1Number, s1Orientation, s1Shape});
+            [s2Color, s2Number, s2Orientation, s2Shape] = randFeatures();
+            bSame2 = [isequal(s1Color, s2Color), s1Number == s2Number, strcmp(s1Orientation, s2Orientation), strcmp(s1Shape, s2Shape)];
+            bSame3 = bSame == bSame2;
             [s3Color, s3Number, s3Orientation, s3Shape] = randFeatures();
-            [s4Color, s4Number, s4Orientation, s4Shape] = mapFeatures(bSame2, {s3Color, s3Number, s3Orientation, s3Shape});
+            [s4Color, s4Number, s4Orientation, s4Shape] = mapFeatures(bSame3, {s3Color, s3Number, s3Orientation, s3Shape});
 
         otherwise
             % should never get here
@@ -134,22 +135,6 @@ iFeatureFlip    = [];
         end
     end
 
-%------------------------------------------------------------------------------%
-function [bSameOut] = transmogrify(bSameIn)
-    % figure out pair 2 same/different values
-    % Chooses which features to change randomly
-    bSameOut = zeros(1, length(bSameIn));
-    iChange = randFrom(1:4, length(bSameIn) - sum(bSameIn)); 
-    for n = 1:length(bSameIn)
-        if ismember(n, iChange) && bSameIn(n) == 0
-            bSameOut(n) = 1;
-        elseif ismember(n, iChange) && bSameIn(n) == 1
-            bSameOut(n) = 0;
-        else
-            bSameOut(n) = bSameIn(n);
-        end
-    end
-end
 %------------------------------------------------------------------------------%
 function [colorOut, numberOut, orientationOut, shapeOut] = randFeatures()
     % choose indices randomly

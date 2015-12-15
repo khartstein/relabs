@@ -16,7 +16,7 @@ function [subRes] = testStimFeat(ra, varargin)
 %
 % ToDo:    
 %
-% Updated: 12-11-2015
+% Updated: 12-15-2015
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 % parse the arguments

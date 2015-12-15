@@ -1,4 +1,4 @@
-function [SD_Res, fixRes] = plotStimTestResults(ra, varargin)
+function [SD_Res2, fixRes] = plotStimTestResults(ra, varargin)
 % RelAbs.plotStimTestResults
 %
 % Description: plot results of ra.testStimFeat
@@ -8,17 +8,7 @@ function [SD_Res, fixRes] = plotStimTestResults(ra, varargin)
 % In:
 %   <optional>
 %   testRes     -   a structure of results from ra.testStimFeat
-%   levelSD     -   the level at which to perform the SD comparison
-%                   (2 or 3, default = 2). The (1x4) SD arrays mean different 
-%                   things in different levels. In level 2 (blockType 3/4)
-%                   the boolean specifies which features [C N O S] match between
-%                   stimulus 1 and 2 (the framed stimuli). In level 3
-%                   (blockType 5/6) the boolean specifies which feature
-%                   dimensions share match/mismatch values. Setting this
-%                   argument to 2 will recode SD arrays in level 1 and 3
-%                   blocks (blockType 1/2/5/6) into the logic of level 2.
-%                   Setting it to 3 will recode level 1 and 2 blocks
-%                   (1/2/3/4) into the logic of level 3. 
+
 %
 % Out:
 %   SD_Res      -   a structure describing the sdArrays by blockType
@@ -28,10 +18,9 @@ function [SD_Res, fixRes] = plotStimTestResults(ra, varargin)
 % Notes:      
 %   - If testRes argument is omitted, this function will run ra.testStimFeat
 %       on its own
-%   - Plots for each blocktype show SD_Array frequency as a function of 
-%       match type (defined based on levelSD argument) and frequency of 
-%       trials for the fixation task as a function of fixation feature and
-%       number of matching stimuli
+%   - Plots for each blocktype show frequencies of all individual stimulus 
+%       features and sd match frequencies for all levels in separate graphs.
+%       Ensure that match frequencies are not confounded across levels.
 %       - Key for SD arrays: 
 %           bNoneSame   : []
 %           bOneSame    : s/o/n/c
@@ -40,13 +29,11 @@ function [SD_Res, fixRes] = plotStimTestResults(ra, varargin)
 %           bAllSame    : sonc
 %
 % ToDo:    
-%   - Add meaningful output for levelSD = 1 (recode sd_array to mean which
-%       features match fixation)
 %
-% Updated: 12-14-2015
+% Updated: 12-15-2015
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
-[opt]   = ParseArgs(varargin, 'testRes', [], 'levelSD', 2);
+[opt]   = ParseArgs(varargin, 'testRes', [], 'clearPlots', true);
 
 if isempty(opt.testRes)
     opt.testRes = ra.testStimFeat();
@@ -73,15 +60,17 @@ bAllSame        = [1 1 1 1];
 bNoneSame       = [0 0 0 0];
 
 SD_Names    = {'bOneSame', 'bTwoSame', 'bThreeSame', 'bAllSame', 'bNoneSame'};
-fixList     = {'colorFix', 'numberFix', 'orientationFix', 'shapeFix'};
-fixRes      = [];
-SD_Res      = [];
+SD_Res2     = [];
+SD_Res3     = [];
 fixMatch    = NaN(4, 36*nRun, nBlock);
 fixMatchSum = NaN(4, 5, nBlock);
+nGrandCount = zeros(4, 2, nBlock);
+
+s.sd_array2 = cell(1, 36*nBlock*nRun);
+s.sd_array3 = cell(1, 36*nBlock*nRun);
 
 for kBlock = 1:nBlock
         
-    changeBlocks = switch2(opt.levelSD, 1, [3 4 5 6], 2, [1 2 5 6], 3, [1 2 3 4], []);
     blockColors         = s.stim_colors(s.blockType == kBlock);
     blockNumbers        = s.stim_numbers(s.blockType == kBlock);
     blockOrientations   = s.stim_orientations(s.blockType == kBlock);
@@ -91,56 +80,53 @@ for kBlock = 1:nBlock
 
     iTrials             = s.iteration(s.blockType == kBlock);
     
-    if ismember(kBlock, changeBlocks)
-        switch opt.levelSD
-            case 1
-                % logic for each level independently
-                % leave SDarrays as they are (NaN's for 1/2, feature
-                % match for 3/4, dimensions match for 5/6)
-            case 2
-                % logic from level 2 (blockType 3/4)
-                for kTrial = 1:length(iTrials)
-                    bSame = [isequaln(blockColors{kTrial}{1}, blockColors{kTrial}{2}),              ...
-                             isequaln(blockNumbers{kTrial}{1}, blockNumbers{kTrial}{2}),            ...
-                             isequaln(blockOrientations{kTrial}{1}, blockOrientations{kTrial}{2}),  ...
-                             isequaln(blockShapes{kTrial}{1}, blockShapes{kTrial}{2})];
-                    s.sd_array{iTrials(kTrial)} = bSame;
-                end
-            case 3
-                % logic from level 3(blockType 5/6)
-                for kTrial = 1:length(iTrials)
-                    bSame = [isequaln(blockColors{kTrial}{1}, blockColors{kTrial}{2}) == isequaln(blockColors{kTrial}{3}, blockColors{kTrial}{4}),                          ...
-                             isequaln(blockNumbers{kTrial}{1}, blockNumbers{kTrial}{2}) == isequaln(blockNumbers{kTrial}{3}, blockNumbers{kTrial}{4}),                      ...
-                             isequaln(blockOrientations{kTrial}{1}, blockOrientations{kTrial}{2}) == isequaln(blockOrientations{kTrial}{3}, blockOrientations{kTrial}{4}),  ...
-                             isequaln(blockShapes{kTrial}{1}, blockShapes{kTrial}{2}) == isequaln(blockShapes{kTrial}{3}, blockShapes{kTrial}{4})];
-                    s.sd_array{iTrials(kTrial)} = bSame;
-                end
-        end
+    % logic from level 2 (blockType 3/4)
+    for kTrial = 1:length(iTrials)
+        bSame2 = [isequaln(blockColors{kTrial}{1}, blockColors{kTrial}{2}),              ...
+                  isequaln(blockNumbers{kTrial}{1}, blockNumbers{kTrial}{2}),            ...
+                  isequaln(blockOrientations{kTrial}{1}, blockOrientations{kTrial}{2}),  ...
+                  isequaln(blockShapes{kTrial}{1}, blockShapes{kTrial}{2})];
+        s.sd_array2{iTrials(kTrial)} = bSame2;
+    end
+    
+    % logic from level 3 (blockType 5/6)
+    for kTrial = 1:length(iTrials)
+        bSame3 = [isequaln(blockColors{kTrial}{1}, blockColors{kTrial}{2}) == isequaln(blockColors{kTrial}{3}, blockColors{kTrial}{4}),                          ...
+                 isequaln(blockNumbers{kTrial}{1}, blockNumbers{kTrial}{2}) == isequaln(blockNumbers{kTrial}{3}, blockNumbers{kTrial}{4}),                      ...
+                 isequaln(blockOrientations{kTrial}{1}, blockOrientations{kTrial}{2}) == isequaln(blockOrientations{kTrial}{3}, blockOrientations{kTrial}{4}),  ...
+                 isequaln(blockShapes{kTrial}{1}, blockShapes{kTrial}{2}) == isequaln(blockShapes{kTrial}{3}, blockShapes{kTrial}{4})];
+        s.sd_array3{iTrials(kTrial)} = bSame3;
     end
         
     % stats for SDarrays
-    for kSD = 1:length(SD_Names)
-        SD_Name             = eval(SD_Names{kSD});
-        dims                = size(SD_Name);
-        resField            = ['n' SD_Names{kSD}(2:end)];
-        tempSD.(resField)   = [];        
-        for kUnique = 1:dims(1)
-            if isempty(tempSD.(resField))
-                tempSD.(resField) = ...
-                        sum(cellfun(@isequaln, s.sd_array(s.blockType == kBlock),   ...
-                        repmat({SD_Name(kUnique, :)}, 1, length(s.sd_array)/nRun)));
-            else
-                tempSD.(resField) = [tempSD.(['n' SD_Names{kSD}(2:end)]);           ...
-                         sum(cellfun(@isequaln, s.sd_array(s.blockType == kBlock),  ...
-                         repmat({SD_Name(kUnique, :)}, 1, length(s.sd_array)/nRun)))];
+    for kLogic = 2:3
+        for kSD = 1:length(SD_Names)
+            SD_Name             = eval(SD_Names{kSD});
+            dims                = size(SD_Name);
+            resField            = ['n' SD_Names{kSD}(2:end)];
+            tempSD.(resField)   = [];        
+            for kUnique = 1:dims(1)
+                if isempty(tempSD.(resField))
+                    tempSD.(resField) = ...
+                            sum(cellfun(@isequaln, s.(['sd_array' num2str(kLogic)])(s.blockType == kBlock),   ...
+                            repmat({SD_Name(kUnique, :)}, 1, length(s.(['sd_array' num2str(kLogic)]))/nRun)));
+                else
+                    tempSD.(resField) = [tempSD.(['n' SD_Names{kSD}(2:end)]);           ...
+                             sum(cellfun(@isequaln, s.(['sd_array' num2str(kLogic)])(s.blockType == kBlock),  ...
+                             repmat({SD_Name(kUnique, :)}, 1, length(s.(['sd_array' num2str(kLogic)]))/nRun)))];
+                end
             end
+        end 
+
+        if kLogic == 2 && isempty(SD_Res2)
+            SD_Res2          = tempSD;
+        elseif kLogic ==2
+            SD_Res2(end + 1) = tempSD;
+        elseif kLogic == 3 && isempty(SD_Res3)
+            SD_Res3          = tempSD;
+        elseif kLogic == 3
+            SD_Res3(end + 1) = tempSD;
         end
-    end 
-    
-    if isempty(SD_Res)
-        SD_Res          = tempSD;
-    else
-        SD_Res(end + 1) = tempSD;
     end
     
     % stats for fixation feature and value by block type
@@ -150,22 +136,15 @@ for kBlock = 1:nBlock
         trialStimFeats  = switch2(blockFixFeats(kTrial), 1, blockColors, 2, blockNumbers, 3, blockOrientations, 4, blockShapes);
         fixMatch(blockFixFeats(kTrial), kTrial, kBlock) = ...
             sum(cellfun(@isequaln, trialStimFeats{kTrial}, repmat(trialFixFeat, 1, length(blockColors{kTrial}))));
-    end
+        
+        for kFeat = 1:2
+            nGrandCount(1,kFeat, kBlock) = nGrandCount(1,kFeat, kBlock) + sum(cellfun(@isequaln, blockColors{kTrial}, repmat(colors(kFeat), 1, 4)));
+            nGrandCount(2,kFeat, kBlock) = nGrandCount(2,kFeat, kBlock) + sum(cellfun(@isequaln, blockNumbers{kTrial}, repmat(numbers(kFeat), 1, 4)));
+            nGrandCount(3,kFeat, kBlock) = nGrandCount(3,kFeat, kBlock) + sum(cellfun(@isequaln, blockOrientations{kTrial}, repmat(orientations(kFeat), 1, 4)));
+            nGrandCount(4,kFeat, kBlock) = nGrandCount(4,kFeat, kBlock) + sum(cellfun(@isequaln, blockShapes{kTrial}, repmat(shapes(kFeat), 1, 4)));
+        end
     
-%     for kFeat = 1:length(fixList)
-%             tempFix.(fixList{kFeat})   = [sum(s.fix_feature == kFeat & s.blockType == kBlock & s.correct == 1), ...
-%                                           sum(s.fix_feature == kFeat & s.blockType == kBlock & s.correct == 0); ...
-%                                           sum(s.fix_feature == kFeat & s.blockType == kBlock & s.correct == 1 & s.fix_value == 1), ...
-%                                           sum(s.fix_feature == kFeat & s.blockType == kBlock & s.correct == 0 & s.fix_value == 1); ...
-%                                           sum(s.fix_feature == kFeat & s.blockType == kBlock & s.correct == 1 & s.fix_value == 2), ...
-%                                           sum(s.fix_feature == kFeat & s.blockType == kBlock & s.correct == 0 & s.fix_value == 2)];
-%     end
-%     
-%     if isempty(fixRes)
-%         fixRes = tempFix;
-%     else 
-%         fixRes(end+1) = tempFix;
-%     end
+    end
     
     for kFixFeat = 1:4
         fixMatchSum(kFixFeat, :, kBlock) = [nansum(fixMatch(kFixFeat, :, kBlock) == 0), nansum(fixMatch(kFixFeat, :, kBlock) == 1), ...
@@ -178,42 +157,57 @@ end
 fixRes = fixMatchSum;
 
 % now for the plotting
-sdByBlock   = zeros(length(SD_Names), 6, nBlock);
-% fixByBlock  = zeros(4, 4, nBlock);
+sd2ByBlock  = zeros(length(SD_Names), 6, nBlock);
+sd3ByBlock  = zeros(length(SD_Names), 6, nBlock);
 
-for kBlock = 1: nBlock
-    sdByBlock(:, :, kBlock)         = [[SD_Res(kBlock).nNoneSame, zeros(1,5)]; [SD_Res(kBlock).nOneSame', zeros(1, 2)]; ...
-                                       SD_Res(kBlock).nTwoSame'; [SD_Res(kBlock).nThreeSame', zeros(1,2)]; ...
-                                       [SD_Res(kBlock).nAllSame', zeros(1,5)]];
-%     if kBlock <= 2
-%         fixByBlock(:, :, kBlock)    = [[fixRes(kBlock).colorFix(2, :), fixRes(kBlock).colorFix(3, :)]; ...
-%                                        [fixRes(kBlock).numberFix(2, :), fixRes(kBlock).numberFix(3, :)]; ...
-%                                        [fixRes(kBlock).orientationFix(2, :), fixRes(kBlock).orientationFix(3, :)]; ...
-%                                        [fixRes(kBlock).shapeFix(2, :), fixRes(kBlock).shapeFix(3, :)]];
-%     else
-%         fixByBlock(:, :, kBlock)    = [[0, sum(fixRes(kBlock).colorFix(2, :)), 0, sum(fixRes(kBlock).colorFix(3, :))]; ...
-%                                        [0, sum(fixRes(kBlock).numberFix(2, :)), 0, sum(fixRes(kBlock).numberFix(3, :))]; ...
-%                                        [0, sum(fixRes(kBlock).orientationFix(2,:)), 0, sum(fixRes(kBlock).orientationFix(3,:))]; ...
-%                                        [0, sum(fixRes(kBlock).shapeFix(2, :)), 0, sum(fixRes(kBlock).shapeFix(3, :))]];
-%     end
+for kBlock = 1:nBlock
+    sd2ByBlock(:, :, kBlock)        = [[SD_Res2(kBlock).nNoneSame, zeros(1,5)]; [SD_Res2(kBlock).nOneSame', zeros(1, 2)]; ...
+                                       SD_Res2(kBlock).nTwoSame'; [SD_Res2(kBlock).nThreeSame', zeros(1,2)]; ...
+                                       [SD_Res2(kBlock).nAllSame', zeros(1,5)]];
+    sd3ByBlock(:, :, kBlock)        = [[SD_Res3(kBlock).nNoneSame, zeros(1,5)]; [SD_Res3(kBlock).nOneSame', zeros(1, 2)]; ...
+                                       SD_Res3(kBlock).nTwoSame'; [SD_Res3(kBlock).nThreeSame', zeros(1,2)]; ...
+                                       [SD_Res3(kBlock).nAllSame', zeros(1,5)]];
+end
+
+if opt.clearPlots
+    close all;
 end
 
 for kPlot = 1:nBlock
+    set(0,'DefaultFigureWindowStyle','docked')
     figure;
-    ax1 = subplot(2,1,1);
-    bar(ax1,sdByBlock(:, :, kPlot)/216)
-    axis([0.5 5.5 0 0.2]);
-    xlabel('SD Values')
-    ylabel('frequency (% of 216 trials)');
-    title(['same-diff array frequencies, block type ' num2str(kPlot)]);
     
-    ax2 = subplot(2, 1, 2);
-    bar(ax2,fixMatchSum(:,:,kPlot)'/216);
+    ax1 = subplot(4, 1, 1);
+    bar(ax1,fixMatchSum(:,:,kPlot)'/216);
     axis([0.5 5.5 0 0.3]);
-    xlabel('Fixation Feature');
-    ylabel('frequency (% of 216 trials)');
+    xlabel('# of matches');
+    set(ax1, 'XTickLabel', {'0', '1', '2', '3', '4'});
+    ylabel('% (of 216)');
     title(['fixation task stimulus frequency, block type ' num2str(kPlot)]);
-%     legend('Correct', 'Incorrect', 'Location', 'SouthEastOutside');
+    
+    ax2 = subplot(4,1,2);
+    bar(ax2,sd2ByBlock(:, :, kPlot)/216)
+    axis([0.5 5.5 0 0.2]);
+    xlabel('# same')
+    set(ax2, 'XTickLabel', {'0', '1', '2', '3', '4'});
+    ylabel('% (of 216)');
+    title(['same-diff frequencies (level 2 logic), block type ' num2str(kPlot)]);
+    
+    ax3 = subplot(4,1,3);
+    bar(ax3,sd3ByBlock(:, :, kPlot)/216)
+    axis([0.5 5.5 0 0.2]);
+    xlabel('# same')
+    set(ax3, 'XTickLabel', {'0', '1', '2', '3', '4'});
+    ylabel('% (of 216)');
+    title(['same-diff frequencies (level 3 logic), block type ' num2str(kPlot)]);
+    
+    ax4 = subplot(4,1,4);
+    bar(ax4, nGrandCount(:,:,kPlot)/(216*4));
+    axis([0.5 4.5 0.35 0.65]);
+    xlabel('stimulus feature')
+    set(ax4, 'XTickLabel', {'col', 'num', 'orient', 'shape'})
+    ylabel('% (of 864)')
+    title(['frequency of all feature values, block type ' num2str(kPlot)']);
 end
 
 end
