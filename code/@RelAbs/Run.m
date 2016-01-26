@@ -1,18 +1,21 @@
-function Run(ra)
+function Run(ra, varargin)
 % RelAbs.Run
 %
 % Description: do the next relabs run
 %
 % Syntax: ra.Run
 %
-% ToDo:     - Timing
+% ToDo:     - record blip task button and timing
+%           - scanner testing
 %
-% Updated: 09-28-2015
+% Updated: 01-25-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
+
+bTesting = ParseArgs(varargin, false);
 
     nBlock      = RA.Param('exp','blocks');
     nRun        = RA.Param('exp','runs');
-    trRun        = RA.Param('trrun');  
+    trRun       = RA.Param('trrun');  
     
     trRest      = RA.Param('time', 'rest');
     trTrialLoop = RA.Param('time', 'trialloop');                
@@ -21,12 +24,17 @@ function Run(ra)
     trTimeUp    = RA.Param('time', 'timeup'); 
     tr          = RA.Param('time', 'tr');  
     
-% get the subject's block order
-    blockOrder = ra.Experiment.Subject.Get('block_order');
+    kButtBlip   = cell2mat(ra.Experiment.Input.Get('blip'));
     
+    kBlock      = [];
+    kBlipResponse   = [];
+    
+% get the subject's block order and blip timing
+    blockOrder  = ra.Experiment.Subject.Get('block_order');
+    tBlipRest   = ra.Experiment.Info.Get('ra', 'rest_blip');
 % get the current run
-    kRun	= ra.Experiment.Info.Get('ra','run');
-    kRun	= ask('Next run','dialog',false,'default',kRun);
+    kRun        = ra.Experiment.Info.Get('ra','run');
+    kRun        = ask('Next run','dialog',false,'default',kRun);
     if ischar(kRun)
         kRun = str2double(kRun);
     end
@@ -57,14 +65,24 @@ function Run(ra)
                         repmat([trPrompt; trWait; trTrialLoop; trTimeUp; trRest], [nBlock 1])
                         ]);
                     
-% because fake scanner
+    cWait       =   [
+                    {@Wait_Default}
+                    repmat({@Wait_Default; @Wait_Blip; @Wait_Default; @Wait_Default; @Wait_Default}, [nBlock 1])
+                    ];
+                   
+if bTesting
+    % fake scanner, use ms
     tSequence   = tSequence*tr;
     tUnit       = 'ms';
-
+else
+    tUnit       = 'tr'; 
+end
+    
 	[tStartActual,tEndActual,tSequenceActual] = ra.Experiment.Sequence.Linear(...
                         cF              ,   tSequence   , ...
                         'tunit'         ,   tUnit       , ...
-                        'tbase'         ,   'sequence'    ...
+                        'tbase'         ,   'sequence'  , ...
+                        'fwait'         ,   cWait         ...
                     );
 
     runTimes = struct('StartActual', tStartActual, 'EndActual', tEndActual, 'SequenceActual', tSequenceActual);
@@ -103,10 +121,8 @@ function tNow = DoRest(tNow, tNext)
     ra.Experiment.AddLog('rest');
     
 	% blank the screen
-    ra.Experiment.Show.Blank('fixation', true);
+    ra.Experiment.Show.Fixation('color', 'black');
     ra.Experiment.Window.Flip;
-	
-	ra.Experiment.Scheduler.Wait;
 end
 %------------------------------------------------------------------------------%
 function tNow = ShowPrompt(tNow, tNext)
@@ -127,19 +143,54 @@ end
 %------------------------------------------------------------------------------%
 function tNow = DoWait(tNow, tNext)
 	ra.Experiment.AddLog('waiting (for prompt HRF decay)');
-	
-	% blank the screen
-    ra.Experiment.Show.Blank;
-    ra.Experiment.Window.Flip;
+
+    % Do fixation blip
+	blipTime    = tBlipRest(kRun, kBlock); 
+    tSeq        = cumsum([blipTime; 0.125; 0.001]);
+    
+    % fixation blink
+    tSeq = tSeq*tr;
+    ra.Experiment.Show.Sequence({{'Fixation', 'color', 'black'},    ...
+                                 {'Blank', 'fixation', false},      ...
+                                 {'Fixation', 'color', 'black'}},   ...
+                                tSeq, 'tunit', 'ms', 'tbase',      ...
+                                'sequence', 'fixation', false);
+%     respStart = PTB.Now;
 	ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_LOW);
+    
+end
+%------------------------------------------------------------------------------%
+function [bAbort,kBlipResponse,tBlipResponse] = Wait_Blip(tNow,tNext)
+    % fwait function for fixation task
+	bAbort		= false;
+    
+    [~,~,tBlipResponse,kBlipResponse]	= ra.Experiment.Input.DownOnce('response');
+    
+    % determine whether answer is correct
+    if ismember(kBlipResponse, kButtBlip)
+        sBlipResponse = 'Yes';
+    elseif isempty(kBlipResponse)
+        sBlipResponse = 'No response';
+    else
+        sBlipResponse = 'Incorrect Key';
+    end
+    
+    ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_CRITICAL);
+end
+%------------------------------------------------------------------------------%
+function [bAbort] = Wait_Default(tNow,tNext)
+	bAbort		= false;
+
+    ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_CRITICAL);
 end
 %------------------------------------------------------------------------------%
 function tNow = DoTrialLoop(tNow, tNext)
-    % execute the block
+    % execute the loop of trials
     kBlock                      = ra.Experiment.Info.Get('ra', 'block');
     blockType                   = blockOrder(kRun,kBlock);
-    [blockRes, loopTiming]      = ra.TrialLoop(blockType);
 
+    [blockRes, loopTiming]      = ra.TrialLoop(blockType, tNow, 'testing', bTesting);
+    
     % save results and timing
     result                      = ra.Experiment.Info.Get('ra', 'result');
     result{kRun, kBlock}        = blockRes;

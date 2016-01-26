@@ -1,4 +1,4 @@
-function [subRes] = testStimFeat(ra, varargin)
+function [subRes] = testStimFeat(ra)
 % RelAbs.testStimFeat
 %
 % Description: Test ra.ChooseStimFeatures
@@ -6,21 +6,18 @@ function [subRes] = testStimFeat(ra, varargin)
 % Syntax: ra.testStimFeat()
 %
 % In:
-%   nIterations     -   number of iterations to run (each is 1 subject)
 %
 % Out:
-%
+%   subRes          - a structure describing all the stimuli created for 
+%                       each trial of the experiment 
 %
 % Notes:            
 %                       
 %
 % ToDo:    
 %
-% Updated: 12-15-2015
+% Updated: 12-16-2015
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
-
-% parse the arguments
-[opt]   = ParseArgs(varargin, 'nIterations', 1);
 
 % block, run, and trial info
 nRun            = RA.Param('exp','runs');
@@ -77,7 +74,6 @@ for kRun = 1:nRun
         end
     end
 end
-
 
 %------------------------------------------------------------------------------%
 function [bSame, bCorrect, numSameCorrect, trialColors, trialNumbers, trialOrientations, trialShapes, kFixFeature, kFixValue] = doOne(blockType)

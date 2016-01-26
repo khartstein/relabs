@@ -6,10 +6,9 @@ function Prepare(ra,varargin)
 % Syntax: ra.Prepare()
 %
 % ToDo:         
-%           -   Prepare bBlip values - equate blip likelihood within each
-%               block. Right now it is 1 out of every 3 trials
+%           -   
 %
-% Updated: 11-03-2015
+% Updated: 01-25-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 % global strDirBase;
@@ -17,8 +16,8 @@ function Prepare(ra,varargin)
 % block order
     nRep        = RA.Param('exp','reps');
     nRun        = RA.Param('exp','runs');
-    nBlock      = RA.Param('exp', 'blocks');
-    
+    nBlock      = RA.Param('exp', 'blocks'); 
+
     cBlocks = 1:nBlock;
     
     bBlockOrderExists = ~isempty(ra.Experiment.Subject.Get('block_order'));
@@ -48,31 +47,34 @@ function Prepare(ra,varargin)
     
     % set trial information
     bCorrect    = zeros(nRun, nBlock, 36);
-    bBlip       = zeros(nRun, nBlock, 36);
-    frameType   = zeros(nRun, nBlock, 36);
+%     frameType   = zeros(nRun, nBlock, 36);
     fixFeature  = zeros(nRun, nBlock, 36);
+    tBlipRest   = zeros(nRun, 5);
+    tBlipBlock  = zeros(nRun, nBlock);
     
     for iRun = 1:nRun
         for iBlock = 1:nBlock
             bCorrect(iRun, iBlock, :)   = [Shuffle(repmat(0:1, 1, 3)) Shuffle(repmat(0:1, 1, 3)) Shuffle(repmat(0:1, 1, 3)) ...
                                     Shuffle(repmat(0:1, 1, 3)) Shuffle(repmat(0:1, 1, 3)) Shuffle(repmat(0:1, 1, 3))];
-            bBlip(iRun, iBlock, :)      = [Shuffle(repmat([0 0 1], 1, 2)) Shuffle(repmat([0 0 1], 1, 2)) Shuffle(repmat([0 0 1], 1, 2)) ...
-                                    Shuffle(repmat([0 0 1], 1,2)) Shuffle(repmat([0 0 1], 1, 2)) Shuffle(repmat([0 0 1], 1, 2))];
-            frameType(iRun, iBlock, :)  = [Shuffle(1:6) Shuffle(1:6) Shuffle(1:6) Shuffle(1:6) Shuffle(1:6) Shuffle(1:6)];
+%             frameType(iRun, iBlock, :)  = [Shuffle(1:6) Shuffle(1:6) Shuffle(1:6) Shuffle(1:6) Shuffle(1:6) Shuffle(1:6)];
             fixFeature(iRun, iBlock, :) = [Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) ...
-                                    Shuffle(1:4) Shuffle(1:4) Shuffle(1:4)];
+                                    Shuffle(1:4) Shuffle(1:4) Shuffle(1:4)];                                
+            tBlipRest(iRun, :)          = ((4.5-0.5).*rand(1, 5)+0.5);
+            tBlipBlock(iRun, iBlock)    = ((15-1)*rand+1);
         end
     end
     
-    ra.Experiment.Info.Set('ra', {'trialinfo', 'frametype'}, frameType);
-    ra.Experiment.Info.Set('ra', {'trialinfo', 'frametype'}, bBlip);
+%     ra.Experiment.Info.Set('ra', {'trialinfo', 'frametype'}, frameType);
     ra.Experiment.Info.Set('ra', {'trialinfo', 'bcorrect'}, bCorrect);
     ra.Experiment.Info.Set('ra', {'trialinfo', 'fixfeature'}, fixFeature);
+    ra.Experiment.Info.Set('ra', 'rest_blip', tBlipRest);
+    ra.Experiment.Info.Set('ra', 'block_blip', tBlipBlock);
     
     % set responses
     ra.Experiment.Input.Set('response', struct2cell(RA.Param('response'))');
     ra.Experiment.Input.Set('yes', RA.Param('response', 'yes'));
     ra.Experiment.Input.Set('no', RA.Param('response', 'no'));
+    ra.Experiment.Input.Set('blip', RA.Param('response', 'blip'));
 
     ra.Experiment.Info.Set('ra','prepared',true);
     ra.Experiment.Info.Save;

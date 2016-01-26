@@ -1,53 +1,64 @@
-function Practice(ra, varargin)
+function [practiceData] = Practice(ra, varargin)
 % RelAbs.Practice(<options>)
 % 
-% Description:	practice the rule task
+% Description:	practice the relabs task
 % 
-% Syntax:	ra.Practice('level', 1)
+% Syntax:	ra.Practice('blockType', 1)
 %
 % In:   <options>   
 %           blockType   -   (1) the blockType to practice
 %
-% Notes:    Partially adapted from NestIf experiment, but not yet in use
-%               for actual RelAbs experiment.
+% Notes:    
 %
-% Updated: 09-15-2015
+% ToDo:     Do something with practice data?
+%
+% Updated: 01-21-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
-[blockType] = ParseArgs(varargin, 1);
+blockType = ParseArgs(varargin, 1);
 
-ra.Experiment.AddLog([blockType ' practice start']);
+bNextLevel      = true;
+practiceData    = {};
 
-bCorrect        = [];
-res             = [];
+while bNextLevel
+    strBlock = switch2(blockType, 1, 'level one, 1 same', ...
+                                  2, 'level one, 3 same', ...
+                                  3, 'level two, 1 same', ...
+                                  4, 'level two, 3 same', ...
+                                  5, 'level three, 1 same', ...
+                                  6, 'level three, 3 same'  ...
+                                  );
 
-% display instructions
-ra.Experiment.Show.Instructions(['The active rule is ' blockType], 'next', 'continue');
-    
-% pause scheduler
-ra.Experiment.Scheduler.Pause;
+    ra.Experiment.AddLog([strBlock ' practice start']);
 
-bContinue	= true;
-while bContinue
+    % display instructions
+    ra.Experiment.Show.Instructions(['The active rule is ' strBlock], 'next', 'continue');
+
+    % pause scheduler
+    ra.Experiment.Scheduler.Pause;
+
     % do the trial loop
-    resCur = ra.TrialLoop(blockType);
-    % record results
-    if isempty(res)
-        res	= resCur;
+    loopData = ra.TrialLoop(blockType);
+
+    if isempty(practiceData)
+        practiceData = {loopData};
     else
-        res(end+1)	= resCur;
+        practiceData{end+1} = loopData;
     end
-    bCorrect    = [bCorrect; resCur.correct];
     
-    % show feedback
-    strResponse     = conditional(resCur.correct,'<color:green>Yes!</color>','<color:red>No!</color>');
-	strPerformance	= ['You were correct on ' num2str(sum(bCorrect)) ' of the last ' num2str(length(bCorrect)) ' trial' plural(length(bCorrect),'','s') '.'];
+    ra.Experiment.Scheduler.Resume;
 
-	yn			= ra.Experiment.Show.Prompt([strResponse '\n\n' strPerformance '\n\n' 'Again?'],'choice',{'y','n'});
-	bContinue	= isequal(yn,'y');
-
+    if blockType < 6
+        sNextLevel = ra.Experiment.Show.Prompt('Continue to next level?','choice',{'y','n'});
+        bNextLevel = conditional(strcmpi(sNextLevel, 'y'), true, false);
+    else
+        bNextLevel = false;
+    end
+    
+    % increment blockType if continuing
+    if bNextLevel
+       blockType = blockType + 1;
+    end
+    
 end
-
-ra.Experiment.Info.Set('nestif', 'practice_results', res);
-ra.Experiment.AddLog([blockType ' practice end']);
-ra.Experiment.Scheduler.Resume;
+end

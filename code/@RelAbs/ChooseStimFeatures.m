@@ -48,7 +48,6 @@ function [stimColors, stimNumbers, stimOrientations, stimShapes] = ChooseStimFea
 %                           the same as in example 1, then stimColors(1:3) 
 %                           will match fixation
 %                       
-%
 % ToDo:    
 %                   - 
 %

@@ -9,7 +9,7 @@ classdef RelAbs < PTB.Object
 %				Start(<options>):	start the object
 %				End:				end the object
 %               Prepare:            prepare necessary info
-%               Run:                execute a nestif run
+%               Run:                execute a relabs run
 %
 % In:
 % 	<options>:
@@ -17,17 +17,13 @@ classdef RelAbs < PTB.Object
 %
 % Out: 
 %
-% Updated 09-03-2015
+% Updated 12-16-2015
 % Writted by Kevin Hartstein (kevinhartstein@gmail.com)
 
 	% PUBLIC PROPERTIES---------------------------------------------------------%
 	properties
 		Experiment;
 		% images
-        colorIcon       = [];
-        numberIcon      = [];
-        orientationIcon = [];
-        shapeIcon       = [];
         
 		% running reward total
 		reward; 
@@ -66,11 +62,11 @@ classdef RelAbs < PTB.Object
 				opt.session	= conditional(opt.debug==2,1,2);
 			end
             
-			opt.name	= 'relabs';
-            opt.context	= switch2(opt.session,1,'psychophysics',2,'fmri');
-            opt.input_scheme = 'lrud';
-            opt.text_size = RA.Param('text', 'instructSize');
-            opt.text_color = RA.Param('text', 'color');
+			opt.name            = 'relabs';
+            opt.context         = switch2(opt.session,1,'psychophysics',2,'fmri');
+            opt.input_scheme    = 'lrud';
+            opt.text_size       = RA.Param('text', 'instructSize');
+            opt.text_color      = RA.Param('text', 'color');
 			
 			% window
             opt.background	= RA.Param('color','back');
@@ -92,7 +88,7 @@ classdef RelAbs < PTB.Object
 		end
 		%----------------------------------------------------------------------%
 		function Start(ra,varargin)
-		%start the nestif object
+		%start the relabs object
 			ra.argin	= append(ra.argin,varargin);
 			
 			if isempty(ra.Experiment.Info.Get('ra','prepared'))
@@ -102,7 +98,7 @@ classdef RelAbs < PTB.Object
 		end
 		%----------------------------------------------------------------------%
 		function End(ra,varargin)
-		%end the nestif object
+		%end the relabs object
 			v	= varargin;
             
 			ra.Experiment.End(v{:});

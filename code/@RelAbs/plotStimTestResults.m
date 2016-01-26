@@ -1,4 +1,4 @@
-function [SD_Res2, fixRes] = plotStimTestResults(ra, varargin)
+function [fixRes, SD_Res2, SD_Res3] = plotStimTestResults(ra, varargin)
 % RelAbs.plotStimTestResults
 %
 % Description: plot results of ra.testStimFeat
@@ -7,13 +7,24 @@ function [SD_Res2, fixRes] = plotStimTestResults(ra, varargin)
 %
 % In:
 %   <optional>
-%   testRes     -   a structure of results from ra.testStimFeat
-
+%   testRes     -   <[]> a structure of results from ra.testStimFeat
+%   groupPlots  -   <true> a boolean specifying whether to plot the group 
+%                       data. If false, plots will collapse over different
+%                       stimuli in the same category (e.g. vertical match
+%                       and horizontal match will be collapsed into one bar
+%                       on the graph)
+%   clearPlots  -   <true> a boolean specifying whether to clear existing
+%                       plots
 %
 % Out:
-%   SD_Res      -   a structure describing the sdArrays by blockType
 %   fixRes      -   a 4 x 5 x 6 array (feature: C N O S x matchType: 0 1 2 3 4
-%                       x blockType) with results for the fixation task
+%                       x blockType) with results for the fixation task.
+%                       Describes how stimuli match according to level 1
+%                       logic
+%   SD_Res2     -   a structure describing how the stimuli match according
+%                       to level 2 logic for each blockType
+%   SD_Res3     -   a structure describing how the stimuli match according
+%                       to level 3 logic for each blockType
 %
 % Notes:      
 %   - If testRes argument is omitted, this function will run ra.testStimFeat
@@ -30,10 +41,10 @@ function [SD_Res2, fixRes] = plotStimTestResults(ra, varargin)
 %
 % ToDo:    
 %
-% Updated: 12-15-2015
+% Updated: 01-04-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
-[opt]   = ParseArgs(varargin, 'testRes', [], 'clearPlots', true);
+[opt]   = ParseArgs(varargin, 'testRes', [], 'groupPlots', true, 'clearPlots', true);
 
 if isempty(opt.testRes)
     opt.testRes = ra.testStimFeat();
@@ -173,30 +184,45 @@ if opt.clearPlots
     close all;
 end
 
+if opt.groupPlots
+    fixPlotData     = fixMatchSum;
+    SD2PlotData     = sd2ByBlock;
+    SD3PlotData     = sd3ByBlock;
+    axisFix         = [0.5 5.5 0 0.3];
+    axisSD          = [0.5 5.5 0 0.2];
+    
+else
+    fixPlotData     = sum(fixMatchSum, 1);
+    SD2PlotData     = sum(sd2ByBlock, 2);
+    SD3PlotData     = sum(sd3ByBlock, 2);
+    axisFix         = [0.5 5.5 0 0.6];
+    axisSD          = [0.5 5.5 0 0.6];
+end
+
 for kPlot = 1:nBlock
     set(0,'DefaultFigureWindowStyle','docked')
     figure;
     
     ax1 = subplot(4, 1, 1);
-    bar(ax1,fixMatchSum(:,:,kPlot)'/216);
-    axis([0.5 5.5 0 0.3]);
+    bar(ax1,fixPlotData(:,:,kPlot)'/216);
+    axis(axisFix);
     xlabel('# of matches');
     set(ax1, 'XTickLabel', {'0', '1', '2', '3', '4'});
     ylabel('% (of 216)');
     title(['fixation task stimulus frequency, block type ' num2str(kPlot)]);
     
     ax2 = subplot(4,1,2);
-    bar(ax2,sd2ByBlock(:, :, kPlot)/216)
-    axis([0.5 5.5 0 0.2]);
-    xlabel('# same')
+    bar(ax2,SD2PlotData(:, :, kPlot)/216);
+    axis(axisSD);
+    xlabel('# same');
     set(ax2, 'XTickLabel', {'0', '1', '2', '3', '4'});
     ylabel('% (of 216)');
     title(['same-diff frequencies (level 2 logic), block type ' num2str(kPlot)]);
     
     ax3 = subplot(4,1,3);
-    bar(ax3,sd3ByBlock(:, :, kPlot)/216)
-    axis([0.5 5.5 0 0.2]);
-    xlabel('# same')
+    bar(ax3,SD3PlotData(:, :, kPlot)/216);
+    axis(axisSD);
+    xlabel('# same');
     set(ax3, 'XTickLabel', {'0', '1', '2', '3', '4'});
     ylabel('% (of 216)');
     title(['same-diff frequencies (level 3 logic), block type ' num2str(kPlot)]);

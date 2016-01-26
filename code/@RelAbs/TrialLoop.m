@@ -1,9 +1,9 @@
-function [blockRes, loopTiming] = TrialLoop(ra, blockType)
+function [blockRes, loopTiming] = TrialLoop(ra, blockType, varargin)
 % RelAbs.TrialLoop
 % 
 % Description:	run a loop of RelAbs trials
 % 
-% Syntax:	res = ra.TrialLoop(blockType)
+% Syntax:	res = ra.TrialLoop(blockType, 'bPractice', false)
 % 
 % In:
 %	blockType   - the block type. Odd numbers are 1S, evens are 1D
@@ -15,18 +15,26 @@ function [blockRes, loopTiming] = TrialLoop(ra, blockType)
 %                   ra.Experiment.Sequence.Loop
 %
 % ToDo:         
-%               - blipping fixation task
+%               - set up timer at start of loop, blip once during the
+%                   block at tBlipBlock. Use alpha channel to cover
+%                   fixation. Button press (kButtBlip) on left side (down
+%                   key in 'lrud' scheme)
+%               - time up screen
 %
-% Updated: 11-03-2015
+% Updated: 01-25-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
+[tStart, opt] = ParseArgs(varargin, [], 'testing', false);
 
-tLoopStart = PTB.Now;
+bPractice = isempty(tStart) && ~opt.testing;
 
 % get feature values from RA.Param
 colors          = struct2cell(RA.Param('stim_color'));
 numbers         = struct2cell(RA.Param('stim_number'));
 orientations    = fieldnames(RA.Param('stim_orient'));
 shapes          = fieldnames(RA.Param('stim_shape'));
+
+% get background color
+% backColor       = RA.Param('color', 'back');
 
 % screen locations
 stimOff         = RA.Param('stim_size' , 'offset');
@@ -42,16 +50,21 @@ frameSize       = RA.Param('framesize');
 
 % timing info
 t               = RA.Param('time');
-maxLoopTime     = t.trialloop;
+maxLoopTime     = switch2(bPractice, false, t.trialloop, true, inf);
 
 % block, run, and trial info
 kRun            = ra.Experiment.Info.Get('ra', 'run');
 kBlock          = ra.Experiment.Info.Get('ra', 'block');
 trialInfo       = ra.Experiment.Info.Get('ra', 'trialinfo');
 
+% blip info
+tBlipBlock      = ra.Experiment.Info.Get('ra', 'block_blip');
+blipTime        = tBlipBlock(kRun, kBlock);
+
 % find correct/incorrect keys
 kButtYes        = cell2mat(ra.Experiment.Input.Get('yes'));
 kButtNo         = cell2mat(ra.Experiment.Input.Get('no'));
+kButtBlip       = cell2mat(ra.Experiment.Input.Get('blip'));
 
 % same/different arrays
 bOneSame        = unique(perms([1 0 0 0]), 'rows');
@@ -63,50 +76,46 @@ bNoneSame       = [0 0 0 0];
 % stimulus to quadrant orders
 stimOrders      = unique(perms(1:4), 'rows');
 
-% each row is a possible SD array, each cateogry (bSameOne, bSame2, etc.) 
-% has the same number of rows (least common multiple is 12)
-% SHOULD ALL INCORRECT ANSWERS BE EQUALLY LIKELY? no
-
-% Not equally likely:
+% bSame possibilities for incorrect answers
 bNotOneSame     = [bTwoSame; bThreeSame; bAllSame; bNoneSame];
 bNotThreeSame   = [bOneSame; bTwoSame; bAllSame; bNoneSame];
 
-% Equally likely:
-% bNotOneSame     = [repmat(bTwoSame, 2, []);     ...
-%                    repmat(bThreeSame, 3, []);   ...
-%                    repmat(bAllSame, 12, []);    ... 
-%                    repmat(bNoneSame, 12, [])];
-% bNotThreeSame   = [repmat(bOneSame, 3, []);     ...
-%                    repmat(bTwoSame, 2, []);     ...
-%                    repmat(bAllSame, 12, []);    ... 
-%                    repmat(bNoneSame, 12, [])];
-% bAllPossibleSD  = [bOneSame; bTwoSame; bThreeSame; bAllSame; bNoneSame];
-                   
-
 % initialize some things
 blockRes        = [];
+bMorePractice   = [];
 kTrial          = 0;
 nCorrect        = 0;
 [trialColors,trialNumbers,trialOrientations,trialShapes] = deal(cell(1,4));
 
-% because fake scanner
-tUnit           = 'ms';
-maxLoopTime     = maxLoopTime*t.tr;
+% if practice, use ms
+if bPractice || opt.testing
+    tStart		= PTB.Now;
+    maxLoopTime = maxLoopTime*t.tr;
+    tUnit       = 'ms';
+else
+    tUnit       = 'tr';
+end
+
+if bPractice
+    ra.Experiment.Scanner.StartScan
+end
 
 % loop through trials until maxLoopTime is reached
 [tStart, tEnd, tLoop, bAbort, kResponse, tResponse] = ra.Experiment.Sequence.Loop(@DoTrial, @DoNext, ...
             'tunit'         ,       tUnit           , ...
-            'tbase'         ,       'sequence'      , ...
+            'tStart'        ,       tStart          , ...
             'fwait'         ,       @loopWait       , ...
-            'return'        ,       't');    
-        
-%             'tend'          ,       maxLoopTime     , ...
+            'return'        ,       't');
         
 % save loop timing for output
 loopTiming = struct('tStart', tStart, 'tEnd', tEnd, 'tLoop', tLoop, 'bAbort', bAbort);
 
+if bPractice
+    ra.Experiment.Scanner.StopScan
+end
+
 % blank the screen
-ra.Experiment.Show.Blank('fixation', true);
+ra.Experiment.Show.Fixation('color', 'black');
 ra.Experiment.Window.Flip;
 
 %------------------------------------------------------------------------------%
@@ -117,11 +126,11 @@ function [] = DrawSet(stimNum, stimPos)
     smallOffset = switch2(trialOrientations{stimNum}, 'horizontal', smallXOff, 'vertical', smallYOff, 0);
     largeOffset = switch2(trialOrientations{stimNum}, 'horizontal', largeXOff, 'vertical', largeYOff, 0);
     
-    % find locoation and rotation (i.e. square/diamond)
+    % find location and shape (i.e. rotation of square for square/diamond)
     bitLoc = {center-largeOffset, center-smallOffset, center+smallOffset, center+largeOffset};
     bitRot = switch2(trialShapes{stimNum}, 'square', 0, 'diamond', 45);
     
-    % draw stimuls
+    % draw stimulus
     ra.Experiment.Show.Rectangle(trialColors{stimNum}, squareSide, bitLoc{2}, bitRot);
     ra.Experiment.Show.Rectangle(trialColors{stimNum}, squareSide, bitLoc{3}, bitRot);
     if trialNumbers{stimNum} == 4
@@ -130,14 +139,14 @@ function [] = DrawSet(stimNum, stimPos)
     end
     
     % draw frame - frames are drawn for correct stimuli, but in random
-    % positions (the quadrants result from stimOrder in DoTrial
+    % positions (the quadrants result from stimOrder in DoTrial)
     if ismember(stimNum, [1 2])
         ra.Experiment.Show.Rectangle(frameColor, frameSize, center, 'border', true)
     end
 end
 %------------------------------------------------------------------------------%
 function [NaN] = DoTrial(tNow, NaN)
-    kTrial      = kTrial+1;
+    kTrial      = kTrial + 1;
     ra.Experiment.AddLog(['trial ' num2str(kTrial)]);
     
     % get trial info
@@ -195,13 +204,55 @@ function [NaN] = DoTrial(tNow, NaN)
         DrawSet(k, stimOrder(k));
     end
     
-    % initialize kResponse and flip
+    
+%   THIS WILL BE REPLACED BY TIMER FOR 1 BLIP PER BLOCK
+%     if bBlip
+%        % initialize kResponse and flip
+%         kResponse = [];
+%         tFlip = ra.Experiment.Window.Flip2;
+%         
+%         % wait here
+%         WaitSecs(blipTime/1000);
+%         
+%         ra.Experiment.Show.Rectangle(backColor, 1, [0, 0]);
+%         ra.Experiment.Window.Flip2;
+%         
+%         % blip is in effect
+%         WaitSecs(0.1);
+%         
+%         % redraw the fixation thing
+%         switch kFixFeature
+%             case 1
+%                 % color
+%                 val     = colors{kFixValue};
+%                 ra.Experiment.Show.Circle(val, 0.25, [0,0])
+%             case 2
+%                 % number
+%                 val     = num2str(numbers{kFixValue});
+%                 ra.Experiment.Show.Text(['<color: black><size: 0.5>' val '</color></size>'], [0,0]);
+%             case 3
+%                 % orientation
+%                 val     = switch2(orientations{kFixValue}, 'horizontal', [0.5, 0.125], 'vertical', [0.125, 0.5]);
+%                 ra.Experiment.Show.Rectangle('black', val, [0, 0]);
+%             case 4
+%                 % shape
+%                 val     = shapes{kFixValue};
+%                 if strcmpi(val, 'square') 
+%                     ra.Experiment.Show.Rectangle('black', 0.25, [0,0]);
+%                 elseif strcmpi(val, 'diamond')
+%                     ra.Experiment.Show.Rectangle('black', 0.25, [0,0], 45);
+%                 end
+%             otherwise
+%                 error('Invalid index for fixation feature');
+%         end 
+%         ra.Experiment.Window.Flip;
+%     end
+    
     kResponse = [];
+    
     tFlip = ra.Experiment.Window.Flip;
-
-    % get response (ok to do this with PTB.Now or use
-    % ra.Experiment.Scanner.TR() ?
-    while isempty(kResponse) && PTB.Now - tLoopStart < maxLoopTime - 1
+    
+    while isempty(kResponse) && PTB.Now - tStart < maxLoopTime - 1             % this should be done in the fWait function
         [~,~,tResponse,kResponse]	= ra.Experiment.Input.DownOnce('response');
     end
     
@@ -241,13 +292,18 @@ function [NaN] = DoTrial(tNow, NaN)
     
     if maxLoopTime - tNow > 1
         DoFeedback;
+        if bPractice
+            yn              = ra.Experiment.Show.Prompt('Again?','choice',{'y','n'});
+            bMorePractice	= isequal(yn,'y');
+        end
     else
-        ra.Experiment.Show.Blank('fixation', true);
+        ra.Experiment.Show.Fixation('color', 'black');
         ra.Experiment.Window.Flip;
     end
 end
 %------------------------------------------------------------------------------%
 function [] = DoFeedback()
+    
     % add a log message
     nCorrect	= nCorrect + blockRes(end).correct;
     strCorrect	= conditional(blockRes(end).correct,'y','n');
@@ -267,18 +323,26 @@ function [] = DoFeedback()
         end
         
 	% update the winnings and show feedback
-    ra.reward	= max(ra.reward + dWinning, RA.Param('reward','base'));
-    strText	= ['<color:' strColor '>' strFeedback ' (' StringMoney(dWinning,'sign',true) ')</color>\n\nCurrent total: ' StringMoney(ra.reward)]; 
-        
-	ra.Experiment.Show.Text(strText);
+    if ~bPractice
+        ra.reward	= max(ra.reward + dWinning, RA.Param('reward','base'));
+        strText	= ['<color:' strColor '>' strFeedback ' (' StringMoney(dWinning,'sign',true) ')</color>\n\nCurrent total: ' StringMoney(ra.reward)]; 
+        ra.Experiment.Show.Fixation('color', 'black');
+    else
+        strText	= ['<color:' strColor '>' strFeedback '</color>']; 
+    end
+    
+    ra.Experiment.Show.Text(strText);
     ra.Experiment.Window.Flip;
     ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_LOW);
-    WaitSecs(0.9835); % Do this without WaitSecs?
+    WaitSecs(0.9835); % Do this without WaitSecs
 end 
 %------------------------------------------------------------------------------%
 function [bAbort, bContinue] = DoNext(tNow)
     % abort if current time greater than allowed
-    if tNow > maxLoopTime
+    if bPractice && ~bMorePractice
+        bAbort      = true;
+        bContinue   = false;
+    elseif tNow > maxLoopTime
         bAbort      = true;
         bContinue   = false;
     elseif isempty(blockRes(end).kResponse)
@@ -290,10 +354,9 @@ function [bAbort, bContinue] = DoNext(tNow)
     end
 end
 %------------------------------------------------------------------------------%
-function [bAbort] = loopWait(tNow, NaN)
-    % FIX - this function doesn't get called even though it is supplied as
-    % as the fWait function in ra.Sequence.Loop
-    
+function [bAbort] = loopWait(tNow, tNext)
+    % THIS ISN'T BEING USED, EVEN THOUGH IT IS SUPPLIED AS THE FWAIT
+    % FUNCTION FOR THE LOOP
     % abort if current time greater than allowed
     if tNow > maxLoopTime
         bAbort = true;
@@ -301,11 +364,10 @@ function [bAbort] = loopWait(tNow, NaN)
         bAbort = false;
     end
 
-% 	[~,~,~,kResponse]   = ra.Experiment.Input.DownOnce('response');
-% 	
-% 	tResponse           = conditional(isempty(kResponse),[],tNow);
-% 	
-% 	ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_CRITICAL);
+	[~,~,~,kResponse]   = ra.Experiment.Input.DownOnce('response'); 	
+	tResponse           = conditional(isempty(kResponse),[],tNow);
+ 	
+	ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_CRITICAL);
 end
 %------------------------------------------------------------------------------%
 end
