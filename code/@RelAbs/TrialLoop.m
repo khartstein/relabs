@@ -15,13 +15,9 @@ function [blockRes, loopTiming] = TrialLoop(ra, blockType, varargin)
 %                   ra.Experiment.Sequence.Loop
 %
 % ToDo:         
-%               - set up timer at start of loop, blip once during the
-%                   block at tBlipBlock. Use alpha channel to cover
-%                   fixation. Button press (kButtBlip) on left side (down
-%                   key in 'lrud' scheme)
-%               - time up screen
+%               - 
 %
-% Updated: 01-25-2016
+% Updated: 01-27-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 [tStart, opt] = ParseArgs(varargin, [], 'testing', false);
 
@@ -34,7 +30,7 @@ orientations    = fieldnames(RA.Param('stim_orient'));
 shapes          = fieldnames(RA.Param('stim_shape'));
 
 % get background color
-% backColor       = RA.Param('color', 'back');
+backColor       = RA.Param('color', 'back');
 
 % screen locations
 stimOff         = RA.Param('stim_size' , 'offset');
@@ -57,9 +53,16 @@ kRun            = ra.Experiment.Info.Get('ra', 'run');
 kBlock          = ra.Experiment.Info.Get('ra', 'block');
 trialInfo       = ra.Experiment.Info.Get('ra', 'trialinfo');
 
-% blip info
+% blip info and texture
 tBlipBlock      = ra.Experiment.Info.Get('ra', 'block_blip');
-blipTime        = tBlipBlock(kRun, kBlock);
+blipResTask     = ra.Experiment.Info.Get('ra', 'blipresulttask');
+blipTimer       = PTB.Now;
+bBlipOver       = false;
+blipTime        = tBlipBlock(kRun, kBlock)*1000;
+kFixFeature     = [];
+kFixValue       = [];
+kBlipResponse   = [];
+bChangeWait     = false;
 
 % find correct/incorrect keys
 kButtYes        = cell2mat(ra.Experiment.Input.Get('yes'));
@@ -153,7 +156,7 @@ function [NaN] = DoTrial(tNow, NaN)
     bCorrect        = trialInfo.bcorrect(kRun, kBlock, kTrial);
     numSameCorrect  = switch2(blockType, {1, 3, 5}, 1, {2, 4, 6}, 3);
     % frameType       = trialInfo.frametype(kRun, kBlock, kTrial);
-    kFixFeature     = trialInfo.fixfeature(kRun, kBlock, kTrial);           % will be an integer 1:4
+    kFixFeature     = trialInfo.fixfeature(kRun, kBlock, kTrial);           % will be an integer 1:4, set to 5 during feedback for blip task
     kFixValue       = randi(2);
     
     switch kFixFeature
@@ -203,56 +206,33 @@ function [NaN] = DoTrial(tNow, NaN)
     for k = 1:4
         DrawSet(k, stimOrder(k));
     end
+ 
+    tFlip = ra.Experiment.Window.Flip2;
+
+    % blip during task
+    if PTB.Now - blipTimer > blipTime && ~bBlipOver
+        DoBlip;
+        tBlip = PTB.Now;
+        while isempty(kBlipResponse) && PTB.Now - tBlip < 700
+            [~,~,~,kBlipResponse]	= ra.Experiment.Input.DownOnce('response');
+        end
+        bBlipOver = true;
+        
+        % determine whether blip response is correct and save
+        if ismember(kBlipResponse, kButtBlip)
+            blipResTask(kRun, kBlock) = 1;
+        elseif ~isempty(kButtBlip)
+            blipResTask(kRun, kBlock) = 9;
+        else
+            blipResTask(kRun, kBlock) = 0;
+        end
+        ra.Experiment.Info.Set('ra', 'blipresulttask', blipResTask);
+    end
     
-    
-%   THIS WILL BE REPLACED BY TIMER FOR 1 BLIP PER BLOCK
-%     if bBlip
-%        % initialize kResponse and flip
-%         kResponse = [];
-%         tFlip = ra.Experiment.Window.Flip2;
-%         
-%         % wait here
-%         WaitSecs(blipTime/1000);
-%         
-%         ra.Experiment.Show.Rectangle(backColor, 1, [0, 0]);
-%         ra.Experiment.Window.Flip2;
-%         
-%         % blip is in effect
-%         WaitSecs(0.1);
-%         
-%         % redraw the fixation thing
-%         switch kFixFeature
-%             case 1
-%                 % color
-%                 val     = colors{kFixValue};
-%                 ra.Experiment.Show.Circle(val, 0.25, [0,0])
-%             case 2
-%                 % number
-%                 val     = num2str(numbers{kFixValue});
-%                 ra.Experiment.Show.Text(['<color: black><size: 0.5>' val '</color></size>'], [0,0]);
-%             case 3
-%                 % orientation
-%                 val     = switch2(orientations{kFixValue}, 'horizontal', [0.5, 0.125], 'vertical', [0.125, 0.5]);
-%                 ra.Experiment.Show.Rectangle('black', val, [0, 0]);
-%             case 4
-%                 % shape
-%                 val     = shapes{kFixValue};
-%                 if strcmpi(val, 'square') 
-%                     ra.Experiment.Show.Rectangle('black', 0.25, [0,0]);
-%                 elseif strcmpi(val, 'diamond')
-%                     ra.Experiment.Show.Rectangle('black', 0.25, [0,0], 45);
-%                 end
-%             otherwise
-%                 error('Invalid index for fixation feature');
-%         end 
-%         ra.Experiment.Window.Flip;
-%     end
+    ra.Experiment.Show.Blank('fixation', false);
     
     kResponse = [];
-    
-    tFlip = ra.Experiment.Window.Flip;
-    
-    while isempty(kResponse) && PTB.Now - tStart < maxLoopTime - 1             % this should be done in the fWait function
+    while isempty(kResponse) && PTB.Now - tStart < maxLoopTime - 1             % this should probably be done in the fWait function
         [~,~,tResponse,kResponse]	= ra.Experiment.Input.DownOnce('response');
     end
     
@@ -303,6 +283,7 @@ function [NaN] = DoTrial(tNow, NaN)
 end
 %------------------------------------------------------------------------------%
 function [] = DoFeedback()
+    kFixFeature = 5;
     
     % add a log message
     nCorrect	= nCorrect + blockRes(end).correct;
@@ -331,10 +312,47 @@ function [] = DoFeedback()
         strText	= ['<color:' strColor '>' strFeedback '</color>']; 
     end
     
-    ra.Experiment.Show.Text(strText);
-    ra.Experiment.Window.Flip;
+    if isnan(kResponse)
+        ra.Experiment.Show.Fixation('color', 'black');
+    else
+        ra.Experiment.Show.Text(strText);
+    end
+    
+    ra.Experiment.Window.Flip2;
+    
+    % blip during feedback
+    if PTB.Now - blipTimer > blipTime && ~bBlipOver
+        DoBlip;
+        tBlip = PTB.Now;
+        while isempty(kBlipResponse) && PTB.Now - tBlip < 700
+            [~,~,~,kBlipResponse]	= ra.Experiment.Input.DownOnce('response');
+        end
+        bBlipOver = true;
+        bChangeWait = true;
+        
+        % determine whether blip response is correct and save
+        if ismember(kBlipResponse, kButtBlip)
+            blipResTask(kRun, kBlock) = 1;
+        elseif isempty(kButtBlip)
+            blipResTask(kRun, kBlock) = 9;
+        else
+            blipResTask(kRun, kBlock) = 0;
+        end
+        ra.Experiment.Info.Set('ra', 'blipresulttask', blipResTask);        
+    end
+    
+    ra.Experiment.Show.Blank('fixation', false);
+    
+    
     ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_LOW);
-    WaitSecs(0.9835); % Do this without WaitSecs
+    if bChangeWait
+        WaitSecs(1.0 - (PTB.Now - tBlip)/1000); % Do this without WaitSecs
+        bChangeWait = false;
+    elseif isnan(kResponse)
+        % don't wait
+    else
+        WaitSecs(0.96);
+    end
 end 
 %------------------------------------------------------------------------------%
 function [bAbort, bContinue] = DoNext(tNow)
@@ -352,6 +370,45 @@ function [bAbort, bContinue] = DoNext(tNow)
         bAbort = false;
         bContinue = true;
     end
+end
+%------------------------------------------------------------------------------%
+function [] = DoBlip()
+
+    % prepare to redraw whatever is at fixation
+    switch kFixFeature
+        case 1
+            % color
+            val     = colors{kFixValue};
+            fixArgs = {'Circle', val, 0.25, [0,0]};
+        case 2
+            % number
+            val     = num2str(numbers{kFixValue});
+            fixArgs = {'Text', ['<color: black><size: 0.5>' val '</color></size>'], [0,0]};
+        case 3
+            % orientation
+            val     = switch2(orientations{kFixValue}, 'horizontal', [0.5, 0.125], 'vertical', [0.125, 0.5]);
+            fixArgs = {'Rectangle', 'black', val, [0, 0]};
+        case 4
+            % shape
+            val     = shapes{kFixValue};
+            if strcmpi(val, 'square') 
+                fixArgs = {'Rectangle', 'black', 0.25, [0,0]};
+            elseif strcmpi(val, 'diamond')
+                fixArgs = {'Rectangle', 'black', 0.25, [0,0], 45};
+            end
+        case 5
+            % fixation dot
+            fixArgs = {'Fixation', 'color', 'black'};
+        otherwise
+            error('Invalid index for fixation feature');
+    end
+
+    % do fixation blip
+    tSeq = cumsum([0.250 0.001])*1000;
+    ra.Experiment.Show.Sequence2({{'Rectangle', backColor, 1.0, [0,0]},      ...
+                                 fixArgs}, tSeq, 'tunit', 'ms', 'tbase',      ...
+                                'sequence', 'fixation', false);                        
+                        
 end
 %------------------------------------------------------------------------------%
 function [bAbort] = loopWait(tNow, tNext)

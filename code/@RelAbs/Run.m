@@ -5,10 +5,9 @@ function Run(ra, varargin)
 %
 % Syntax: ra.Run
 %
-% ToDo:     - record blip task button and timing
-%           - scanner testing
+% ToDo:     - scanner testing
 %
-% Updated: 01-25-2016
+% Updated: 01-27-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 bTesting = ParseArgs(varargin, false);
@@ -144,44 +143,50 @@ end
 function tNow = DoWait(tNow, tNext)
 	ra.Experiment.AddLog('waiting (for prompt HRF decay)');
 
-    % Do fixation blip
+    % do fixation blip
 	blipTime    = tBlipRest(kRun, kBlock); 
-    tSeq        = cumsum([blipTime; 0.125; 0.001]);
+    tSeq        = cumsum([blipTime; 0.250; 0.001])*1000;
     
     % fixation blink
-    tSeq = tSeq*tr;
     ra.Experiment.Show.Sequence({{'Fixation', 'color', 'black'},    ...
                                  {'Blank', 'fixation', false},      ...
                                  {'Fixation', 'color', 'black'}},   ...
                                 tSeq, 'tunit', 'ms', 'tbase',      ...
                                 'sequence', 'fixation', false);
-%     respStart = PTB.Now;
-	ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_LOW);
+                            
+	ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_CRITICAL);
     
 end
 %------------------------------------------------------------------------------%
-function [bAbort,kBlipResponse,tBlipResponse] = Wait_Blip(tNow,tNext)
+function [bAbort] = Wait_Blip(tNow,tNext)
     % fwait function for fixation task
-	bAbort		= false;
+	bAbort  = false;
     
-    [~,~,tBlipResponse,kBlipResponse]	= ra.Experiment.Input.DownOnce('response');
+    [~,~,~,kBlipResponse]	= ra.Experiment.Input.DownOnce('response');
     
     % determine whether answer is correct
     if ismember(kBlipResponse, kButtBlip)
-        sBlipResponse = 'Yes';
+        blipCode = 1;                       % correct response (blip detected)
     elseif isempty(kBlipResponse)
-        sBlipResponse = 'No response';
+        blipCode = 0;                       % no response (blip not detected)
     else
-        sBlipResponse = 'Incorrect Key';
+        blipCode = 9;                       % incorrect response
     end
     
+    if ~isempty(kBlipResponse)
+%         tResponse       = PTB.Now;            % is this useful? 
+        blipResRest     = ra.Experiment.Info.Get('ra', 'blipresultrest');
+        blipResRest(kRun, kBlock) = blipCode;
+        ra.Experiment.Info.Set('ra', 'blipresultrest', blipResRest);
+        kBlipResponse   = [];
+    end
     ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_CRITICAL);
 end
 %------------------------------------------------------------------------------%
 function [bAbort] = Wait_Default(tNow,tNext)
 	bAbort		= false;
 
-    ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_CRITICAL);
+    ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_LOW);
 end
 %------------------------------------------------------------------------------%
 function tNow = DoTrialLoop(tNow, tNext)
@@ -216,6 +221,7 @@ function tNow = DoTimeUp(tNow, tNext)
     
     strText = ['<color:' strColor '>' strFeedback '</color>\n\nCurrent total: ' StringMoney(ra.reward)];
     ra.Experiment.Show.Text(strText);
+    ra.Experiment.Show.Fixation('color', 'black');
     ra.Experiment.Window.Flip;
 end
 %------------------------------------------------------------------------------%

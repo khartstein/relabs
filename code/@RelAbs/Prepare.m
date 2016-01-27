@@ -6,9 +6,9 @@ function Prepare(ra,varargin)
 % Syntax: ra.Prepare()
 %
 % ToDo:         
-%           -   
+%           - Make sure blip image is correct
 %
-% Updated: 01-25-2016
+% Updated: 01-26-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 % global strDirBase;
@@ -42,6 +42,8 @@ function Prepare(ra,varargin)
     ra.Experiment.Info.Set('ra', 'block', 1);
     ra.Experiment.Info.Set('ra', 'blocktiming', cell(RA.Param('exp', 'runs'), RA.Param('blocksperrun')));
     ra.Experiment.Info.Set('ra', 'result', cell(RA.Param('exp', 'runs'), RA.Param('blocksperrun')));
+    ra.Experiment.Info.Set('ra', 'blipresulttask', zeros(RA.Param('exp', 'runs'), RA.Param('blocksperrun')));
+    ra.Experiment.Info.Set('ra', 'blipresultrest', zeros(RA.Param('exp', 'runs'), RA.Param('blocksperrun')));
     ra.Experiment.Info.Set('ra', 'runtiming', cell(RA.Param('exp', 'runs'), 1));
     ra.reward	= RA.Param('reward','base');
     
@@ -49,7 +51,7 @@ function Prepare(ra,varargin)
     bCorrect    = zeros(nRun, nBlock, 36);
 %     frameType   = zeros(nRun, nBlock, 36);
     fixFeature  = zeros(nRun, nBlock, 36);
-    tBlipRest   = zeros(nRun, 5);
+    tBlipRest   = zeros(nRun, 6);
     tBlipBlock  = zeros(nRun, nBlock);
     
     for iRun = 1:nRun
@@ -59,9 +61,9 @@ function Prepare(ra,varargin)
 %             frameType(iRun, iBlock, :)  = [Shuffle(1:6) Shuffle(1:6) Shuffle(1:6) Shuffle(1:6) Shuffle(1:6) Shuffle(1:6)];
             fixFeature(iRun, iBlock, :) = [Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) ...
                                     Shuffle(1:4) Shuffle(1:4) Shuffle(1:4)];                                
-            tBlipRest(iRun, :)          = ((4.5-0.5).*rand(1, 5)+0.5);
-            tBlipBlock(iRun, iBlock)    = ((15-1)*rand+1);
+            tBlipBlock(iRun, iBlock)    = ((30-2)*rand+2);
         end
+        tBlipRest(iRun, :)          = ((8-2).*rand(1, 6)+2);
     end
     
 %     ra.Experiment.Info.Set('ra', {'trialinfo', 'frametype'}, frameType);
