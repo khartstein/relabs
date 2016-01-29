@@ -5,41 +5,43 @@ function Run(ra, varargin)
 %
 % Syntax: ra.Run
 %
-% ToDo:     - scanner testing
+% ToDo:     - figure out training vs. mri session    
+%           - scanner testing
 %
-% Updated: 01-27-2016
+% Updated: 01-29-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
-bTesting = ParseArgs(varargin, false);
+bTraining       = ParseArgs(varargin, false);
+strSession      = conditional(bTraining, 'train', 'mri');
+nRun            = RA.Param(['n' strSession 'runs']);
+nBlocksPerRun   = RA.Param('exp','blocks');
+trRun           = RA.Param('trrun');  
 
-    nBlock      = RA.Param('exp','blocks');
-    nRun        = RA.Param('exp','runs');
-    trRun       = RA.Param('trrun');  
-    
-    trRest      = RA.Param('time', 'rest');
-    trTrialLoop = RA.Param('time', 'trialloop');                
-    trPrompt    = RA.Param('time', 'prompt');
-    trWait      = RA.Param('time', 'wait');
-    trTimeUp    = RA.Param('time', 'timeup'); 
-    tr          = RA.Param('time', 'tr');  
-    
-    kButtBlip   = cell2mat(ra.Experiment.Input.Get('blip'));
-    
-    kBlock      = [];
-    kBlipResponse   = [];
-    
+trRest          = RA.Param('time', 'rest');
+trTrialLoop     = RA.Param('time', 'trialloop');                
+trPrompt        = RA.Param('time', 'prompt');
+trWait          = RA.Param('time', 'wait');
+trTimeUp        = RA.Param('time', 'timeup'); 
+tr              = RA.Param('time', 'tr');  
+
+kButtBlip       = cell2mat(ra.Experiment.Input.Get('blip'));
+
+kBlock          = [];
+kBlipResponse   = [];
+
 % get the subject's block order and blip timing
-    blockOrder  = ra.Experiment.Subject.Get('block_order');
-    tBlipRest   = ra.Experiment.Info.Get('ra', 'rest_blip');
+blockOrder  = ra.Experiment.Subject.Get([strSession '_block_order']);
+tBlipRest   = ra.Experiment.Info.Get('ra', [strSession '_rest_blip']);
+    
 % get the current run
-    kRun        = ra.Experiment.Info.Get('ra','run');
-    kRun        = ask('Next run','dialog',false,'default',kRun);
-    if ischar(kRun)
-        kRun = str2double(kRun);
-    end
+kRun        = ra.Experiment.Info.Get('ra','run');
+kRun        = ask('Next run','dialog',false,'default',kRun);
+if ischar(kRun)
+    kRun = str2double(kRun);
+end
 
 % add to the log
-    ra.Experiment.AddLog(['run ' num2str(kRun) ' start']); 
+    ra.Experiment.AddLog([strSession ' run ' num2str(kRun) ' start']); 
 % add to info
     ra.Experiment.Info.Set('ra','run',kRun);
 
@@ -56,20 +58,20 @@ bTesting = ParseArgs(varargin, false);
     
     cF          =   [
                     {@DoRest}
-                    repmat({@ShowPrompt; @DoWait; @DoTrialLoop; @DoTimeUp; @DoRest}, [nBlock 1])
+                    repmat({@ShowPrompt; @DoWait; @DoTrialLoop; @DoTimeUp; @DoRest}, [nBlocksPerRun 1])
                     ];
                 
     tSequence   = cumsum([
                         trRest
-                        repmat([trPrompt; trWait; trTrialLoop; trTimeUp; trRest], [nBlock 1])
+                        repmat([trPrompt; trWait; trTrialLoop; trTimeUp; trRest], [nBlocksPerRun 1])
                         ]);
                     
     cWait       =   [
                     {@Wait_Default}
-                    repmat({@Wait_Default; @Wait_Blip; @Wait_Default; @Wait_Default; @Wait_Default}, [nBlock 1])
+                    repmat({@Wait_Default; @Wait_Blip; @Wait_Default; @Wait_Default; @Wait_Default}, [nBlocksPerRun 1])
                     ];
                    
-if bTesting
+if bTraining
     % fake scanner, use ms
     tSequence   = tSequence*tr;
     tUnit       = 'ms';
@@ -100,7 +102,7 @@ end
 % 	ListenChar(1);
     
 % add to the log
-	ra.Experiment.AddLog(['run ' num2str(kRun) ' end']);
+	ra.Experiment.AddLog([strSession ' run ' num2str(kRun) ' end']);
     ra.Experiment.Info.Save;
 
 % increment run or end
@@ -154,7 +156,7 @@ function tNow = DoWait(tNow, tNext)
                                 tSeq, 'tunit', 'ms', 'tbase',      ...
                                 'sequence', 'fixation', false);
                             
-	ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_CRITICAL);
+	ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_LOW);
     
 end
 %------------------------------------------------------------------------------%
@@ -175,10 +177,10 @@ function [bAbort] = Wait_Blip(tNow,tNext)
     
     if ~isempty(kBlipResponse)
 %         tResponse       = PTB.Now;            % is this useful? 
-        blipResRest     = ra.Experiment.Info.Get('ra', 'blipresultrest');
-        blipResRest(kRun, kBlock) = blipCode;
-        ra.Experiment.Info.Set('ra', 'blipresultrest', blipResRest);
-        kBlipResponse   = [];
+        blipResRest                 = ra.Experiment.Info.Get('ra', [strSession '_blipresultrest']);
+        blipResRest(kRun, kBlock)   = blipCode;
+        ra.Experiment.Info.Set('ra', [strSession '_blipresultrest'], blipResRest);
+        kBlipResponse               = [];
     end
     ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_CRITICAL);
 end
@@ -194,7 +196,7 @@ function tNow = DoTrialLoop(tNow, tNext)
     kBlock                      = ra.Experiment.Info.Get('ra', 'block');
     blockType                   = blockOrder(kRun,kBlock);
 
-    [blockRes, loopTiming]      = ra.TrialLoop(blockType, tNow, 'testing', bTesting);
+    [blockRes, loopTiming]      = ra.TrialLoop(blockType, tNow, 'training', bTraining);
     
     % save results and timing
     result                      = ra.Experiment.Info.Get('ra', 'result');
@@ -206,7 +208,7 @@ function tNow = DoTrialLoop(tNow, tNext)
     ra.Experiment.Info.Set('ra', 'blocktiming', blockTiming);
     
     % increment block
-    if kBlock < nBlock
+    if kBlock < nBlocksPerRun
         ra.Experiment.Info.Set('ra','block', kBlock+1);
     else
         ra.Experiment.Info.Set('ra','block', 1);
@@ -216,11 +218,7 @@ end
 %------------------------------------------------------------------------------%
 function tNow = DoTimeUp(tNow, tNext)
     % time is up for block.
-    strFeedback = 'Time Up!';
-    strColor    = 'red';
-    
-    strText = ['<color:' strColor '>' strFeedback '</color>\n\nCurrent total: ' StringMoney(ra.reward)];
-    ra.Experiment.Show.Text(strText);
+    ra.Experiment.Show.Text('<color:red>Time Up!</color>\n\n');
     ra.Experiment.Show.Fixation('color', 'black');
     ra.Experiment.Window.Flip;
 end

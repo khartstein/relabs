@@ -10,18 +10,19 @@ function [practiceData] = Practice(ra, varargin)
 %
 % Notes:    
 %
-% ToDo:     Do something with practice data?
+% ToDo:     
+%           - save practice data?
 %
-% Updated: 01-21-2016
+% Updated: 01-29-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
-blockType = ParseArgs(varargin, 1);
+opt = ParseArgs(varargin, 'blockType', 1);
 
 bNextLevel      = true;
 practiceData    = {};
 
 while bNextLevel
-    strBlock = switch2(blockType, 1, 'level one, 1 same', ...
+    strBlock = switch2(opt.blockType, 1, 'level one, 1 same', ...
                                   2, 'level one, 3 same', ...
                                   3, 'level two, 1 same', ...
                                   4, 'level two, 3 same', ...
@@ -38,7 +39,7 @@ while bNextLevel
     ra.Experiment.Scheduler.Pause;
 
     % do the trial loop
-    loopData = ra.TrialLoop(blockType);
+    loopData = ra.TrialLoop(opt.blockType);
 
     if isempty(practiceData)
         practiceData = {loopData};
@@ -57,7 +58,7 @@ while bNextLevel
     
     % increment blockType if continuing
     if bNextLevel
-       blockType = blockType + 1;
+       opt.blockType = opt.blockType + 1;
     end
     
 end

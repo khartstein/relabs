@@ -17,7 +17,7 @@ function p = Param(varargin)
 % Example:
 %	p = RA.Param('color','back');
 %
-% Updated: 01-07-2016
+% Updated: 01-29-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 global SIZE_MULTIPLIER;
@@ -70,9 +70,11 @@ if isempty(P)
                     );
     % experiment info
 		P.exp	= struct(...
-					'runs'      , 6	, ...
-					'blocks'    , 6     , ...
-                    'reps'      , 1		  ...
+					'nmrirunsperrep'        , 6     , ...
+                    'ntrainrunsordered'     , 1     , ... 
+                    'ntrainrunsmixed'       , 2     , ...
+					'blocksperrun'          , 6     , ...
+                    'reps'                  , 2		  ...
 					);
 
     % text
@@ -81,11 +83,11 @@ if isempty(P)
 					'size'	, 0.75*SIZE_MULTIPLIER	  ...
 					);
 	% reward
-		P.reward	= struct(...
-                    'base'		, 20	, ...
-                    'max'		, 40	, ...
-                    'penalty'	, 2		  ... %penalty is <- times the reward
-                    );
+% 		P.reward	= struct(...
+%                     'base'		, 20	, ...
+%                     'max'		, 40	, ...
+%                     'penalty'	, 2		  ... %penalty is <- times the reward
+%                     );
                     
 	% response buttons
         P.response = struct(...
@@ -120,25 +122,22 @@ for k=1:nargin
                     p = [0 1.5*P.stim_size.interstim];
                 case 'framesize'
                     p = 4.5*(P.stim_size.interstim); 
-                case 'blocksperrun'
-					p	= P.exp.blocks*P.exp.reps;
-				case 'trblock'
+                case 'ntrainruns'
+                    p   = RA.Param('exp', 'ntrainrunsordered') + RA.Param('exp', 'ntrainrunsmixed');
+                case 'nmriruns'
+                    p   = RA.Param('exp', 'nmrirunsperrep') * RA.Param('exp', 'nreps');
+                case 'trblock'
 					p	= P.time.prompt + P.time.wait + P.time.trialloop + P.time.timeup + RA.Param('time', 'rest');
 				case 'trrun'
-					nBlock	= RA.Param('blocksperrun');
-					p	= RA.Param('time', 'rest') + nBlock*(RA.Param('trblock'));
+					p	= RA.Param('time', 'rest') + RA.Param('exp', 'blocksperrun')*(RA.Param('trblock'));
 				case 'trtotal'
-					p	= P.exp.runs*RA.Param('trrun');
+					p	= P.exp.nmrirunsperrep*P.reps*RA.Param('trrun');
 				case 'trun'
 					p	= RA.Param('trrun')*RA.Param('time','tr')/1000/60;
 				case 'ttotal'
 					p	= RA.Param('trtotal')*RA.Param('time','tr')/1000/60;
 				case 'tblock'
-					p	= RA.Param('trblock')*RA.Param('time', 'tr')*RA.Param('blockperrun')/1000/60;
-				case 'rewardpertrial'
-					p	= 0.06;
-				case 'penaltypertrial'
-					p	= RA.Param('rewardpertrial')*P.reward.penalty;
+					p	= RA.Param('trblock')*RA.Param('time', 'tr')*RA.Param('blocksperrun')/1000/60;
 				otherwise
 					if isfield(p,v)
 						p	= p.(v);

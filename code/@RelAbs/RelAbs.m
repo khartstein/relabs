@@ -17,16 +17,12 @@ classdef RelAbs < PTB.Object
 %
 % Out: 
 %
-% Updated 01-26-2016
+% Updated 01-29-2016
 % Writted by Kevin Hartstein (kevinhartstein@gmail.com)
 
 	% PUBLIC PROPERTIES---------------------------------------------------------%
 	properties
 		Experiment;
-		% images
-        imBlip;
-		% running reward total
-		reward; 
 	end
 	% PUBLIC PROPERTIES---------------------------------------------------------%
 	

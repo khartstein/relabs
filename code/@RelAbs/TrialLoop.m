@@ -14,14 +14,16 @@ function [blockRes, loopTiming] = TrialLoop(ra, blockType, varargin)
 %   loopTiming  - a struct of timing information from 
 %                   ra.Experiment.Sequence.Loop
 %
-% ToDo:         
-%               - 
+% ToDo:          
+%               - test training session
+%               - textures instead of Show functions?
 %
-% Updated: 01-27-2016
+% Updated: 01-29-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
-[tStart, opt] = ParseArgs(varargin, [], 'testing', false);
+[tStart, opt] = ParseArgs(varargin, [], 'training', false);
 
-bPractice = isempty(tStart) && ~opt.testing;
+bPractice   = isempty(tStart) && ~opt.training;
+strSession  = conditional(opt.training, 'train', 'mri');
 
 % get feature values from RA.Param
 colors          = struct2cell(RA.Param('stim_color'));
@@ -51,11 +53,13 @@ maxLoopTime     = switch2(bPractice, false, t.trialloop, true, inf);
 % block, run, and trial info
 kRun            = ra.Experiment.Info.Get('ra', 'run');
 kBlock          = ra.Experiment.Info.Get('ra', 'block');
-trialInfo       = ra.Experiment.Info.Get('ra', 'trialinfo');
+
+% get information for mri or training session
+tBlipBlock      = ra.Experiment.Info.Get('ra', [strSession '_block_blip']);
+blipResTask     = ra.Experiment.Info.Get('ra', [strSession '_blipresulttask']);
+trialInfo       = ra.Experiment.Info.Get('ra', [strSession '_trialinfo']);
 
 % blip info and texture
-tBlipBlock      = ra.Experiment.Info.Get('ra', 'block_blip');
-blipResTask     = ra.Experiment.Info.Get('ra', 'blipresulttask');
 blipTimer       = PTB.Now;
 bBlipOver       = false;
 blipTime        = tBlipBlock(kRun, kBlock)*1000;
@@ -91,7 +95,7 @@ nCorrect        = 0;
 [trialColors,trialNumbers,trialOrientations,trialShapes] = deal(cell(1,4));
 
 % if practice, use ms
-if bPractice || opt.testing
+if bPractice || opt.training
     tStart		= PTB.Now;
     maxLoopTime = maxLoopTime*t.tr;
     tUnit       = 'ms';
@@ -226,7 +230,8 @@ function [NaN] = DoTrial(tNow, NaN)
         else
             blipResTask(kRun, kBlock) = 0;
         end
-        ra.Experiment.Info.Set('ra', 'blipresulttask', blipResTask);
+        
+        ra.Experiment.Info.Set('ra', [strSession '_blipresulttask'], blipResTask);
     end
     
     ra.Experiment.Show.Blank('fixation', false);
@@ -292,29 +297,20 @@ function [] = DoFeedback()
     
     ra.Experiment.AddLog(['feedback (' strCorrect ', ' strTally ')']);
 	
-	% get the message and change in winnings
+	% get the feedback message and color
 		if blockRes(end).correct
 			strFeedback	= 'Yes!';
 			strColor	= 'green';
-			dWinning	= RA.Param('rewardpertrial');
         else
 			strFeedback	= 'No!';
 			strColor	= 'red';
-            dWinning	= -RA.Param('penaltypertrial');
         end
         
-	% update the winnings and show feedback
-    if ~bPractice
-        ra.reward	= max(ra.reward + dWinning, RA.Param('reward','base'));
-        strText	= ['<color:' strColor '>' strFeedback ' (' StringMoney(dWinning,'sign',true) ')</color>\n\nCurrent total: ' StringMoney(ra.reward)]; 
-        ra.Experiment.Show.Fixation('color', 'black');
-    else
-        strText	= ['<color:' strColor '>' strFeedback '</color>']; 
-    end
+	% show feedback
+    strText	= ['<color:' strColor '>' strFeedback '</color>\n\n']; 
+    ra.Experiment.Show.Fixation('color', 'black');
     
-    if isnan(kResponse)
-        ra.Experiment.Show.Fixation('color', 'black');
-    else
+    if ~isnan(kResponse)
         ra.Experiment.Show.Text(strText);
     end
     
@@ -338,7 +334,8 @@ function [] = DoFeedback()
         else
             blipResTask(kRun, kBlock) = 0;
         end
-        ra.Experiment.Info.Set('ra', 'blipresulttask', blipResTask);        
+        
+        ra.Experiment.Info.Set('ra', [strSession 'blipresulttask'], blipResTask);
     end
     
     ra.Experiment.Show.Blank('fixation', false);
