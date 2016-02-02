@@ -49,7 +49,7 @@ while bNextLevel
     
     ra.Experiment.Scheduler.Resume;
 
-    if blockType < 6
+    if opt.blockType < 6
         sNextLevel = ra.Experiment.Show.Prompt('Continue to next level?','choice',{'y','n'});
         bNextLevel = conditional(strcmpi(sNextLevel, 'y'), true, false);
     else

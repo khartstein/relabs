@@ -85,8 +85,8 @@ if isempty(P)
 	% reward
 % 		P.reward	= struct(...
 %                     'base'		, 20	, ...
-%                     'max'		, 40	, ...
-%                     'penalty'	, 2		  ... %penalty is <- times the reward
+%                     'max'         , 40	, ...
+%                     'penalty'     , 2		  ... %penalty is <- times the reward
 %                     );
                     
 	% response buttons
@@ -125,7 +125,7 @@ for k=1:nargin
                 case 'ntrainruns'
                     p   = RA.Param('exp', 'ntrainrunsordered') + RA.Param('exp', 'ntrainrunsmixed');
                 case 'nmriruns'
-                    p   = RA.Param('exp', 'nmrirunsperrep') * RA.Param('exp', 'nreps');
+                    p   = RA.Param('exp', 'nmrirunsperrep') * RA.Param('exp', 'reps');
                 case 'trblock'
 					p	= P.time.prompt + P.time.wait + P.time.trialloop + P.time.timeup + RA.Param('time', 'rest');
 				case 'trrun'

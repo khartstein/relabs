@@ -5,7 +5,7 @@ function Run(ra, varargin)
 %
 % Syntax: ra.Run
 %
-% ToDo:     - figure out training vs. mri session    
+% ToDo:     - test run training session
 %           - scanner testing
 %
 % Updated: 01-29-2016

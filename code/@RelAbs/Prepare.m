@@ -14,8 +14,7 @@ function Prepare(ra,varargin)
 % global strDirBase;
     
 % get experiment info from params
-    nRep                = RA.Param('exp','reps');
-    nMRIRunsPerRep      = RA.Param('exp','nmrirunsperrep');
+    nMRIRuns            = RA.Param('nmriruns');
     nTrainRuns          = RA.Param('ntrainruns');
     nTrainRunsOrdered   = RA.Param('exp', 'trainrunsordered');
     nTrainRunsMixed     = RA.Param('exp', 'trainrunsmixed');
@@ -32,7 +31,7 @@ function Prepare(ra,varargin)
         trainBlockOrder                                     = zeros(nTrainRuns, nBlocksPerRun);
         trainBlockOrder(1:nTrainRunsOrdered, :)             = repmat(cBlocks, nTrainRunsOrdered, []);
         trainBlockOrder(nTrainRunsOrdered+1:nTrainRuns, :)  = blockdesign(cBlocks, 1, nTrainRunsMixed);
-        mriBlockOrder                                       = blockdesign(cBlocks, 1, nRep*nMRIRunsPerRep);
+        mriBlockOrder                                       = blockdesign(cBlocks, 1, nMRIRuns);
         ra.Experiment.Subject.Set('train_block_order', trainBlockOrder);
         ra.Experiment.Subject.Set('mri_block_order', mriBlockOrder);
         strOrderExist   = 'new';
@@ -40,7 +39,7 @@ function Prepare(ra,varargin)
         % debug mode, 1:6 in order for all runs in training and "MRI"
         trainBlockOrder                                     = zeros(nTrainRuns, nBlocksPerRun);
         trainBlockOrder(1:nTrainRuns, :)                    = repmat(cBlocks, nTrainRuns, []);
-        mriBlockOrder                                       = repmat(cBlocks, nRep*nMRIRunsPerRep);
+        mriBlockOrder                                       = repmat(cBlocks, nMRIRuns);
         ra.Experiment.Subject.Set('train_block_order', trainBlockOrder);
         ra.Experiment.Subject.Set('mri_block_order', mriBlockOrder);
         strOrderExist = 'default';
@@ -56,37 +55,26 @@ function Prepare(ra,varargin)
     ra.Experiment.Info.Set('ra', 'train_result', cell(nTrainRuns, nBlocksPerRun));
     ra.Experiment.Info.Set('ra', 'train_blipresulttask', zeros(nTrainRuns, nBlocksPerRun));
     ra.Experiment.Info.Set('ra', 'train_blipresultrest', zeros(nTrainRuns, nBlocksPerRun));
-    ra.Experiment.Info.Set('ra', 'mri_runtiming', cell(nTrainRuns, 1));
+    ra.Experiment.Info.Set('ra', 'train_runtiming', cell(nTrainRuns, 1));
     % set timing and blip results for mri session
-    ra.Experiment.Info.Set('ra', 'mri_blocktiming', cell(nMRIRunsPerRep*nRep, nBlocksPerRun));
-    ra.Experiment.Info.Set('ra', 'mri_result', cell(nMRIRunsPerRep*nRep, nBlocksPerRun));
-    ra.Experiment.Info.Set('ra', 'mri_blipresulttask', zeros(nMRIRunsPerRep*nRep, nBlocksPerRun));
-    ra.Experiment.Info.Set('ra', 'mri_blipresultrest', zeros(nMRIRunsPerRep*nRep, nBlocksPerRun));
-    ra.Experiment.Info.Set('ra', 'mri_runtiming', cell(nMRIRunsPerRep*nRep, 1));
+    ra.Experiment.Info.Set('ra', 'mri_blocktiming', cell(nMRIRuns, nBlocksPerRun));
+    ra.Experiment.Info.Set('ra', 'mri_result', cell(nMRIRuns, nBlocksPerRun));
+    ra.Experiment.Info.Set('ra', 'mri_blipresulttask', zeros(nMRIRuns, nBlocksPerRun));
+    ra.Experiment.Info.Set('ra', 'mri_blipresultrest', zeros(nMRIRuns, nBlocksPerRun));
+    ra.Experiment.Info.Set('ra', 'mri_runtiming', cell(nMRIRuns, 1));
     
     % set trial information
-    bCorrectMRI     = zeros(nMRIRunsPerRep*nRep, nBlocksPerRun, 36);
-    fixFeatureMRI   = zeros(nMRIRunsPerRep*nRep, nBlocksPerRun, 36);
-    tBlipRestMRI    = zeros(nMRIRunsPerRep*nRep, nBlocksPerRun);
-    tBlipBlockMRI   = zeros(nMRIRunsPerRep*nRep, nBlocksPerRun);
+    bCorrectMRI     = zeros(nMRIRuns, nBlocksPerRun, 36);
+    fixFeatureMRI   = zeros(nMRIRuns, nBlocksPerRun, 36);
+    tBlipRestMRI    = zeros(nMRIRuns, nBlocksPerRun);
+    tBlipBlockMRI   = zeros(nMRIRuns, nBlocksPerRun);
     
     bCorrectTrain   = zeros(nTrainRuns, nBlocksPerRun, 36);
     fixFeatureTrain = zeros(nTrainRuns, nBlocksPerRun, 36);
     tBlipRestTrain  = zeros(nTrainRuns, nBlocksPerRun);
     tBlipBlockTrain = zeros(nTrainRuns, nBlocksPerRun);
     
-    for iRun = 1:nMRIRunsPerRep*nRep
-        for iBlock = 1:nBlocksPerRun
-            bCorrectMRI(iRun, iBlock, :)   = [Shuffle(repmat(0:1, 1, 3)) Shuffle(repmat(0:1, 1, 3)) Shuffle(repmat(0:1, 1, 3)) ...
-                                    Shuffle(repmat(0:1, 1, 3)) Shuffle(repmat(0:1, 1, 3)) Shuffle(repmat(0:1, 1, 3))];
-            fixFeatureMRI(iRun, iBlock, :) = [Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) ...
-                                    Shuffle(1:4) Shuffle(1:4) Shuffle(1:4)];                                
-            tBlipBlockMRI(iRun, iBlock)    = ((30-2)*rand+2);
-        end
-        tBlipRestMRI(iRun, :)          = ((8-2).*rand(1, nBlocksPerRun)+2);
-    end
-    
-    
+    % set up correct, fix features, blips for training session
     for iTrainRun = 1:nTrainRuns
         for iBlock = 1:nBlocksPerRun
             bCorrectTrain(iTrainRun, iBlock, :) = [Shuffle(repmat(0:1, 1, 3)) Shuffle(repmat(0:1, 1, 3)) Shuffle(repmat(0:1, 1, 3)) ...
@@ -96,6 +84,18 @@ function Prepare(ra,varargin)
             tBlipBlockTrain(iTrainRun, iBlock)       = ((30-2)*rand+2);
         end
         tBlipRestTrain(iTrainRun, :)          = ((8-2).*rand(1, nBlocksPerRun)+2);
+    end
+    
+    % set up correct, fix features, blips for mri session
+    for iRun = 1:nMRIRuns
+        for iBlock = 1:nBlocksPerRun
+            bCorrectMRI(iRun, iBlock, :)   = [Shuffle(repmat(0:1, 1, 3)) Shuffle(repmat(0:1, 1, 3)) Shuffle(repmat(0:1, 1, 3)) ...
+                                    Shuffle(repmat(0:1, 1, 3)) Shuffle(repmat(0:1, 1, 3)) Shuffle(repmat(0:1, 1, 3))];
+            fixFeatureMRI(iRun, iBlock, :) = [Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) Shuffle(1:4) ...
+                                    Shuffle(1:4) Shuffle(1:4) Shuffle(1:4)];                                
+            tBlipBlockMRI(iRun, iBlock)    = ((30-2)*rand+2);
+        end
+        tBlipRestMRI(iRun, :)          = ((8-2).*rand(1, nBlocksPerRun)+2);
     end
     
     % set info for training session

@@ -15,8 +15,8 @@ function [blockRes, loopTiming] = TrialLoop(ra, blockType, varargin)
 %                   ra.Experiment.Sequence.Loop
 %
 % ToDo:          
-%               - test training session
 %               - textures instead of Show functions?
+%               - figure out fWait function in PTB.Sequence.Loop
 %
 % Updated: 01-29-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
@@ -94,30 +94,27 @@ kTrial          = 0;
 nCorrect        = 0;
 [trialColors,trialNumbers,trialOrientations,trialShapes] = deal(cell(1,4));
 
-% if practice, use ms
+% use ms for practice and training session
 if bPractice || opt.training
     tStart		= PTB.Now;
     maxLoopTime = maxLoopTime*t.tr;
     tUnit       = 'ms';
+    ra.Experiment.Scanner.StartScan;
 else
     tUnit       = 'tr';
-end
-
-if bPractice
-    ra.Experiment.Scanner.StartScan
 end
 
 % loop through trials until maxLoopTime is reached
 [tStart, tEnd, tLoop, bAbort, kResponse, tResponse] = ra.Experiment.Sequence.Loop(@DoTrial, @DoNext, ...
             'tunit'         ,       tUnit           , ...
-            'tStart'        ,       tStart          , ...
+            'tstart'        ,       tStart          , ...
             'fwait'         ,       @loopWait       , ...
             'return'        ,       't');
         
 % save loop timing for output
 loopTiming = struct('tStart', tStart, 'tEnd', tEnd, 'tLoop', tLoop, 'bAbort', bAbort);
 
-if bPractice
+if bPractice || opt.training
     ra.Experiment.Scanner.StopScan
 end
 
@@ -231,7 +228,10 @@ function [NaN] = DoTrial(tNow, NaN)
             blipResTask(kRun, kBlock) = 0;
         end
         
-        ra.Experiment.Info.Set('ra', [strSession '_blipresulttask'], blipResTask);
+        % record results of blip task if not practicing
+        if ~bPractice
+            ra.Experiment.Info.Set('ra', [strSession 'blipresulttask'], blipResTask);
+        end
     end
     
     ra.Experiment.Show.Blank('fixation', false);
@@ -335,7 +335,10 @@ function [] = DoFeedback()
             blipResTask(kRun, kBlock) = 0;
         end
         
-        ra.Experiment.Info.Set('ra', [strSession 'blipresulttask'], blipResTask);
+        % record results of blip task if not practicing
+        if ~bPractice
+            ra.Experiment.Info.Set('ra', [strSession 'blipresulttask'], blipResTask);
+        end
     end
     
     ra.Experiment.Show.Blank('fixation', false);
@@ -408,20 +411,21 @@ function [] = DoBlip()
                         
 end
 %------------------------------------------------------------------------------%
-function [bAbort] = loopWait(tNow, tNext)
-    % THIS ISN'T BEING USED, EVEN THOUGH IT IS SUPPLIED AS THE FWAIT
-    % FUNCTION FOR THE LOOP
-    % abort if current time greater than allowed
-    if tNow > maxLoopTime
-        bAbort = true;
-    else
-        bAbort = false;
-    end
-
-	[~,~,~,kResponse]   = ra.Experiment.Input.DownOnce('response'); 	
-	tResponse           = conditional(isempty(kResponse),[],tNow);
- 	
-	ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_CRITICAL);
-end
+% function [bAbort] = loopWait(tNow, tNext)
+%     % THIS ISN'T BEING USED, EVEN THOUGH IT IS SUPPLIED AS THE FWAIT
+%     % FUNCTION FOR THE LOOP. IN FACT, COMMENTING IT OUT DOESN'T EVEN
+%     % CAUSE PROBLEMS SO IT MUST NEVER GET CALLED IN THE LOOP!!
+%     % abort if current time greater than allowed
+%     if tNow > maxLoopTime
+%         bAbort = true;
+%     else
+%         bAbort = false;
+%     end
+% 
+% 	[~,~,~,kResponse]   = ra.Experiment.Input.DownOnce('response'); 	
+% 	tResponse           = conditional(isempty(kResponse),[],tNow);
+%  	
+% 	ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_CRITICAL);
+% end
 %------------------------------------------------------------------------------%
 end
