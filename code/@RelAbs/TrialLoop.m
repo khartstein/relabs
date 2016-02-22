@@ -1,7 +1,10 @@
-function [blockRes, loopTiming] = TrialLoop(ra, blockType, varargin)
+function [blockRes, seqTiming] = TrialLoop(ra, blockType, varargin)
 % RelAbs.TrialLoop
 % 
-% Description:	run a loop of RelAbs trials
+% Status:
+%
+% Description:	run a loop of RelAbs trials using PTB.Show.Sequence and
+%       ra.ShowTrial
 % 
 % Syntax:	res = ra.TrialLoop(blockType, 'bPractice', false)
 % 
@@ -15,10 +18,13 @@ function [blockRes, loopTiming] = TrialLoop(ra, blockType, varargin)
 %                   ra.Experiment.Sequence.Loop
 %
 % ToDo:          
-%               - textures instead of Show functions?
-%               - figure out fWait function in PTB.Sequence.Loop
+%               - figure out why blip task is ruining everything
+%                   - problems recording responses after end of either task or feedback 
+%                   - solve by incorporating into sequence.linear somehow?
+%               - get rid of dependence on Flip2 and Sequence2 (probably by
+%                   using textures)
 %
-% Updated: 01-29-2016
+% Updated: 02-22-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 [tStart, opt] = ParseArgs(varargin, [], 'training', false);
 
@@ -34,18 +40,6 @@ shapes          = fieldnames(RA.Param('stim_shape'));
 % get background color
 backColor       = RA.Param('color', 'back');
 
-% screen locations
-stimOff         = RA.Param('stim_size' , 'offset');
-squareSide      = RA.Param('stim_size' , 'sqside');
-smallXOff       = RA.Param('smallXOffset');
-largeXOff       = RA.Param('largeXOffset');
-smallYOff       = RA.Param('smallYOffset');
-largeYOff       = RA.Param('largeYOffset');
-
-% info for frames
-frameColor      = RA.Param('color', 'frame');
-frameSize       = RA.Param('framesize');
-
 % timing info
 t               = RA.Param('time');
 maxLoopTime     = switch2(bPractice, false, t.trialloop, true, inf);
@@ -59,14 +53,10 @@ tBlipBlock      = ra.Experiment.Info.Get('ra', [strSession '_block_blip']);
 blipResTask     = ra.Experiment.Info.Get('ra', [strSession '_blipresulttask']);
 trialInfo       = ra.Experiment.Info.Get('ra', [strSession '_trialinfo']);
 
-% blip info and texture
+% blip stuff
 blipTimer       = PTB.Now;
-bBlipOver       = false;
 blipTime        = tBlipBlock(kRun, kBlock)*1000;
-kFixFeature     = [];
-kFixValue       = [];
-kBlipResponse   = [];
-bChangeWait     = false;
+bBlipOver       = false;
 
 % find correct/incorrect keys
 kButtYes        = cell2mat(ra.Experiment.Input.Get('yes'));
@@ -88,11 +78,11 @@ bNotOneSame     = [bTwoSame; bThreeSame; bAllSame; bNoneSame];
 bNotThreeSame   = [bOneSame; bTwoSame; bAllSame; bNoneSame];
 
 % initialize some things
-blockRes        = [];
-bMorePractice   = [];
-kTrial          = 0;
-nCorrect        = 0;
+[blockRes, bSame, numSameCorrect, seqTiming, tFlip, tBlip, bCorrect, stimOrder, kFixFeature, kFixValue, val, bMorePractice] = deal([]);
+[kTrial, nCorrect, bBlipTrial]  = deal(0);
+% bBlipResponse = 0;
 [trialColors,trialNumbers,trialOrientations,trialShapes] = deal(cell(1,4));
+fixArgs = {};
 
 % use ms for practice and training session
 if bPractice || opt.training
@@ -104,54 +94,121 @@ else
     tUnit       = 'tr';
 end
 
-% loop through trials until maxLoopTime is reached
-[tStart, tEnd, tLoop, bAbort, kResponse, tResponse] = ra.Experiment.Sequence.Loop(@DoTrial, @DoNext, ...
-            'tunit'         ,       tUnit           , ...
-            'tstart'        ,       tStart          , ...
-            'fwait'         ,       @loopWait       , ...
-            'return'        ,       't');
-        
-% save loop timing for output
-loopTiming = struct('tStart', tStart, 'tEnd', tEnd, 'tLoop', tLoop, 'bAbort', bAbort);
+cF          =   {@DoTrial; @DoFeedback;};
+tSequence   =   {@WaitResponse; @WaitFeedback};
+
+% open texture for on-deck trial creation
+ra.Experiment.Window.OpenTexture('nextTrial');
+
+% prepare and draw the first trial 
+PrepTrial('main');
+ra.ShowStim(stimOrder, trialColors, trialNumbers, trialOrientations, trialShapes, 'window', 'main');
+bNextPrepped    = true;
+
+while PTB.Now - tStart < maxLoopTime
+    [tStartTrial,tEndTrial,tTrialSequence, bAbort] = ra.Experiment.Sequence.Linear(...
+                        cF              ,   tSequence   , ...
+                        'tunit'         ,   tUnit       , ...
+                        'tbase'         ,   'sequence'  , ...
+                        'tstart'        ,   tStart      , ...
+                        'fwait'         ,   fWait         ...
+                        );
+
+    % save loop timing for output
+    curSeqTiming = struct('tStart'  , tStartTrial,      ...
+                          'tEnd'    , tEndTrial,        ...
+                          'tSeq'    , tTrialSequence,   ...
+                          'bAbort'  , bAbort);
+
+    if isempty(seqTiming)
+        seqTiming = curSeqTiming;
+    else
+        seqTiming(end+1) = curSeqTiming;
+    end
+end
 
 if bPractice || opt.training
     ra.Experiment.Scanner.StopScan
 end
 
-% blank the screen
+% close nextTrial texture and blank the screen
+ra.Experiment.Window.CloseTexture('nextTrial');
 ra.Experiment.Show.Fixation('color', 'black');
 ra.Experiment.Window.Flip;
 
 %------------------------------------------------------------------------------%
-function [] = DrawSet(stimNum, stimPos)
-    % find screen coordinates
-    center = switch2(stimPos, 1, [stimOff, -stimOff], 2, [-stimOff, -stimOff], ...
-            3, [-stimOff, stimOff], 4, [stimOff, stimOff]);
-    smallOffset = switch2(trialOrientations{stimNum}, 'horizontal', smallXOff, 'vertical', smallYOff, 0);
-    largeOffset = switch2(trialOrientations{stimNum}, 'horizontal', largeXOff, 'vertical', largeYOff, 0);
-    
-    % find location and shape (i.e. rotation of square for square/diamond)
-    bitLoc = {center-largeOffset, center-smallOffset, center+smallOffset, center+largeOffset};
-    bitRot = switch2(trialShapes{stimNum}, 'square', 0, 'diamond', 45);
-    
-    % draw stimulus
-    ra.Experiment.Show.Rectangle(trialColors{stimNum}, squareSide, bitLoc{2}, bitRot);
-    ra.Experiment.Show.Rectangle(trialColors{stimNum}, squareSide, bitLoc{3}, bitRot);
-    if trialNumbers{stimNum} == 4
-        ra.Experiment.Show.Rectangle(trialColors{stimNum}, squareSide, bitLoc{1}, bitRot);
-        ra.Experiment.Show.Rectangle(trialColors{stimNum}, squareSide, bitLoc{4}, bitRot);    
+function [tOut] = DoTrial(tNow, NaN)
+    tOut        = NaN;
+
+    if bNextPrepped
+        ra.Experiment.Show.Texture('nextTrial');
+    else
+        ra.Experiment.Show.Blank('fixation', false);
+        PrepTrial('main');
+        ra.ShowStim(stimOrder, trialColors, trialNumbers, trialOrientations, trialShapes, 'window', 'main')
     end
     
-    % draw frame - frames are drawn for correct stimuli, but in random
-    % positions (the quadrants result from stimOrder in DoTrial)
-    if ismember(stimNum, [1 2])
-        ra.Experiment.Show.Rectangle(frameColor, frameSize, center, 'border', true)
+    ra.Experiment.Window.Flip2;
+    tFlip = PTB.Now;
+    
+    % blip during trial
+    if PTB.Now - blipTimer > blipTime && ~bBlipOver
+        tBlip       = DoBlip;
+        bBlipTrial  = true;
+        bBlipOver   = true;
     end
+
 end
 %------------------------------------------------------------------------------%
-function [NaN] = DoTrial(tNow, NaN)
+function [tOut] = DoFeedback(tNow, NaN)
+    tOut = NaN;
+    fixArgs = {'Fixation', 'color', 'black'};
+    
+    % add a log message
+    nCorrect	= nCorrect + blockRes(end).correct;
+    strCorrect	= conditional(blockRes(end).correct,'y','n');
+    strTally	= [num2str(nCorrect) '/' num2str(kTrial)];
+     
+    ra.Experiment.AddLog(['feedback (' strCorrect ', ' strTally ')']);
+    
+    % get the feedback message and color
+    if blockRes(end).correct
+        strFeedback	= 'Yes!';
+        strColor	= 'green';
+    else
+        strFeedback	= 'No!';
+        strColor	= 'red';
+    end
+
+	% show feedback
+    strText	= ['<color:' strColor '>' strFeedback '</color>\n\n']; 
+    ra.Experiment.Show.Fixation('color', 'black');
+    
+    if ~isnan(blockRes(end).kResponse)
+        ra.Experiment.Show.Text(strText);
+    end
+    
+    ra.Experiment.Window.Flip2;
+    
+    % blip during feedback
+    if PTB.Now - blipTimer > blipTime && ~bBlipOver
+        tBlip       = DoBlip;
+        bBlipTrial  = true;
+        bBlipOver   = true;
+    end
+    ra.Experiment.Show.Blank('fixation', false);
+    
+    if bPractice
+        yn              = ra.Experiment.Show.Prompt('Again?','choice',{'y','n'});
+        bMorePractice	= isequal(yn,'y');
+    end
+end 
+%------------------------------------------------------------------------------%
+function [] = PrepTrial(texWindow)
+    
     kTrial      = kTrial + 1;
     ra.Experiment.AddLog(['trial ' num2str(kTrial)]);
+    ra.Experiment.Show.Blank('window', texWindow, 'fixation', false);
     
     % get trial info
     bCorrect        = trialInfo.bcorrect(kRun, kBlock, kTrial);
@@ -164,22 +221,27 @@ function [NaN] = DoTrial(tNow, NaN)
         case 1
             % color
             val     = colors{kFixValue};
-            ra.Experiment.Show.Circle(val, 0.25, [0,0])
+            ra.Experiment.Show.Circle(val, 0.25, [0,0], 'window', texWindow)
+            fixArgs = {'Circle', val, 0.25, [0,0]};
         case 2
             % number
             val     = num2str(numbers{kFixValue});
-            ra.Experiment.Show.Text(['<color: black><size: 0.5>' val '</color></size>'], [0,0]);
+            ra.Experiment.Show.Text(['<color: black><size: 0.5>' val '</color></size>'], [0,0], 'window', texWindow);
+            fixArgs = {'Text', ['<color: black><size: 0.5>' val '</color></size>'], [0,0]};
         case 3
             % orientation
             val     = switch2(orientations{kFixValue}, 'horizontal', [0.5, 0.125], 'vertical', [0.125, 0.5]);
-            ra.Experiment.Show.Rectangle('black', val, [0, 0]);
+            ra.Experiment.Show.Rectangle('black', val, [0, 0], 'window', texWindow);
+            fixArgs = {'Rectangle', 'black', val, [0, 0]};
         case 4
             % shape
             val     = shapes{kFixValue};
             if strcmpi(val, 'square') 
-                ra.Experiment.Show.Rectangle('black', 0.25, [0,0]);
+                ra.Experiment.Show.Rectangle('black', 0.25, [0,0], 'window', texWindow);
+                fixArgs = {'Rectangle', 'black', 0.25, [0,0]};
             elseif strcmpi(val, 'diamond')
-                ra.Experiment.Show.Rectangle('black', 0.25, [0,0], 45);
+                ra.Experiment.Show.Rectangle('black', 0.25, [0,0], 45, 'window', texWindow);
+                fixArgs = {'Rectangle', 'black', 0.25, [0,0], 45};
             end
         otherwise
             error('Invalid index for fixation feature');
@@ -202,45 +264,39 @@ function [NaN] = DoTrial(tNow, NaN)
 
     % choose which stimuli go in which quadrant
     stimOrder = stimOrders(randi(length(stimOrders)), :);
+end
+%------------------------------------------------------------------------------%
+function [tBlipEnd] = DoBlip()
+    % do fixation blip
+    tSeq = cumsum([0.250 0.0001])*1000;
+    ra.Experiment.Show.Sequence2({{'Rectangle', backColor, 1.0, [0,0]},      ...
+                                 fixArgs}, tSeq, 'tunit', 'ms', 'tbase',    ...
+                                'sequence', 'fixation', false);   
+    tBlipEnd = PTB.Now;
+end
+%------------------------------------------------------------------------------%
+function [bAbort, bContinue] = WaitResponse(tNow)
+    % abort if current time greater than allowed, otherwise get response
+    % should work independent of whether response is for blip or task
+    kResponse       = [];
+    tResponse       = [];
     
-    % draw the stimuli
-    for k = 1:4
-        DrawSet(k, stimOrder(k));
-    end
- 
-    tFlip = ra.Experiment.Window.Flip2;
-
-    % blip during task
-    if PTB.Now - blipTimer > blipTime && ~bBlipOver
-        DoBlip;
-        tBlip = PTB.Now;
-        while isempty(kBlipResponse) && PTB.Now - tBlip < 700
-            [~,~,~,kBlipResponse]	= ra.Experiment.Input.DownOnce('response');
-        end
-        bBlipOver = true;
-        
-        % determine whether blip response is correct and save
-        if ismember(kBlipResponse, kButtBlip)
-            blipResTask(kRun, kBlock) = 1;
-        elseif ~isempty(kButtBlip)
-            blipResTask(kRun, kBlock) = 9;
-        else
-            blipResTask(kRun, kBlock) = 0;
-        end
-        
-        % record results of blip task if not practicing
-        if ~bPractice
-            ra.Experiment.Info.Set('ra', [strSession 'blipresulttask'], blipResTask);
-        end
-    end
+    bAbort          = false;
+    blipResponse    = NaN;
+    tBlipResponse   = NaN;
+    kBlipResponse   = NaN;
     
-    ra.Experiment.Show.Blank('fixation', false);
-    
-    kResponse = [];
-    while isempty(kResponse) && PTB.Now - tStart < maxLoopTime - 1             % this should probably be done in the fWait function
-        [~,~,tResponse,kResponse]	= ra.Experiment.Input.DownOnce('response');
+    while isempty(kResponse) && tNow < maxLoopTime
+        [~,~,~,kResponse]       = ra.Experiment.Input.DownOnce('response');
+        [~,~,~,kBlip]           = ra.Experiment.Input.DownOnce('blip');
+        if ~isempty(kBlip)
+            kBlipResponse       = kBlip;
+        end
+        tBlipResponse           = conditional(isempty(kBlip),[],PTB.Now); 
+        tResponse               = conditional(isempty(kResponse),[],PTB.Now); 
     end
     
+     
     % determine whether answer is correct
     if ismember(kResponse, kButtYes)
         sResponse = 'Yes';
@@ -252,7 +308,7 @@ function [NaN] = DoTrial(tNow, NaN)
     else
         sResponse = 'Incorrect Key';
     end
-    
+        
     % record trial results
     trialRes.level          = blockType;
     trialRes.trial          = kTrial;
@@ -263,169 +319,78 @@ function [NaN] = DoTrial(tNow, NaN)
     trialRes.fixValue       = val; 
     trialRes.response       = sResponse;
     trialRes.kResponse      = kResponse;
-    trialRes.numSame        = sum(bSame);
+    trialRes.kBlipResponse  = kBlipResponse;
+    trialRes.bBlipTrial     = bBlipTrial;
+    trialRes.bBlipFeedback  = 0;
+    trialRes.blipResponse   = blipResponse;
+    trialRes.blipRT         = tBlipResponse - tBlip;
+    trialRes.numSame        = sum(bSame);                                   % only records number of matches for levels 2 & 3
     trialRes.numSameCorrect = numSameCorrect;
     trialRes.rt             = tResponse - tFlip; 
-    trialRes.correct        = (bCorrect && ismember(kResponse,kButtYes))...
-                            ||(~bCorrect && ismember(kResponse,kButtNo));
-
+    trialRes.correct        = (bCorrect && ismember(kButtYes,kResponse))...
+                            ||(~bCorrect && ismember(kButtNo,kResponse));
+    
+    bBlipTrial = false;
+                        
     if isempty(blockRes)
         blockRes        = trialRes;
     else
         blockRes(end+1) = trialRes;
-    end 
+    end
     
-    if maxLoopTime - tNow > 1
-        DoFeedback;
-        if bPractice
-            yn              = ra.Experiment.Show.Prompt('Again?','choice',{'y','n'});
-            bMorePractice	= isequal(yn,'y');
-        end
+    if tNow > maxLoopTime
+        bAbort      = true;
+        bContinue   = false;
     else
-        ra.Experiment.Show.Fixation('color', 'black');
-        ra.Experiment.Window.Flip;
-    end
-end
-%------------------------------------------------------------------------------%
-function [] = DoFeedback()
-    kFixFeature = 5;
-    
-    % add a log message
-    nCorrect	= nCorrect + blockRes(end).correct;
-    strCorrect	= conditional(blockRes(end).correct,'y','n');
-    strTally	= [num2str(nCorrect) '/' num2str(kTrial)];
-    
-    ra.Experiment.AddLog(['feedback (' strCorrect ', ' strTally ')']);
-	
-	% get the feedback message and color
-		if blockRes(end).correct
-			strFeedback	= 'Yes!';
-			strColor	= 'green';
-        else
-			strFeedback	= 'No!';
-			strColor	= 'red';
-        end
-        
-	% show feedback
-    strText	= ['<color:' strColor '>' strFeedback '</color>\n\n']; 
-    ra.Experiment.Show.Fixation('color', 'black');
-    
-    if ~isnan(kResponse)
-        ra.Experiment.Show.Text(strText);
-    end
-    
-    ra.Experiment.Window.Flip2;
-    
-    % blip during feedback
-    if PTB.Now - blipTimer > blipTime && ~bBlipOver
-        DoBlip;
-        tBlip = PTB.Now;
-        while isempty(kBlipResponse) && PTB.Now - tBlip < 700
-            [~,~,~,kBlipResponse]	= ra.Experiment.Input.DownOnce('response');
-        end
-        bBlipOver = true;
-        bChangeWait = true;
-        
-        % determine whether blip response is correct and save
-        if ismember(kBlipResponse, kButtBlip)
-            blipResTask(kRun, kBlock) = 1;
-        elseif isempty(kButtBlip)
-            blipResTask(kRun, kBlock) = 9;
-        else
-            blipResTask(kRun, kBlock) = 0;
-        end
-        
-        % record results of blip task if not practicing
-        if ~bPractice
-            ra.Experiment.Info.Set('ra', [strSession 'blipresulttask'], blipResTask);
-        end
+        bContinue   = true;
     end
     
     ra.Experiment.Show.Blank('fixation', false);
+	ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_CRITICAL);
+end
+%------------------------------------------------------------------------------%
+function [bAbort, bContinue] = WaitFeedback(tNow)
+    % abort if current time greater than allowed, otherwise get response
     
+    bAbort          = false;
+    bContinue       = true;
+    tFeedbackStart  = PTB.Now;
+
+    if bBlipTrial
+        kBlipResponse = [];
+        while isempty(kBlipResponse) && tNow < maxLoopTime && PTB.Now - tFeedbackStart < 1000
+            [~,~,~,kBlipResponse]   = ra.Experiment.Input.DownOnce('blip');
+            tBlipResponse           = conditional(isempty(kBlipResponse),[],PTB.Now);             
+        end
+        blockRes(end).blipResponse  = switch2(kBlipResponse, kButtBlip, 1, [], NaN);
+        blockRes(end).bBlipFeedback = 1;
+        blockRes(end).blipRT        = tBlipResponse - tBlip; 
+        bBlipTrial = false;
+    end
     
+    if tNow > maxLoopTime - 1000
+        bAbort      = true;
+        bContinue   = false;
+    elseif PTB.Now - tFeedbackStart > 1000
+        % time to move on
+    elseif bPractice && ~bMorePractice
+        bAbort      = true;
+        bContinue   = false;
+    else
+        % prep next trial texture
+        ra.Experiment.Show.Blank('fixation', false);
+        PrepTrial('nextTrial');
+        ra.ShowStim(stimOrder, trialColors, trialNumbers, trialOrientations, trialShapes, 'window', 'nextTrial')
+        bNextPrepped = true;
+        ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_CRITICAL);
+        WaitSecs(1.0 - (PTB.Now - tFeedbackStart)/1000);
+    end    
+	
+end
+%------------------------------------------------------------------------------%
+function [bAbort] = fWait(tNow, NaN)
+    bAbort = false;
     ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_LOW);
-    if bChangeWait
-        WaitSecs(1.0 - (PTB.Now - tBlip)/1000); % Do this without WaitSecs
-        bChangeWait = false;
-    elseif isnan(kResponse)
-        % don't wait
-    else
-        WaitSecs(0.96);
-    end
-end 
-%------------------------------------------------------------------------------%
-function [bAbort, bContinue] = DoNext(tNow)
-    % abort if current time greater than allowed
-    if bPractice && ~bMorePractice
-        bAbort      = true;
-        bContinue   = false;
-    elseif tNow > maxLoopTime
-        bAbort      = true;
-        bContinue   = false;
-    elseif isempty(blockRes(end).kResponse)
-        bAbort = false;
-        bContinue = false;
-    else
-        bAbort = false;
-        bContinue = true;
-    end
 end
-%------------------------------------------------------------------------------%
-function [] = DoBlip()
-
-    % prepare to redraw whatever is at fixation
-    switch kFixFeature
-        case 1
-            % color
-            val     = colors{kFixValue};
-            fixArgs = {'Circle', val, 0.25, [0,0]};
-        case 2
-            % number
-            val     = num2str(numbers{kFixValue});
-            fixArgs = {'Text', ['<color: black><size: 0.5>' val '</color></size>'], [0,0]};
-        case 3
-            % orientation
-            val     = switch2(orientations{kFixValue}, 'horizontal', [0.5, 0.125], 'vertical', [0.125, 0.5]);
-            fixArgs = {'Rectangle', 'black', val, [0, 0]};
-        case 4
-            % shape
-            val     = shapes{kFixValue};
-            if strcmpi(val, 'square') 
-                fixArgs = {'Rectangle', 'black', 0.25, [0,0]};
-            elseif strcmpi(val, 'diamond')
-                fixArgs = {'Rectangle', 'black', 0.25, [0,0], 45};
-            end
-        case 5
-            % fixation dot
-            fixArgs = {'Fixation', 'color', 'black'};
-        otherwise
-            error('Invalid index for fixation feature');
-    end
-
-    % do fixation blip
-    tSeq = cumsum([0.250 0.001])*1000;
-    ra.Experiment.Show.Sequence2({{'Rectangle', backColor, 1.0, [0,0]},      ...
-                                 fixArgs}, tSeq, 'tunit', 'ms', 'tbase',      ...
-                                'sequence', 'fixation', false);                        
-                        
-end
-%------------------------------------------------------------------------------%
-% function [bAbort] = loopWait(tNow, tNext)
-%     % THIS ISN'T BEING USED, EVEN THOUGH IT IS SUPPLIED AS THE FWAIT
-%     % FUNCTION FOR THE LOOP. IN FACT, COMMENTING IT OUT DOESN'T EVEN
-%     % CAUSE PROBLEMS SO IT MUST NEVER GET CALLED IN THE LOOP!!
-%     % abort if current time greater than allowed
-%     if tNow > maxLoopTime
-%         bAbort = true;
-%     else
-%         bAbort = false;
-%     end
-% 
-% 	[~,~,~,kResponse]   = ra.Experiment.Input.DownOnce('response'); 	
-% 	tResponse           = conditional(isempty(kResponse),[],tNow);
-%  	
-% 	ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_CRITICAL);
-% end
 %------------------------------------------------------------------------------%
 end

@@ -8,13 +8,13 @@ function Run(ra, varargin)
 % ToDo:     - test run training session
 %           - scanner testing
 %
-% Updated: 01-29-2016
+% Updated: 02-16-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 bTraining       = ParseArgs(varargin, false);
-strSession      = conditional(bTraining, 'train', 'mri');
+strSession      = conditional(bTraining, 'train', 'mri');                   % Could probably replace with ra.Experiment.Info.Get('ra', 'session');
 nRun            = RA.Param(['n' strSession 'runs']);
-nBlocksPerRun   = RA.Param('exp','blocks');
+nBlocksPerRun   = RA.Param('exp','blocksperrun');
 trRun           = RA.Param('trrun');  
 
 trRest          = RA.Param('time', 'rest');
@@ -199,13 +199,13 @@ function tNow = DoTrialLoop(tNow, tNext)
     [blockRes, loopTiming]      = ra.TrialLoop(blockType, tNow, 'training', bTraining);
     
     % save results and timing
-    result                      = ra.Experiment.Info.Get('ra', 'result');
+    result                      = ra.Experiment.Info.Get('ra', [strSession '_result']);
     result{kRun, kBlock}        = blockRes;
-    blockTiming                 = ra.Experiment.Info.Get('ra', 'blocktiming');
+    blockTiming                 = ra.Experiment.Info.Get('ra', [strSession '_blocktiming']);
     blockTiming{kRun, kBlock}   = loopTiming;
     
-    ra.Experiment.Info.Set('ra', 'result', result);
-    ra.Experiment.Info.Set('ra', 'blocktiming', blockTiming);
+    ra.Experiment.Info.Set('ra', [strSession '_result'], result);
+    ra.Experiment.Info.Set('ra', [strSession '_blocktiming'], blockTiming);
     
     % increment block
     if kBlock < nBlocksPerRun

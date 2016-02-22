@@ -17,7 +17,7 @@ classdef RelAbs < PTB.Object
 %
 % Out: 
 %
-% Updated 01-29-2016
+% Updated 02-22-2016
 % Writted by Kevin Hartstein (kevinhartstein@gmail.com)
 
 	% PUBLIC PROPERTIES---------------------------------------------------------%
@@ -60,7 +60,8 @@ classdef RelAbs < PTB.Object
             
 			opt.name            = 'relabs';
             opt.context         = switch2(opt.session,1,'psychophysics',2,'fmri');
-            opt.input_scheme    = 'lrud';
+            opt.input           = switch2(opt.session,1,'KeyBoard',2,'ButtonBox');
+            opt.input_scheme    = switch2(opt.session,1,'lrud',2,'llrr');
             opt.text_size       = RA.Param('text', 'instructSize');
             opt.text_color      = RA.Param('text', 'color');
 			

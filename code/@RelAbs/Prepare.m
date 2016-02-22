@@ -14,10 +14,11 @@ function Prepare(ra,varargin)
 % global strDirBase;
     
 % get experiment info from params
+    session             = ra.Experiment.Info.Get('ra', 'session');
     nMRIRuns            = RA.Param('nmriruns');
     nTrainRuns          = RA.Param('ntrainruns');
-    nTrainRunsOrdered   = RA.Param('exp', 'trainrunsordered');
-    nTrainRunsMixed     = RA.Param('exp', 'trainrunsmixed');
+    nTrainRunsOrdered   = RA.Param('exp', 'ntrainrunsordered');
+    nTrainRunsMixed     = RA.Param('exp', 'ntrainrunsmixed');
     nBlocksPerRun       = RA.Param('exp', 'blocksperrun'); 
 
     cBlocks = 1:nBlocksPerRun;
@@ -111,10 +112,11 @@ function Prepare(ra,varargin)
     ra.Experiment.Info.Set('ra', 'mri_block_blip', tBlipBlockMRI);
     
     % set responses
-    ra.Experiment.Input.Set('response', struct2cell(RA.Param('response'))');
-    ra.Experiment.Input.Set('yes', RA.Param('response', 'yes'));
-    ra.Experiment.Input.Set('no', RA.Param('response', 'no'));
-    ra.Experiment.Input.Set('blip', RA.Param('response', 'blip'));
+    strSession  = switch2(session, 1, 'Train', 2, 'MRI', []);
+    ra.Experiment.Input.Set('response', {RA.Param(['response' strSession], 'yes'), RA.Param(['response' strSession], 'no')});
+    ra.Experiment.Input.Set('yes', RA.Param(['response' strSession], 'yes'));
+    ra.Experiment.Input.Set('no', RA.Param(['response' strSession], 'no'));
+    ra.Experiment.Input.Set('blip', RA.Param(['response' strSession], 'blip'));
 
     ra.Experiment.Info.Set('ra','prepared',true);
     ra.Experiment.Info.Save;
