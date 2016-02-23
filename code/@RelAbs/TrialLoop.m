@@ -11,6 +11,9 @@ function [blockRes, seqTiming] = TrialLoop(ra, blockType, varargin)
 % In:
 %	blockType   - the block type. Odd numbers are 1S, evens are 1D
 %                   (1=1S, 2=1D, 3=2S, 4=2D, 5=3S, 6=3D)
+%   <options>
+%   training    - [false] a boolean specifying whether this is a training
+%                   session
 %
 % Out:
 % 	blockRes    - a struct of results for the current block
@@ -78,11 +81,12 @@ bNotOneSame     = [bTwoSame; bThreeSame; bAllSame; bNoneSame];
 bNotThreeSame   = [bOneSame; bTwoSame; bAllSame; bNoneSame];
 
 % initialize some things
-[blockRes, bSame, numSameCorrect, seqTiming, tFlip, tBlip, bCorrect, stimOrder, kFixFeature, kFixValue, val, bMorePractice] = deal([]);
+[blockRes, bSame, numSameCorrect, seqTiming, tFlip, tBlip, bCorrect, stimOrder, kFixFeature, kFixValue, val] = deal([]);
 [kTrial, nCorrect, bBlipTrial]  = deal(0);
 % bBlipResponse = 0;
+bMorePractice   = true;
 [trialColors,trialNumbers,trialOrientations,trialShapes] = deal(cell(1,4));
-fixArgs = {};
+fixArgs         = {};
 
 % use ms for practice and training session
 if bPractice || opt.training
@@ -105,7 +109,7 @@ PrepTrial('main');
 ra.ShowStim(stimOrder, trialColors, trialNumbers, trialOrientations, trialShapes, 'window', 'main');
 bNextPrepped    = true;
 
-while PTB.Now - tStart < maxLoopTime
+while PTB.Now - tStart < maxLoopTime && bMorePractice
     [tStartTrial,tEndTrial,tTrialSequence, bAbort] = ra.Experiment.Sequence.Linear(...
                         cF              ,   tSequence   , ...
                         'tunit'         ,   tUnit       , ...
@@ -198,10 +202,6 @@ function [tOut] = DoFeedback(tNow, NaN)
     end
     ra.Experiment.Show.Blank('fixation', false);
     
-    if bPractice
-        yn              = ra.Experiment.Show.Prompt('Again?','choice',{'y','n'});
-        bMorePractice	= isequal(yn,'y');
-    end
 end 
 %------------------------------------------------------------------------------%
 function [] = PrepTrial(texWindow)
@@ -373,9 +373,17 @@ function [bAbort, bContinue] = WaitFeedback(tNow)
         bContinue   = false;
     elseif PTB.Now - tFeedbackStart > 1000
         % time to move on
-    elseif bPractice && ~bMorePractice
-        bAbort      = true;
-        bContinue   = false;
+    elseif bPractice
+        WaitSecs(1.0)
+        if bPractice
+            yn              = ra.Experiment.Show.Prompt('Again?','choice',{'y','n'});
+            bMorePractice	= isequal(yn,'y');
+            bNextPrepped     = false;
+        end
+        if ~bMorePractice
+            bAbort      = true;
+            bContinue   = false;
+        end
     else
         % prep next trial texture
         ra.Experiment.Show.Blank('fixation', false);
