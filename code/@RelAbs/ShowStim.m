@@ -10,7 +10,6 @@ function [] = ShowStim(ra, stimOrder, colorList, numberList, orientationList, sh
 %   window      - (main) the window on which to show the prompt
 % Out:
 % 	
-%
 % ToDo:         -
 %
 % Updated: 02-17-2016

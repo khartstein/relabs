@@ -5,14 +5,14 @@ function Run(ra, varargin)
 %
 % Syntax: ra.Run
 %
-% ToDo:     - test run training session
+% ToDo:     
+%           - test run training session
 %           - scanner testing
 %
-% Updated: 02-16-2016
+% Updated: 03-16-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
-bTraining       = ParseArgs(varargin, false);
-strSession      = conditional(bTraining, 'train', 'mri');                   % Could probably replace with ra.Experiment.Info.Get('ra', 'session');
+strSession      = switch2(ra.Experiment.Info.Get('ra', 'session'), 1, 'train', 2, 'mri');
 nRun            = RA.Param(['n' strSession 'runs']);
 nBlocksPerRun   = RA.Param('exp','blocksperrun');
 trRun           = RA.Param('trrun');  
@@ -24,27 +24,25 @@ trWait          = RA.Param('time', 'wait');
 trTimeUp        = RA.Param('time', 'timeup'); 
 tr              = RA.Param('time', 'tr');  
 
-kButtBlip       = cell2mat(ra.Experiment.Input.Get('blip'));
-
-kBlock          = [];
-kBlipResponse   = [];
-
-% get the subject's block order and blip timing
-blockOrder  = ra.Experiment.Subject.Get([strSession '_block_order']);
-tBlipRest   = ra.Experiment.Info.Get('ra', [strSession '_rest_blip']);
-    
 % get the current run
 kRun        = ra.Experiment.Info.Get('ra','run');
 kRun        = ask('Next run','dialog',false,'default',kRun);
 if ischar(kRun)
     kRun = str2double(kRun);
 end
+kBlock      = 1;
 
 % add to the log
     ra.Experiment.AddLog([strSession ' run ' num2str(kRun) ' start']); 
 % add to info
     ra.Experiment.Info.Set('ra','run',kRun);
-
+    
+% get the subject's block order and blip timing
+    blockOrder  = ra.Experiment.Subject.Get([strSession '_block_order']);
+    tBlipRest   = ra.Experiment.Info.Get('ra', [strSession '_rest_blip']);
+    blipTime    = tBlipRest(kRun, kBlock);
+    restBlipRT  = ra.Experiment.Info.Get('ra', [strSession '_blipresultrest']);
+    
 % perform the run
 % disable the keyboard
 %     ListenChar(2);
@@ -68,17 +66,23 @@ end
                     
     cWait       =   [
                     {@Wait_Default}
-                    repmat({@Wait_Default; @Wait_Blip; @Wait_Default; @Wait_Default; @Wait_Default}, [nBlocksPerRun 1])
+                    repmat({@Wait_Default; @Wait_Default; @Wait_Default; @Wait_Default; @Wait_Default}, [nBlocksPerRun 1])
                     ];
                    
-if bTraining
-    % fake scanner, use ms
-    tSequence   = tSequence*tr;
-    tUnit       = 'ms';
-else
-    tUnit       = 'tr'; 
-end
+    if strcmpi(strSession, 'train')
+        % fake scanner, use ms
+        tSequence   = tSequence*tr;
+        tUnit       = 'ms';
+    else
+        tUnit       = 'tr'; 
+    end
     
+    % set up blipTimer
+    restBlipTimer               = timer;
+    restBlipTimer.Name          = 'restBlipTimer';
+    restBlipTimer.StartDelay    = round(blipTime*100)/100;
+    restBlipTimer.TimerFcn      = @(restBlipTimerObj, thisEvent)DoBlip;
+
 	[tStartActual,tEndActual,tSequenceActual] = ra.Experiment.Sequence.Linear(...
                         cF              ,   tSequence   , ...
                         'tunit'         ,   tUnit       , ...
@@ -143,46 +147,37 @@ function tNow = ShowPrompt(tNow, tNext)
 end
 %------------------------------------------------------------------------------%
 function tNow = DoWait(tNow, tNext)
-	ra.Experiment.AddLog('waiting (for prompt HRF decay)');
-
-    % do fixation blip
-	blipTime    = tBlipRest(kRun, kBlock); 
-    tSeq        = cumsum([blipTime; 0.250; 0.001])*1000;
-    
-    % fixation blink
-    ra.Experiment.Show.Sequence({{'Fixation', 'color', 'black'},    ...
-                                 {'Blank', 'fixation', false},      ...
-                                 {'Fixation', 'color', 'black'}},   ...
-                                tSeq, 'tunit', 'ms', 'tbase',      ...
-                                'sequence', 'fixation', false);
+	ra.Experiment.Show.Fixation('color', 'black');
+    ra.Experiment.Window.Flip;
+    ra.Experiment.AddLog('waiting (for prompt HRF decay)');
+    start(restBlipTimer);
                             
 	ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_LOW);
     
 end
 %------------------------------------------------------------------------------%
-function [bAbort] = Wait_Blip(tNow,tNext)
-    % fwait function for fixation task
-	bAbort  = false;
+function [] = DoBlip()
+    % execute the blip
+    kBlipResponse   = [];
     
-    [~,~,~,kBlipResponse]	= ra.Experiment.Input.DownOnce('response');
     
-    % determine whether answer is correct
-    if ismember(kBlipResponse, kButtBlip)
-        blipCode = 1;                       % correct response (blip detected)
-    elseif isempty(kBlipResponse)
-        blipCode = 0;                       % no response (blip not detected)
-    else
-        blipCode = 9;                       % incorrect response
+    ra.Experiment.Show.Blank('fixation', false);
+    ra.Experiment.Window.Flip;
+    WaitSecs(0.250);
+    ra.Experiment.Show.Fixation('color', 'black');
+    tBlipOffset = ra.Experiment.Window.Flip('fixation blip end');
+    
+    % get response and record reaction time
+    while isempty(kBlipResponse) && PTB.Now - tBlipOffset < 1000
+        [~,~,~,kBlipResponse]   = ra.Experiment.Input.DownOnce('blip');
+        tBlipResponse           = conditional(isempty(kBlipResponse),[],PTB.Now);
     end
     
-    if ~isempty(kBlipResponse)
-%         tResponse       = PTB.Now;            % is this useful? 
-        blipResRest                 = ra.Experiment.Info.Get('ra', [strSession '_blipresultrest']);
-        blipResRest(kRun, kBlock)   = blipCode;
-        ra.Experiment.Info.Set('ra', [strSession '_blipresultrest'], blipResRest);
-        kBlipResponse               = [];
-    end
-    ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_CRITICAL);
+    blockRestBlipRT             = conditional(~isempty(tBlipResponse), tBlipResponse - tBlipOffset, NaN);
+    restBlipRT(kRun,kBlock)     = blockRestBlipRT;
+    ra.Experiment.AddLog(['fixation blip response | RT: ' num2str(blockRestBlipRT)]);
+    ra.Experiment.Info.Set('ra', [strSession '_blipresultrest'], restBlipRT);
+    stop(restBlipTimer);
 end
 %------------------------------------------------------------------------------%
 function [bAbort] = Wait_Default(tNow,tNext)
@@ -196,7 +191,7 @@ function tNow = DoTrialLoop(tNow, tNext)
     kBlock                      = ra.Experiment.Info.Get('ra', 'block');
     blockType                   = blockOrder(kRun,kBlock);
 
-    [blockRes, loopTiming]      = ra.TrialLoop(blockType, tNow, 'training', bTraining);
+    [blockRes, loopTiming]      = ra.TrialLoop(blockType, tNow);
     
     % save results and timing
     result                      = ra.Experiment.Info.Get('ra', [strSession '_result']);

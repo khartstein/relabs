@@ -8,11 +8,9 @@ function Prepare(ra,varargin)
 % ToDo:         
 %           - 
 %
-% Updated: 01-29-2016
+% Updated: 03-08-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
-% global strDirBase;
-    
 % get experiment info from params
     session             = ra.Experiment.Info.Get('ra', 'session');
     nMRIRuns            = RA.Param('nmriruns');

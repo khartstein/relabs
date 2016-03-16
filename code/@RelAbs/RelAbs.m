@@ -17,7 +17,7 @@ classdef RelAbs < PTB.Object
 %
 % Out: 
 %
-% Updated 02-22-2016
+% Updated 03-16-2016
 % Writted by Kevin Hartstein (kevinhartstein@gmail.com)
 
 	% PUBLIC PROPERTIES---------------------------------------------------------%
@@ -55,12 +55,13 @@ classdef RelAbs < PTB.Object
                 );
 			
             if isempty(opt.session)
-				opt.session	= conditional(opt.debug==2,1,2);
+				bTraining	= strcmpi('y', ask('Is this a training session?', 'dialog', false, 'choice', {'y', 'n'}));
+                opt.session = conditional(bTraining || opt.debug==2,1,2);
 			end
             
 			opt.name            = 'relabs';
             opt.context         = switch2(opt.session,1,'psychophysics',2,'fmri');
-%             opt.input           = switch2(opt.session,1,'KeyBoard',2,'ButtonBox');
+%             opt.input           = switch2(opt.session,1,'KeyBoard',2,'ButtonBox'); % this takes care of itself
             opt.input_scheme    = switch2(opt.session,1,'lrud',2,'llrr');
             opt.text_size       = RA.Param('text', 'instructSize');
             opt.text_color      = RA.Param('text', 'color');
