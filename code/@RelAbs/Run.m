@@ -6,10 +6,10 @@ function Run(ra, varargin)
 % Syntax: ra.Run
 %
 % ToDo:     
-%           - test run training session
 %           - scanner testing
+%               - try to combine training and scan data
 %
-% Updated: 03-16-2016
+% Updated: 03-21-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 strSession      = switch2(ra.Experiment.Info.Get('ra', 'session'), 1, 'train', 2, 'mri');

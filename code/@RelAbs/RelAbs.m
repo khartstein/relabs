@@ -61,7 +61,7 @@ classdef RelAbs < PTB.Object
             
 			opt.name            = 'relabs';
             opt.context         = switch2(opt.session,1,'psychophysics',2,'fmri');
-%             opt.input           = switch2(opt.session,1,'KeyBoard',2,'ButtonBox'); % this takes care of itself
+            opt.input           = switch2(opt.session,1,'KeyBoard',2,'ButtonBox'); % does this take care of itself?
             opt.input_scheme    = switch2(opt.session,1,'lrud',2,'llrr');
             opt.text_size       = RA.Param('text', 'instructSize');
             opt.text_color      = RA.Param('text', 'color');

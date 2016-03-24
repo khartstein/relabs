@@ -22,14 +22,14 @@ function [blockRes, seqTiming] = TrialLoop(ra, blockType, varargin)
 %                   ra.Experiment.Sequence.Loop
 %
 % ToDo:          
-%               - 
+%               - figure out why trial is sometimes redrawn at block end
+%               - end of block timeout should interrupt WaitResponse function
 %
-% Updated: 03-16-2016
+% Updated: 03-23-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
-[tStart] = ParseArgs(varargin, []);
+[tStart, bPractice] = ParseArgs(varargin, [], false);
 
-bPractice   = isempty(tStart) && ~strcmpi(strSession, 'train');
 strSession  = switch2(ra.Experiment.Info.Get('ra', 'session'), 1, 'train', 2, 'mri');
 
 % get feature values from RA.Param
@@ -98,13 +98,15 @@ tSequence   =   {@WaitResponse; @WaitFeedback};
 % open texture for on-deck trial creation
 ra.Experiment.Window.OpenTexture('nextTrial');
 
-% set up blipTimer
-blipTimer               = timer;
-blipTimer.Name          = 'blipTimer';
-blipTimer.StartDelay    = blipTime;
-blipTimer.TimerFcn      = @(blipTimerObj, thisEvent)DoBlip;
+if ~bPractice
+    % set up blipTimer
+    blipTimer               = timer;
+    blipTimer.Name          = 'blipTimer';
+    blipTimer.StartDelay    = blipTime;
+    blipTimer.TimerFcn      = @(blipTimerObj, thisEvent)DoBlip;
 
-start(blipTimer);
+    start(blipTimer);
+end
 
 % prepare and draw the first trial 
 PrepTrial('main');
@@ -131,10 +133,14 @@ while PTB.Now - tStart < maxLoopTime && bMorePractice
     else
         seqTiming(end+1) = curSeqTiming;
     end
+    
+%     if bPractice
+%         bMorePractice = strcmpi(ra.Experiment.Show.Prompt('Again?','choice',{'y','n'}), 'y');
+%     end
 end
 
 if bPractice || strcmpi(strSession, 'train')
-    ra.Experiment.Scanner.StopScan
+    ra.Experiment.Scanner.StopScan;
 end
 
 % close nextTrial texture and blank the screen
@@ -193,7 +199,7 @@ end
 %------------------------------------------------------------------------------%
 function [] = PrepTrial(texWindow)
     
-    kTrial      = kTrial + 1;
+    kTrial      = conditional(~bPractice, kTrial + 1, randi(36));
     ra.Experiment.AddLog(['trial ' num2str(kTrial)]);
     ra.Experiment.Show.Blank('window', texWindow, 'fixation', false);
     
@@ -208,7 +214,7 @@ function [] = PrepTrial(texWindow)
         case 1
             % color
             val     = colors{kFixValue};
-            ra.Experiment.Show.Circle(val, 0.25, [0,0], 'window', texWindow)
+            ra.Experiment.Show.Circle(val, 0.25, [0,0], 'window', texWindow);
         case 2
             % number
             val     = num2str(numbers{kFixValue});
@@ -348,9 +354,8 @@ function [bAbort, bContinue] = WaitFeedback(tNow)
         bAbort      = true;
         bContinue   = false;
     elseif bPractice
-        WaitSecs(1.0)
-        yn              = ra.Experiment.Show.Prompt('Again?','choice',{'y','n'});
-        bMorePractice	= isequal(yn,'y');
+        WaitSecs(1.0);
+        bMorePractice	= strcmpi(ra.Experiment.Show.Prompt('Again?','choice',{'y','n'}), 'y');
         bNextPrepped    = false;
         if ~bMorePractice
             bAbort      = true;
@@ -360,7 +365,7 @@ function [bAbort, bContinue] = WaitFeedback(tNow)
         % prep next trial texture
         ra.Experiment.Show.Blank('fixation', false);
         PrepTrial('nextTrial');
-        ra.ShowStim(stimOrder, trialColors, trialNumbers, trialOrientations, trialShapes, 'window', 'nextTrial')
+        ra.ShowStim(stimOrder, trialColors, trialNumbers, trialOrientations, trialShapes, 'window', 'nextTrial');
         bNextPrepped = true;
         ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_CRITICAL);
         WaitSecs(1.0 - (PTB.Now - tFeedbackStart)/1000);

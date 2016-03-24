@@ -13,7 +13,7 @@ function [practiceData] = Practice(ra, varargin)
 % ToDo:     
 %           - save practice data?
 %
-% Updated: 02-22-2016
+% Updated: 03-21-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 opt = ParseArgs(varargin, 'blockType', 1);
@@ -40,7 +40,7 @@ while bNextLevel
     ra.Experiment.Scheduler.Pause;
 
     % do the trial loop
-    loopData = ra.TrialLoop(opt.blockType);
+    loopData = ra.TrialLoop(opt.blockType, [], true);
 
     if isempty(practiceData)
         practiceData = {loopData};
