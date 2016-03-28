@@ -6,10 +6,10 @@ function Run(ra, varargin)
 % Syntax: ra.Run
 %
 % ToDo:     
-%           - scanner testing
-%               - try to combine training and scan data
+%           - check new size in scanner, combining training and scan data
+%           - what's the deal with the button box?
 %
-% Updated: 03-21-2016
+% Updated: 03-28-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 strSession      = switch2(ra.Experiment.Info.Get('ra', 'session'), 1, 'train', 2, 'mri');

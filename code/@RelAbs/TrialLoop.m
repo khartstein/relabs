@@ -1,7 +1,7 @@
 function [blockRes, seqTiming] = TrialLoop(ra, blockType, varargin)
 % RelAbs.TrialLoop
 % 
-% Status:
+% Status:   Debugging scanner version (3/28)
 %
 % Description:	run a loop of RelAbs trials using PTB.Show.Sequence and
 %       ra.ShowTrial
@@ -22,10 +22,9 @@ function [blockRes, seqTiming] = TrialLoop(ra, blockType, varargin)
 %                   ra.Experiment.Sequence.Loop
 %
 % ToDo:          
-%               - figure out why trial is sometimes redrawn at block end
-%               - end of block timeout should interrupt WaitResponse function
+%               - fix scanner issues (in email draft)
 %
-% Updated: 03-23-2016
+% Updated: 03-28-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 [tStart, bPractice] = ParseArgs(varargin, [], false);
@@ -77,14 +76,15 @@ bNotThreeSame   = [bOneSame; bTwoSame; bAllSame; bNoneSame];
 
 % initialize some things
 [blockRes, bSame, numSameCorrect, seqTiming, tFlip, bCorrect, stimOrder, kFixFeature, kFixValue, val] = deal([]);
-[kTrial, nCorrect, bBlipTrial]  = deal(0);
+[kTrial, nCorrect]  = deal(0);
 % bBlipResponse = 0;
 bMorePractice   = true;
 [trialColors,trialNumbers,trialOrientations,trialShapes] = deal(cell(1,4));
 
+tStart = PTB.Now;
 % use ms for practice and training session
 if bPractice || strcmpi(strSession, 'train')
-    tStart		= PTB.Now;
+%     tStart		= PTB.Now;
     maxLoopTime = maxLoopTime*t.tr;
     tUnit       = 'ms';
     ra.Experiment.Scanner.StartScan;
@@ -113,12 +113,11 @@ PrepTrial('main');
 ra.ShowStim(stimOrder, trialColors, trialNumbers, trialOrientations, trialShapes, 'window', 'main');
 bNextPrepped    = true;
 
-while PTB.Now - tStart < maxLoopTime && bMorePractice
+while PTB.Now - tStart < maxLoopTime - (maxLoopTime/32) && bMorePractice
     [tStartTrial,tEndTrial,tTrialSequence, bAbort] = ra.Experiment.Sequence.Linear(...
                         cF              ,   tSequence   , ...
                         'tunit'         ,   tUnit       , ...
                         'tbase'         ,   'sequence'  , ...
-                        'tstart'        ,   tStart      , ...
                         'fwait'         ,   fWait         ...
                         );
 
@@ -145,7 +144,7 @@ end
 
 % close nextTrial texture and blank the screen
 ra.Experiment.Window.CloseTexture('nextTrial');
-ra.Experiment.Show.Fixation('color', 'black');
+% ra.Experiment.Show.Fixation('color', 'black');           % WEIRDNESS HERE - causes fixation to appear during trial in scanner version, 
 ra.Experiment.Window.Flip;
 
 %------------------------------------------------------------------------------%
@@ -187,10 +186,7 @@ function [tOut] = DoFeedback(tNow, NaN)
 	% show feedback
     strText	= ['<color:' strColor '>' strFeedback '</color>\n\n']; 
     ra.Experiment.Show.Fixation('color', 'black');
-    
-    if ~isnan(blockRes(end).kResponse)
-        ra.Experiment.Show.Text(strText);
-    end
+    ra.Experiment.Show.Text(strText);
     
     ra.Experiment.Window.OverrideStore(true);
     ra.Experiment.Window.Flip;
@@ -287,7 +283,7 @@ function [bAbort, bContinue] = WaitResponse(tNow)
     
     bAbort          = false;
     
-    while isempty(kResponse) && tNow < maxLoopTime
+    while isempty(kResponse) && PTB.Now - tStart < maxLoopTime
         [~,~,~,kResponse]       = ra.Experiment.Input.DownOnce('response');
         tResponse               = conditional(isempty(kResponse),[],PTB.Now); 
     end
@@ -304,37 +300,37 @@ function [bAbort, bContinue] = WaitResponse(tNow)
     else
         sResponse = 'Incorrect Key';
     end
-        
-    % record trial results
-    trialRes.level          = blockType;
-    trialRes.trial          = kTrial;
-    trialRes.color          = trialColors;
-    trialRes.number         = trialNumbers;
-    trialRes.orientation    = trialOrientations;
-    trialRes.shape          = trialShapes;
-    trialRes.fixValue       = val; 
-    trialRes.response       = sResponse;
-    trialRes.kResponse      = kResponse;
-    trialRes.bBlipTrial     = bBlipTrial;
-    trialRes.bBlipFeedback  = 0;
-    trialRes.numSame        = sum(bSame);                                   % only records number of matches for levels 2 & 3
-    trialRes.numSameCorrect = numSameCorrect;
-    trialRes.rt             = tResponse - tFlip; 
-    trialRes.correct        = (bCorrect && ismember(kButtYes,kResponse))...
-                            ||(~bCorrect && ismember(kButtNo,kResponse));
     
-    bBlipTrial = false;
-                        
-    if isempty(blockRes)
-        blockRes        = trialRes;
-    else
-        blockRes(end+1) = trialRes;
-    end
-    
-    if tNow > maxLoopTime
+    if isnan(kResponse)
+        ra.Experiment.AddLog(['trial ' num2str(kTrial) ' aborted - time up.']);
         bAbort      = true;
         bContinue   = false;
     else
+        % record trial results
+        trialRes.level          = blockType;
+        trialRes.run            = kRun;
+        trialRes.block          = kBlock;
+        trialRes.trial          = kTrial;
+        trialRes.color          = trialColors;
+        trialRes.number         = trialNumbers;
+        trialRes.orientation    = trialOrientations;
+        trialRes.shape          = trialShapes;
+        trialRes.fixValue       = val; 
+        trialRes.response       = sResponse;
+        trialRes.kResponse      = kResponse;
+        trialRes.numSame        = sum(bSame);                                   % only records number of matches for levels 2 & 3
+        trialRes.numSameCorrect = numSameCorrect;
+        trialRes.rt             = tResponse - tFlip; 
+        trialRes.correct        = (bCorrect && ismember(kButtYes,kResponse))...
+                                ||(~bCorrect && ismember(kButtNo,kResponse));
+        
+        
+        if isempty(blockRes)
+            blockRes        = trialRes;
+        else
+            blockRes(end+1) = trialRes;
+        end
+                            
         bContinue   = true;
     end
     
@@ -350,7 +346,7 @@ function [bAbort, bContinue] = WaitFeedback(tNow)
     bContinue       = true;
     tFeedbackStart  = PTB.Now;
     
-    if tNow > maxLoopTime - 1000
+    if tNow > maxLoopTime - (maxLoopTime/32)
         bAbort      = true;
         bContinue   = false;
     elseif bPractice
