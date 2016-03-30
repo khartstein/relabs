@@ -24,7 +24,7 @@ function [blockRes, seqTiming] = TrialLoop(ra, blockType, varargin)
 % Updated: 03-29-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
-[bPractice] = ParseArgs(varargin, false);
+[~, bPractice] = ParseArgs(varargin, [], false);
 tStart      = PTB.Now;
 strSession  = switch2(ra.Experiment.Info.Get('ra', 'session'), 1, 'train', 2, 'mri');
 
@@ -109,7 +109,7 @@ PrepTrial('main');
 ra.ShowStim(stimOrder, trialColors, trialNumbers, trialOrientations, trialShapes, 'window', 'main');
 bNextPrepped    = true;
 
-while PTB.Now - tStart < maxLoopTime && bMorePractice
+while (PTB.Now - tStart) < maxLoopTime && bMorePractice
     [tStartTrial,tEndTrial,tTrialSequence, bAbort] = ra.Experiment.Sequence.Linear(...
                         cF              ,   tSequence   , ...
                         'tunit'         ,   tUnit       , ...
