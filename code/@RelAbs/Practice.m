@@ -11,12 +11,14 @@ function [practiceData] = Practice(ra, varargin)
 % Notes:    
 %
 % ToDo:     
-%           - save practice data?
+%           - add scanner practice buttons
 %
-% Updated: 03-21-2016
+% Updated: 03-29-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 opt = ParseArgs(varargin, 'blockType', 1);
+
+strSession  = switch2(ra.Experiment.Info.Get('ra', 'session'), 1, 'train', 2, 'mri');
 
 bNextLevel      = true;
 practiceData    = {};
@@ -34,13 +36,14 @@ while bNextLevel
     ra.Experiment.AddLog([strBlock ' practice start']);
 
     % display instructions
-    ra.Experiment.Show.Instructions(['Practicing ' strBlock], 'next', 'continue');
+    % NEED BUTTONBOX-COMPATIBLE PROMPT HERE
+    ra.Experiment.Show.Prompt(['Practicing ' strBlock ' \n\n Press any key to start']);
 
     % pause scheduler
     ra.Experiment.Scheduler.Pause;
 
     % do the trial loop
-    loopData = ra.TrialLoop(opt.blockType, [], true);
+    loopData = ra.TrialLoop(opt.blockType, true);
 
     if isempty(practiceData)
         practiceData = {loopData};
@@ -51,6 +54,7 @@ while bNextLevel
     ra.Experiment.Scheduler.Resume;
 
     if opt.blockType < 6
+        % NEED BUTTONBOX-COMPATIBLE PROMPT HERE
         sNextLevel = ra.Experiment.Show.Prompt('Continue to next level?','choice',{'y','n'});
         bNextLevel = conditional(strcmpi(sNextLevel, 'y'), true, false);
     else

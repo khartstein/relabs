@@ -1,7 +1,5 @@
 function [blockRes, seqTiming] = TrialLoop(ra, blockType, varargin)
 % RelAbs.TrialLoop
-% 
-% Status:   Debugging scanner version (3/28)
 %
 % Description:	run a loop of RelAbs trials using PTB.Show.Sequence and
 %       ra.ShowTrial
@@ -12,9 +10,8 @@ function [blockRes, seqTiming] = TrialLoop(ra, blockType, varargin)
 %	blockType   - the block type. Odd numbers are 1S, evens are 1D
 %                   (1=1S, 2=1D, 3=2S, 4=2D, 5=3S, 6=3D)
 %   <options>
-%   tStart      - time to start the first trial sequence
-%                   - passed in automagically when running in scanner, not
-%                     a ['string', variable] type optional argument
+%   bPractice   - [false] a boolean specifying whether TrialLoop is being 
+%                   called from the practice function
 %
 % Out:
 % 	blockRes    - a struct of results for the current block
@@ -22,13 +19,13 @@ function [blockRes, seqTiming] = TrialLoop(ra, blockType, varargin)
 %                   ra.Experiment.Sequence.Loop
 %
 % ToDo:          
-%               - fix scanner issues (in email draft)
+%               - 
 %
-% Updated: 03-28-2016
+% Updated: 03-29-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
-[tStart, bPractice] = ParseArgs(varargin, [], false);
-
+[bPractice] = ParseArgs(varargin, false);
+tStart      = PTB.Now;
 strSession  = switch2(ra.Experiment.Info.Get('ra', 'session'), 1, 'train', 2, 'mri');
 
 % get feature values from RA.Param
@@ -43,6 +40,7 @@ backColor       = RA.Param('color', 'back');
 % timing info
 t               = RA.Param('time');
 maxLoopTime     = switch2(bPractice, false, t.trialloop, true, inf);
+maxLoopTime     = maxLoopTime*t.tr;
 
 % block, run, and trial info
 kRun            = ra.Experiment.Info.Get('ra', 'run');
@@ -81,15 +79,13 @@ bNotThreeSame   = [bOneSame; bTwoSame; bAllSame; bNoneSame];
 bMorePractice   = true;
 [trialColors,trialNumbers,trialOrientations,trialShapes] = deal(cell(1,4));
 
-tStart = PTB.Now;
 % use ms for practice and training session
 if bPractice || strcmpi(strSession, 'train')
-%     tStart		= PTB.Now;
-    maxLoopTime = maxLoopTime*t.tr;
     tUnit       = 'ms';
     ra.Experiment.Scanner.StartScan;
 else
     tUnit       = 'tr';
+    maxLoopTime = maxLoopTime*(63/64);
 end
 
 cF          =   {@DoTrial; @DoFeedback;};
@@ -113,7 +109,7 @@ PrepTrial('main');
 ra.ShowStim(stimOrder, trialColors, trialNumbers, trialOrientations, trialShapes, 'window', 'main');
 bNextPrepped    = true;
 
-while PTB.Now - tStart < maxLoopTime - (maxLoopTime/32) && bMorePractice
+while PTB.Now - tStart < maxLoopTime && bMorePractice
     [tStartTrial,tEndTrial,tTrialSequence, bAbort] = ra.Experiment.Sequence.Linear(...
                         cF              ,   tSequence   , ...
                         'tunit'         ,   tUnit       , ...
@@ -133,9 +129,6 @@ while PTB.Now - tStart < maxLoopTime - (maxLoopTime/32) && bMorePractice
         seqTiming(end+1) = curSeqTiming;
     end
     
-%     if bPractice
-%         bMorePractice = strcmpi(ra.Experiment.Show.Prompt('Again?','choice',{'y','n'}), 'y');
-%     end
 end
 
 if bPractice || strcmpi(strSession, 'train')
@@ -144,7 +137,7 @@ end
 
 % close nextTrial texture and blank the screen
 ra.Experiment.Window.CloseTexture('nextTrial');
-% ra.Experiment.Show.Fixation('color', 'black');           % WEIRDNESS HERE - causes fixation to appear during trial in scanner version, 
+ra.Experiment.Show.Fixation('color', 'black');
 ra.Experiment.Window.Flip;
 
 %------------------------------------------------------------------------------%
@@ -257,6 +250,7 @@ function [] = DoBlip()
     % New way to blip
     ra.Experiment.Window.Recall;
     ra.Experiment.Show.Rectangle(backColor, 1.0, [0,0]);
+%     ra.Experiment.Window.OverrideStore(false);
     ra.Experiment.Window.Flip;
     WaitSecs(0.250);
     ra.Experiment.Window.Recall;
@@ -265,7 +259,7 @@ function [] = DoBlip()
     % Get Response
     while isempty(kBlipResponse) && PTB.Now - tBlipOffset < 1000
         [~,~,~,kBlipResponse]   = ra.Experiment.Input.DownOnce('blip');
-        tBlipResponse           = conditional(isempty(kBlipResponse),[],PTB.Now); % Timing info not currently saved
+        tBlipResponse           = conditional(isempty(kBlipResponse),[],PTB.Now);
     end
     
     blockBlipRT                 = conditional(~isempty(tBlipResponse), tBlipResponse - tBlipOffset, NaN);
@@ -341,16 +335,16 @@ end
 function [bAbort, bContinue] = WaitFeedback(tNow)
     % abort if current time greater than allowed, otherwise prepare texture
     % for next trial
-    
     bAbort          = false;
     bContinue       = true;
     tFeedbackStart  = PTB.Now;
     
-    if tNow > maxLoopTime - (maxLoopTime/32)
+    if tNow > maxLoopTime - (maxLoopTime/64)
         bAbort      = true;
         bContinue   = false;
     elseif bPractice
         WaitSecs(1.0);
+        % NEED BUTTONBOX-COMPATIBLE PROMPT HERE
         bMorePractice	= strcmpi(ra.Experiment.Show.Prompt('Again?','choice',{'y','n'}), 'y');
         bNextPrepped    = false;
         if ~bMorePractice

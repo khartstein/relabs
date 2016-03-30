@@ -6,10 +6,11 @@ function Run(ra, varargin)
 % Syntax: ra.Run
 %
 % ToDo:     
-%           - check new size in scanner, combining training and scan data
-%           - what's the deal with the button box?
+%           - fix practice (save practice data?)
+%           - check new size and timing in scanner 
+%           - combine training and scan data for a participant
 %
-% Updated: 03-28-2016
+% Updated: 03-29-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 strSession      = switch2(ra.Experiment.Info.Get('ra', 'session'), 1, 'train', 2, 'mri');
@@ -45,7 +46,7 @@ kBlock      = 1;
     
 % perform the run
 % disable the keyboard
-%     ListenChar(2);
+    ListenChar(2);
 % start the scanner
     ra.Experiment.Show.Blank;
     ra.Experiment.Window.Flip('waiting for scanner');
@@ -103,7 +104,7 @@ kBlock      = 1;
     ra.Experiment.Info.Set('ra', 'runtiming', runTiming);
     
 % % enable the keyboard
-% 	ListenChar(1);
+	ListenChar(1);
     
 % add to the log
 	ra.Experiment.AddLog([strSession ' run ' num2str(kRun) ' end']);

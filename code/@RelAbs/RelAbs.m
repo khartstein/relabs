@@ -17,7 +17,7 @@ classdef RelAbs < PTB.Object
 %
 % Out: 
 %
-% Updated 03-16-2016
+% Updated 03-29-2016
 % Writted by Kevin Hartstein (kevinhartstein@gmail.com)
 
 	% PUBLIC PROPERTIES---------------------------------------------------------%
@@ -55,8 +55,8 @@ classdef RelAbs < PTB.Object
                 );
 			
             if isempty(opt.session)
-				bTraining	= strcmpi('y', ask('Is this a training session?', 'dialog', false, 'choice', {'y', 'n'}));
-                opt.session = conditional(bTraining || opt.debug==2,1,2);
+				bTraining	= strcmpi('y',ask('Is this a training session?','dialog',false,'choice',{'y', 'n'}));
+                opt.session = conditional(bTraining,1,2);
 			end
             
 			opt.name            = 'relabs';
