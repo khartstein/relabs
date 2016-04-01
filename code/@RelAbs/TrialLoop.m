@@ -99,7 +99,7 @@ if ~bPractice
     blipTimer               = timer;
     blipTimer.Name          = 'blipTimer';
     blipTimer.StartDelay    = blipTime;
-    blipTimer.TimerFcn      = @(blipTimerObj, thisEvent)DoBlockBlip;
+    blipTimer.TimerFcn      = @(blipTimerObj, thisEvent)DoBlip;
 
     start(blipTimer);
 end
@@ -243,7 +243,7 @@ function [] = PrepTrial(texWindow)
     stimOrder = stimOrders(randi(length(stimOrders)), :);
 end
 %------------------------------------------------------------------------------%
-function [] = DoBlockBlip()
+function [] = DoBlip()
     % execute the blip
     ra.Experiment.Window.Recall;
     ra.Experiment.Show.Rectangle(backColor, 1.0, [0,0]);
@@ -263,7 +263,7 @@ function [] = DoBlockBlip()
     ra.Experiment.AddLog(['fixation blip response | RT: ' num2str(blockBlipRT)]);
     blipRT(kRun,kBlock)         = blockBlipRT;
     ra.Experiment.Info.Set('ra', [strSession '_blipresulttask'], blipRT);
-%     stop(blipTimer);
+    stop(blipTimer);
 end
 %------------------------------------------------------------------------------%
 function [bAbort, bContinue] = WaitResponse(tNow)
