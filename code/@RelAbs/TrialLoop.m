@@ -21,7 +21,7 @@ function [blockRes, seqTiming] = TrialLoop(ra, blockType, varargin)
 % ToDo:          
 %               - 
 %
-% Updated: 03-29-2016
+% Updated: 04-01-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 [~, bPractice] = ParseArgs(varargin, [], false);
@@ -99,7 +99,7 @@ if ~bPractice
     blipTimer               = timer;
     blipTimer.Name          = 'blipTimer';
     blipTimer.StartDelay    = blipTime;
-    blipTimer.TimerFcn      = @(blipTimerObj, thisEvent)DoBlip;
+    blipTimer.TimerFcn      = @(blipTimerObj, thisEvent)DoBlockBlip;
 
     start(blipTimer);
 end
@@ -116,7 +116,7 @@ while (PTB.Now - tStart) < maxLoopTime && bMorePractice
                         'tbase'         ,   'sequence'  , ...
                         'fwait'         ,   fWait         ...
                         );
-
+                    
     % save loop timing for output
     curSeqTiming = struct('tStart'  , tStartTrial,      ...
                           'tEnd'    , tEndTrial,        ...
@@ -128,7 +128,7 @@ while (PTB.Now - tStart) < maxLoopTime && bMorePractice
     else
         seqTiming(end+1) = curSeqTiming;
     end
-    
+   
 end
 
 if bPractice || strcmpi(strSession, 'train')
@@ -143,7 +143,7 @@ ra.Experiment.Window.Flip;
 %------------------------------------------------------------------------------%
 function [tOut] = DoTrial(tNow, NaN)
     tOut        = NaN;
-
+    
     if bNextPrepped
         ra.Experiment.Show.Texture('nextTrial');
     else
@@ -151,7 +151,7 @@ function [tOut] = DoTrial(tNow, NaN)
         PrepTrial('main');
         ra.ShowStim(stimOrder, trialColors, trialNumbers, trialOrientations, trialShapes, 'window', 'main')
     end
-
+    
     ra.Experiment.Window.OverrideStore(true);
     tFlip = ra.Experiment.Window.Flip;
     
@@ -243,21 +243,18 @@ function [] = PrepTrial(texWindow)
     stimOrder = stimOrders(randi(length(stimOrders)), :);
 end
 %------------------------------------------------------------------------------%
-function [] = DoBlip()
+function [] = DoBlockBlip()
     % execute the blip
-    kBlipResponse   = [];
-    
-    % New way to blip
     ra.Experiment.Window.Recall;
     ra.Experiment.Show.Rectangle(backColor, 1.0, [0,0]);
-%     ra.Experiment.Window.OverrideStore(false);
     ra.Experiment.Window.Flip;
     WaitSecs(0.250);
     ra.Experiment.Window.Recall;
     tBlipOffset = ra.Experiment.Window.Flip('fixation blip end');
     
-    % Get Response
-    while isempty(kBlipResponse) && PTB.Now - tBlipOffset < 1000
+    % get response and record reaction time
+    kBlipResponse   = [];
+    while isempty(kBlipResponse) && PTB.Now - tBlipOffset < 1500
         [~,~,~,kBlipResponse]   = ra.Experiment.Input.DownOnce('blip');
         tBlipResponse           = conditional(isempty(kBlipResponse),[],PTB.Now);
     end
@@ -266,7 +263,7 @@ function [] = DoBlip()
     ra.Experiment.AddLog(['fixation blip response | RT: ' num2str(blockBlipRT)]);
     blipRT(kRun,kBlock)         = blockBlipRT;
     ra.Experiment.Info.Set('ra', [strSession '_blipresulttask'], blipRT);
-    stop(blipTimer);
+%     stop(blipTimer);
 end
 %------------------------------------------------------------------------------%
 function [bAbort, bContinue] = WaitResponse(tNow)
@@ -339,18 +336,25 @@ function [bAbort, bContinue] = WaitFeedback(tNow)
     bContinue       = true;
     tFeedbackStart  = PTB.Now;
     
-    if tNow > maxLoopTime - (maxLoopTime/64)
+    if PTB.Now - tStart > maxLoopTime - (maxLoopTime/64)
         bAbort      = true;
         bContinue   = false;
-    elseif bPractice
+    elseif bPractice && strcmpi(strSession, 'mri')
         WaitSecs(1.0);
-        % NEED BUTTONBOX-COMPATIBLE PROMPT HERE
+        ra.Experiment.Show.Text('Again?');
+        ra.Experiment.Window.Flip;
+        bPressed = 0;
+        while ~bPressed
+            [bPressed,~,~,kPressed] = ra.Experiment.Input.DownOnce('any');
+        end
+        ra.Experiment.Show.Blank('fixation', false);
+        ra.Experiment.Window.Flip;
+        bMorePractice   = conditional(kPressed==kButtYes, true, false);
+        bNextPrepped    = false;
+    elseif bPractice && strcmpi(strSession, 'train')
+        WaitSecs(1.0);
         bMorePractice	= strcmpi(ra.Experiment.Show.Prompt('Again?','choice',{'y','n'}), 'y');
         bNextPrepped    = false;
-        if ~bMorePractice
-            bAbort      = true;
-            bContinue   = false;
-        end
     else
         % prep next trial texture
         ra.Experiment.Show.Blank('fixation', false);

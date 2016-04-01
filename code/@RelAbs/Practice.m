@@ -11,15 +11,17 @@ function [practiceData] = Practice(ra, varargin)
 % Notes:    
 %
 % ToDo:     
-%           - add scanner practice buttons
+%           - test with scanner button layout
+%               - revert and make it work again.
 %
-% Updated: 03-29-2016
+% Updated: 04-01-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 opt = ParseArgs(varargin, 'blockType', 1);
 
-strSession  = switch2(ra.Experiment.Info.Get('ra', 'session'), 1, 'train', 2, 'mri');
+strSession  = switch2(ra.Experiment.Info.Get('ra', 'session'), 1, 'Train', 2, 'MRI');
 
+kButtYes = cell2mat(ra.Experiment.Input.Get('yes'));
 bNextLevel      = true;
 practiceData    = {};
 
@@ -36,9 +38,19 @@ while bNextLevel
     ra.Experiment.AddLog([strBlock ' practice start']);
 
     % display instructions
-    % NEED BUTTONBOX-COMPATIBLE PROMPT HERE
-    ra.Experiment.Show.Prompt(['Practicing ' strBlock ' \n\n Press any key to start']);
-
+    if strcmpi(strSession, 'mri')
+        ra.Experiment.Show.Text(['Practicing ' strBlock ' \n\n Press any key to start']);
+        ra.Experiment.Window.Flip;
+        bPressed = 0;
+        while ~bPressed
+            bPressed = ra.Experiment.Input.DownOnce('any');
+        end
+        ra.Experiment.Show.Blank('fixation', false);
+        ra.Experiment.Window.Flip;
+    else
+        ra.Experiment.Show.Instructions(['Practicing ' strBlock]);
+    end
+    
     % pause scheduler
     ra.Experiment.Scheduler.Pause;
 
@@ -52,11 +64,23 @@ while bNextLevel
     end
     
     ra.Experiment.Scheduler.Resume;
-
+    
+    % do next level?
     if opt.blockType < 6
-        % NEED BUTTONBOX-COMPATIBLE PROMPT HERE
-        sNextLevel = ra.Experiment.Show.Prompt('Continue to next level?','choice',{'y','n'});
-        bNextLevel = conditional(strcmpi(sNextLevel, 'y'), true, false);
+        if strcmpi(strSession, 'mri')
+            ra.Experiment.Show.Text('Continue to next level?');
+            ra.Experiment.Window.Flip;
+            bPressed = 0;
+            while ~bPressed
+                [bPressed,~,~,kPressed] = ra.Experiment.Input.DownOnce('any');
+            end
+            ra.Experiment.Show.Blank('fixation', false);
+            ra.Experiment.Window.Flip;
+            bNextLevel = conditional(kPressed==kButtYes, 1, 0);
+        else
+            sNextLevel = ra.Experiment.Show.Prompt('Continue to next level?','choice',{'y','n'});
+            bNextLevel = conditional(strcmpi(sNextLevel, 'y'), true, false);
+        end
     else
         bNextLevel = false;
     end
