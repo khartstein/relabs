@@ -8,7 +8,7 @@ function Prepare(ra,varargin)
 % ToDo:         
 %           - 
 %
-% Updated: 03-08-2016
+% Updated: 04-08-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 % get experiment info from params
@@ -55,12 +55,14 @@ function Prepare(ra,varargin)
     ra.Experiment.Info.Set('ra', 'train_blipresulttask', zeros(nTrainRuns, nBlocksPerRun));
     ra.Experiment.Info.Set('ra', 'train_blipresultrest', zeros(nTrainRuns, nBlocksPerRun));
     ra.Experiment.Info.Set('ra', 'train_runtiming', cell(nTrainRuns, 1));
+    ra.Experiment.Info.Set('ra', 'train_practiceresult', []);
     % set timing and blip results for mri session
     ra.Experiment.Info.Set('ra', 'mri_blocktiming', cell(nMRIRuns, nBlocksPerRun));
     ra.Experiment.Info.Set('ra', 'mri_result', cell(nMRIRuns, nBlocksPerRun));
     ra.Experiment.Info.Set('ra', 'mri_blipresulttask', zeros(nMRIRuns, nBlocksPerRun));
     ra.Experiment.Info.Set('ra', 'mri_blipresultrest', zeros(nMRIRuns, nBlocksPerRun));
     ra.Experiment.Info.Set('ra', 'mri_runtiming', cell(nMRIRuns, 1));
+    ra.Experiment.Info.Set('ra', 'mri_practiceresult', []);
     
     % set trial information
     bCorrectMRI     = zeros(nMRIRuns, nBlocksPerRun, 36);
@@ -119,5 +121,4 @@ function Prepare(ra,varargin)
     ra.Experiment.Info.Set('ra','prepared',true);
     ra.Experiment.Info.Save;
     ra.Experiment.Subject.Save;
-
 end

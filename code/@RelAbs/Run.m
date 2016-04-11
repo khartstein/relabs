@@ -6,22 +6,15 @@ function Run(ra, varargin)
 % Syntax: ra.Run
 %
 % ToDo:     
-%           - save practice data?
-%           - check new size and timing in scanner 
-%           - combine training and scan data for a participant
+%           - combine training and scan data
 %
-% Updated: 04-01-2016
+% Updated: 04-08-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 strSession      = switch2(ra.Experiment.Info.Get('ra', 'session'), 1, 'train', 2, 'mri');
 nRun            = RA.Param(['n' strSession 'runs']);
 nBlocksPerRun   = RA.Param('exp','blocksperrun');
 trRun           = RA.Param('trrun');  
-
-% initialize stuff for blip timer
-% restBlipTimer   = [];
-% restBlipTimer               = timer;
-% restBlipTimer.Name          = 'restBlipTimer';
 
 trRest          = RA.Param('time', 'rest');
 trTrialLoop     = RA.Param('time', 'trialloop');                
@@ -145,11 +138,6 @@ function tNow = ShowPrompt(tNow, tNext)
     % flip and log
     ra.Experiment.Window.Flip(['block ' num2str(kBlock) ', type: ' sBlockType]);
     
-    % set up blipTimer
-%     restBlipTimer               = timer;
-%     restBlipTimer.Name          = 'restBlipTimer';
-%     restBlipTimer.StartDelay    = blipTime(kBlock);
-%     restBlipTimer.TimerFcn      = @(restBlipTimerObj, thisEvent)DoRestBlip;
 end
 %------------------------------------------------------------------------------%
 function tNow = DoWait(tNow, tNext)
@@ -160,9 +148,9 @@ function tNow = DoWait(tNow, tNext)
     WaitSecs(blipTime(kBlock));
     ra.Experiment.Show.Blank('fixation', false);
     ra.Experiment.Window.Flip;
-    WaitSecs(0.250);
+    WaitSecs(0.200);
     ra.Experiment.Show.Fixation('color', 'black');
-    tBlipOffset = ra.Experiment.Window.Flip('fixation blip end');
+    tBlipOffset = ra.Experiment.Window.Flip('fixation blip');
     
     % get response and record reaction time
     kResponse = [];
@@ -173,36 +161,12 @@ function tNow = DoWait(tNow, tNext)
 
     blockRestBlipRT             = conditional(~isempty(tBlipResponse), tBlipResponse - tBlipOffset, NaN);
     restBlipRT(kRun,kBlock)     = blockRestBlipRT;
-    ra.Experiment.AddLog(['fixation blip response | RT: ' num2str(blockRestBlipRT)]);
+    ra.Experiment.AddLog(['blip RT: ' num2str(blockRestBlipRT)]);
     ra.Experiment.Info.Set('ra', [strSession '_blipresultrest'], restBlipRT);
     ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_LOW);
     
 %     start(restBlipTimer);
 end
-%------------------------------------------------------------------------------%
-% function [] = DoRestBlip()
-    % execute the blip
-%     ra.Experiment.Show.Blank('fixation', false);
-%     ra.Experiment.Window.Flip;
-%     WaitSecs(0.250);
-%     ra.Experiment.Show.Fixation('color', 'black');
-%     tBlipOffset = ra.Experiment.Window.Flip('fixation blip end');
-%     kResponse   = [];
-%     
-    % get response and record reaction time
-%     while isempty(kResponse) % && PTB.Now - tBlipOffset < 1000
-%         [~,~,~,kResponse]   = ra.Experiment.Input.DownOnce('blip');
-%         tBlipResponse       = conditional(isempty(kResponse),[],PTB.Now);
-%     end
-    
-%     blockRestBlipRT             = conditional(~isempty(tBlipResponse), tBlipResponse - tBlipOffset, NaN);
-%     restBlipRT(kRun,kBlock)     = blockRestBlipRT;
-%     ra.Experiment.AddLog(['fixation blip response | RT: ' num2str(blockRestBlipRT)]);
-%     ra.Experiment.Info.Set('ra', [strSession '_blipresultrest'], restBlipRT);
-%     stop(restBlipTimer);
-    
-%     ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_LOW);
-% end
 %------------------------------------------------------------------------------%
 function [bAbort] = Wait_Default(tNow,tNext)
 	bAbort		= false;
@@ -235,7 +199,8 @@ function tNow = DoTrialLoop(tNow, tNext)
 end  
 %------------------------------------------------------------------------------%
 function tNow = DoTimeUp(tNow, tNext)
-    % time is up for block.
+    % time is up for block
+    ra.Experiment.Window.OverrideStore(true)
     ra.Experiment.Show.Text('<color:red>Time Up!</color>\n\n');
     ra.Experiment.Show.Fixation('color', 'black');
     ra.Experiment.Window.Flip;
