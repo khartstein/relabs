@@ -154,7 +154,7 @@ function tNow = DoWait(tNow, tNext)
     
     % get response and record reaction time
     kResponse = [];
-    while isempty(kResponse) && PTB.Now - tBlipOffset < 1500
+    while isempty(kResponse) && PTB.Now - tBlipOffset < 1000
         [~,~,~,kResponse]   = ra.Experiment.Input.DownOnce('blip');
         tBlipResponse       = conditional(isempty(kResponse),[],PTB.Now);
     end

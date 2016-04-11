@@ -19,10 +19,10 @@ function [blockRes, seqTiming] = TrialLoop(ra, blockType, varargin)
 %                   ra.Experiment.Sequence.Loop
 %
 % ToDo:          
-%               - test serial buffer fix
-%               - try to make blip/task responses order-free for training
+%               - order-free blip/task responses for training
+%                   -works for training, test for scanner
 %
-% Updated: 04-10-2016
+% Updated: 04-11-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
 [~, bPractice] = ParseArgs(varargin, [], false);
@@ -54,10 +54,12 @@ trialInfo       = ra.Experiment.Info.Get('ra', [strSession '_trialinfo']);
 tBlipBlock      = ra.Experiment.Info.Get('ra', [strSession '_block_blip']);
 blipRT          = ra.Experiment.Info.Get('ra', [strSession '_blipresulttask']);
 blipTime        = tBlipBlock(kRun, kBlock);
+bBlipTrial      = false;
 
 % find correct/incorrect keys
 kButtYes        = cell2mat(ra.Experiment.Input.Get('yes'));
 kButtNo         = cell2mat(ra.Experiment.Input.Get('no'));
+kButtBlip       = cell2mat(ra.Experiment.Input.Get('blip'));
 
 % same/different arrays
 bOneSame        = unique(perms([1 0 0 0]), 'rows');
@@ -76,14 +78,14 @@ bNotThreeSame   = [bOneSame; bTwoSame; bAllSame; bNoneSame];
 % initialize some things
 [blockRes, bSame, numSameCorrect, seqTiming, tFlip, bCorrect, stimOrder, kFixFeature, kFixValue, val] = deal([]);
 [kTrial, nCorrect]  = deal(0);
-bMorePractice   = true;
+bMorePractice       = true;
 [trialColors,trialNumbers,trialOrientations,trialShapes] = deal(cell(1,4));
 
 
 tUnit           = 'ms';
 nPracticeTrial  = 1;
 maxLoopTime = maxLoopTime*(31/32);
-ra.Experiment.Input.Pressed('any', 'reset');                                % THIS SHOULD FIX SERIAL BUFFER PROBLEM
+ra.Experiment.Input.Pressed('any', 'reset');
 
 cF          =   {@DoTrial; @DoFeedback;};
 tSequence   =   {@WaitResponse; @WaitFeedback};
@@ -97,7 +99,6 @@ if ~bPractice
     blipTimer.Name          = 'blipTimer';
     blipTimer.StartDelay    = blipTime;
     blipTimer.TimerFcn      = @(blipTimerObj, thisEvent)DoBlip;
-
     start(blipTimer);
 end
 
@@ -105,6 +106,7 @@ end
 PrepTrial('main');
 ra.ShowStim(stimOrder, trialColors, trialNumbers, trialOrientations, trialShapes, 'window', 'main');
 bNextPrepped    = true;
+kTaskResponse   = [];
 
 while (PTB.Now - tStartms) < maxLoopTime && bMorePractice
     [tStartTrial,tEndTrial,tTrialSequence, bAbort] = ra.Experiment.Sequence.Linear(...
@@ -125,7 +127,6 @@ while (PTB.Now - tStartms) < maxLoopTime && bMorePractice
     else
         seqTiming(end+1) = curSeqTiming;
     end
-   
 end
 
 % close nextTrial texture and blank the screen
@@ -254,10 +255,17 @@ function [] = DoBlip()
     
     % get response and record reaction time
     kBlipResponse   = [];
-    while isempty(kBlipResponse) && PTB.Now - tBlipOffset < 1500
-        [~,~,~,kBlipResponse]   = ra.Experiment.Input.DownOnce('blip');
-        tBlipResponse           = conditional(isempty(kBlipResponse),[],PTB.Now);
+    bTaskResponse   = false;
+    while ~ismember(kButtBlip, kBlipResponse) && PTB.Now - tBlipOffset < 1000
+        [~,~,~,kBlipResponse]   = ra.Experiment.Input.DownOnce('any');
+        tBlipResponse           = conditional(ismember(kButtBlip, kBlipResponse), PTB.Now, []);
+        if ~bTaskResponse && any(ismember(kBlipResponse, [kButtYes, kButtNo]));
+            kTaskResponse       = conditional(ismember(kButtYes, kBlipResponse), kButtYes, kButtNo);
+            bTaskResponse       = true;
+        end
     end
+    
+    bBlipTrial = true;
     
     blockBlipRT                 = conditional(~isempty(tBlipResponse), tBlipResponse - tBlipOffset, NaN);
     ra.Experiment.AddLog(['blip RT: ' num2str(blockBlipRT)]);
@@ -271,15 +279,17 @@ function [bAbort, bContinue] = WaitResponse(tNow)
     % should work independent of whether response is for blip or task
     kResponse       = [];
     tResponse       = [];
-    
     bAbort          = false;
     
     while isempty(kResponse) && PTB.Now - tStartms < maxLoopTime
-        [~,~,~,kResponse]       = ra.Experiment.Input.DownOnce('response');
-        tResponse               = conditional(isempty(kResponse),[],PTB.Now); 
+        if ~bBlipTrial        
+            [~,~,~,kResponse]       = ra.Experiment.Input.DownOnce('response');
+            tResponse               = conditional(isempty(kResponse),[],PTB.Now); 
+        else
+            kResponse = kTaskResponse;
+        end
     end
     
-     
     % determine whether answer is correct
     if ismember(kResponse, kButtYes)
         sResponse = 'Yes';
@@ -315,7 +325,6 @@ function [bAbort, bContinue] = WaitResponse(tNow)
         trialRes.correct        = (bCorrect && ismember(kButtYes,kResponse))...
                                 ||(~bCorrect && ismember(kButtNo,kResponse));
         
-        
         if isempty(blockRes)
             blockRes        = trialRes;
         else
@@ -325,6 +334,7 @@ function [bAbort, bContinue] = WaitResponse(tNow)
         bContinue   = true;
     end
     
+    bBlipTrial = false;
     ra.Experiment.Show.Blank('fixation', false);
 	ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_CRITICAL);
 end
