@@ -87,7 +87,7 @@ ra.Experiment.Info.Set('ra', [strSession '_practiceresult'], pracData);
 function blockType = whichLevel()
     bPressed = 0;
     kPressed = 0;
-    while ~(kPressed == kButtYes)
+    while ~(kPressed == kButtYes || kPressed == kButtNo)
         ra.Experiment.Show.Text(['<align:center><color:black>Which level?: \n\n ' levels{kLevel} '  </color></align>']);
         ra.Experiment.Window.Flip;
         while ~bPressed
