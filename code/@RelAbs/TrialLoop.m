@@ -18,10 +18,6 @@ function [blockRes, seqTiming] = TrialLoop(ra, blockType, varargin)
 %   loopTiming  - a struct of timing information from 
 %                   ra.Experiment.Sequence.Loop
 %
-% ToDo:          
-%               - order-free blip/task responses for training
-%                   -works for training, test for scanner
-%
 % Updated: 04-11-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
@@ -287,6 +283,7 @@ function [bAbort, bContinue] = WaitResponse(tNow)
             tResponse               = conditional(isempty(kResponse),[],PTB.Now); 
         else
             kResponse = kTaskResponse;
+            bBlipTrial = false;
         end
     end
     
@@ -334,7 +331,7 @@ function [bAbort, bContinue] = WaitResponse(tNow)
         bContinue   = true;
     end
     
-    bBlipTrial = false;
+%     bBlipTrial = false;
     ra.Experiment.Show.Blank('fixation', false);
 	ra.Experiment.Scheduler.Wait(PTB.Scheduler.PRIORITY_CRITICAL);
 end

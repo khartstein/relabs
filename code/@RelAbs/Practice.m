@@ -7,8 +7,6 @@ function Practice(ra, varargin)
 %
 % Notes:    
 %
-% ToDo:     
-%
 % Updated: 04-08-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 

@@ -5,9 +5,6 @@ function Prepare(ra,varargin)
 %
 % Syntax: ra.Prepare()
 %
-% ToDo:         
-%           - 
-%
 % Updated: 04-08-2016
 % Written by Kevin Hartstein (kevinhartstein@gmail.com)
 
