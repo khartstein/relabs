@@ -40,23 +40,23 @@ for kSubject = 1:length(ifo)
                 a   = Replace(stdFile, orderInRun(kRun)+6, 1); 
                 a   = Replace(a, a(a ~= 1), 0)';
                 % save onset file in subject's onsets directory
-                fID = fopen([subOnsetsDir 'run_' num2str(kRun) '_cond_' num2str(kLevel) '.txt'], 'w');
+                fID = fopen([subOnsetsDir 'run' sprintf('%02d', kRun) '_cond_' num2str(kLevel) '.txt'], 'w');
                 fprintf(fID, '%f\n', a);
                 fclose(fID);
                 % Save empty txt file (i.e.e 158 zeros) as JUNK
-                fID = fopen([subOnsetsDir 'run_' num2str(kRun) '_cond_7.txt'], 'w');
+                fID = fopen([subOnsetsDir 'run' sprintf('%02d', kRun) '_cond_7.txt'], 'w');
                 fprintf(fID, '%f\n', a);
                 fclose(fID);
             else
                 a   = Replace(stdFile, orderInRun(kRun)+6, 1); 
                 a   = Replace(a, a(a ~= 1), 0)';
                 % Save txt file as JUNK
-                fID = fopen([subOnsetsDir 'run_' num2str(kRun) '_cond_7.txt'], 'w');
+                fID = fopen([subOnsetsDir 'run' sprintf('%02d', kRun) '_cond_7.txt'], 'w');
                 fprintf(fID, '%f\n', a);
                 fclose(fID);
                 % Save empty file (i.e. 158 zeros) for this condition in
                 % subject's onsets directory
-                fID = fopen([subOnsetsDir 'run_' num2str(kRun) '_cond_' num2str(kLevel) '.txt'], 'w');
+                fID = fopen([subOnsetsDir 'run' sprintf('%02d', kRun) '_cond_' num2str(kLevel) '.txt'], 'w');
                 fprintf(fID, '%f\n', zeros(158,1));
                 fclose(fID);
             end
